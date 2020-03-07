@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "708263741224",
+    "firebase_url": "https://endorfit-42ab.firebaseio.com",
+    "project_id": "endorfit-42ab",
+    "storage_bucket": "endorfit-42ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708263741224:android:2b23b62a4d03ba5104321d",
+        "android_client_info": {
+          "package_name": "org.wmii.endorfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708263741224-h244bvoptiqjmbrbi37rbqnlfkmvumfn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wmii.endorfit",
+            "certificate_hash": "601b1f51c57d2ec428e8337a6c886112ddc39a59"
+          }
+        },
+        {
+          "client_id": "708263741224-sv474v1of3rlgjhv6v87h0loakf1ilmh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBseW39oO2uko-yI2L2Sw49Fhzyyrhsd_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708263741224-sv474v1of3rlgjhv6v87h0loakf1ilmh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
