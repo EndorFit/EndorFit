@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainWindowActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:id="@+id/relLayoutMain">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relLayoutBot"
+        android:layout_below="@+id/relLayoutMain"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_assignment_white_24dp"
+            android:id="@+id/imageViewLeftIcon"/>
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_fitness_fit_white_24dp"
+            android:layout_toRightOf="@+id/imageViewLeftIcon"
+            android:id="@+id/imageViewCenterIcon"/>
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_assignment_ind_white_24dp"
+            android:layout_toRightOf="@+id/imageViewCenterIcon"
+            android:id="@+id/imageViewRightIcon"/>
+
+    </RelativeLayout>
+</RelativeLayout>

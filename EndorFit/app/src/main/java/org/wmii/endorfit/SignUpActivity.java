@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 import java.io.FileInputStream;
 
@@ -76,9 +77,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
-                    Toast.makeText(SignUpActivity.this, "User Registered Successfull", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignUpActivity.this, MainWindowActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }else{
-                    Toast.makeText(SignUpActivity.this, "Some error occurred", Toast.LENGTH_SHORT).show();
+                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                        Toast.makeText(SignUpActivity.this, "User already registered", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SignUpActivity.this, ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
