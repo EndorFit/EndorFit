@@ -15,7 +15,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/logo"
+            android:src="@mipmap/logo_endorFit_transparent"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="60dp"
             android:id="@+id/logo"/>
     </RelativeLayout>
 
