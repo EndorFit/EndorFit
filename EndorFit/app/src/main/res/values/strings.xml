@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">EndorFit</string>
+    
+    <array name="genders">
+        <item>Female</item>
+        <item>Male</item>
+        <item>Other</item>
+    </array>
 </resources>

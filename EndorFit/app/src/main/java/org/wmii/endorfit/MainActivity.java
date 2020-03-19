@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,11 +17,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     EditText editTxtEmail, editTxtPassword;
     ProgressBar progressBar;
+    Button btnLogin, btnGoToSignUp;
 
     FirebaseAuth mAuth;
 
@@ -35,9 +39,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTxtPassword = findViewById(R.id.editTxtPassword);
         progressBar = findViewById(R.id.progressBar);
 
-        findViewById(R.id.btnGotoSignUp).setOnClickListener(this);
-        findViewById(R.id.btnLogin).setOnClickListener(this);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnGoToSignUp = findViewById(R.id.btnGotoSignUp);
 
+        btnLogin.setOnClickListener(this);
+        btnGoToSignUp.setOnClickListener(this);
+
+        editTxtPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER) {
+                    userLogin();
+                    return true;
+                } else {
+                    return  false;
+                }
+            }
+        });
     }
 
 
@@ -87,8 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
-
 
     @Override
     public void onClick(View view) {

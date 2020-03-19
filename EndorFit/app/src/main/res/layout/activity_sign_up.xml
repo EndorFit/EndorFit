@@ -48,13 +48,14 @@
             android:layout_marginRight="30dp"
             android:hint="password"
             android:textSize="24sp"
-            android:id="@+id/editTxtPassword"/>
+            android:id="@+id/editTxtPassword"
+            android:inputType="textPassword"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/editTxtPassword"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:textSize="20sp"
             android:text="Sign Up"
             android:layout_marginRight="30dp"
@@ -67,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnSignUp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:textSize="20sp"
             android:text="Already have account? Login"
             android:layout_marginRight="30dp"
