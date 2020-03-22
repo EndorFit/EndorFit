@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -76,19 +78,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             editTxtPassword.requestFocus();
             return;
         }
-
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             editTxtEmail.setError("Please enter a valid email");
             editTxtEmail.requestFocus();
             return;
         }
-
         if(password.isEmpty()){
             editTxtPassword.setError("Password is required");
             editTxtPassword.requestFocus();
             return;
         }
-
         if(password.length()<6){
             editTxtPassword.setError("Minimum length of password should be 6");
             editTxtPassword.requestFocus();
@@ -96,51 +95,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         progressBar.setVisibility(View.VISIBLE);
-
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                progressBar.setVisibility(View.GONE);
-                                addUserToDatabase(email);
-                                Intent intent = new Intent(SignUpActivity.this, MainWindowActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                            } else {
-                                progressBar.setVisibility(View.GONE);
-                                Toast.makeText(SignUpActivity.this, ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    });
-
-                    Intent intent = new Intent(SignUpActivity.this, MainWindowActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    addUserToDatabase(email);
-                    startActivity(intent);
-                }else{
-                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                        Toast.makeText(SignUpActivity.this, "User already registered", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(SignUpActivity.this, ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
+            public void onSuccess(AuthResult authResult) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(SignUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
+                addUserToDatabase(email);
+                Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
+                startActivity(intent);
             }
-
-            private void addUserToDatabase(String email) {
-                String currentUserId = mAuth.getCurrentUser().getUid();
-                DatabaseReference usersRef = database.getReference("users/" + currentUserId);
-                User newUser = new User("None","Other",0,0.0,0.0);
-                usersRef.setValue(newUser);
-                Toast.makeText(SignUpActivity.this, "User created successful", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
     }
 
@@ -153,8 +123,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btnSignUp:
                 registerUser();
                 break;
-
         }
+    }
+
+    public void addUserToDatabase(String email) {
+        String currentUserId = mAuth.getCurrentUser().getUid();
+        DatabaseReference usersRef = database.getReference("users/" + currentUserId);
+        User newUser = new User("None","Other",0,0.0,0.0);
+        usersRef.setValue(newUser);
     }
 
 }

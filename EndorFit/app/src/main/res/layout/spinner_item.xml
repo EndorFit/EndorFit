@@ -7,4 +7,5 @@
     android:textSize="30sp"
     android:textColor="@color/dark_text"
     android:textAlignment="center"
+    android:backgroundTint="@color/colorPrimary"
     />

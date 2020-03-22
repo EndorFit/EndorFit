@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -45,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLogin.setOnClickListener(this);
         btnGoToSignUp.setOnClickListener(this);
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null) {
+            Intent intent = new Intent(MainActivity.this, MainWindowActivity.class);
+            startActivity(intent);
+        }
+
         editTxtPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -52,12 +59,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     userLogin();
                     return true;
                 } else {
-                    return  false;
+                    return false;
                 }
             }
         });
     }
-
 
     private void userLogin() {
         String email = editTxtEmail.getText().toString().trim();
@@ -88,21 +94,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         progressBar.setVisibility(View.VISIBLE);
-
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
                     Intent intent = new Intent(MainActivity.this, MainWindowActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }else {
                     Toast.makeText(MainActivity.this, ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
 
     }
 
@@ -117,8 +120,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
-
     }
-
 
 }
