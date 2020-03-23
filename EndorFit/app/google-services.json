@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "708263741224-94t3r69h9ffchd7l8vp25s5c5frkdeb1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wmii.endorfit",
+            "certificate_hash": "efa08a4143000b6f00570ff69c2820a4b1ca1576"
+          }
+        },
+        {
           "client_id": "708263741224-h244bvoptiqjmbrbi37rbqnlfkmvumfn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -13,7 +13,7 @@ public class dynamicViews {
     public dynamicViews(Context ctx) {
         this.ctx = ctx;
     }
-    public TextView descriptionTextView (Context context){
+    public EditText descriptionTextView (Context context){
         final ViewGroup.LayoutParams lparams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         final EditText editText=new EditText(context);
         int id=0;

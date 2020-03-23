@@ -15,6 +15,12 @@
         android:layout_height="wrap_content"
         android:text="Add Exercise" />
 
+    <EditText
+        android:id="@+id/nameWorkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name of the workout" />
+
     <GridLayout
         android:id="@+id/leyout"
         android:layout_width="match_parent"
