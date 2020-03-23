@@ -27,10 +27,12 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                 Intent intent = new Intent(MainWindowActivity.this,ProfileActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                break;
             case R.id.imageViewCenterIcon:
                 Intent intentwork = new Intent(MainWindowActivity.this,workoutPlan.class);
                 intentwork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentwork);
+                break;
         }
 
     }

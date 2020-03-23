@@ -1,39 +1,68 @@
 package org.wmii.endorfit;
 
 public class Exercise {
-    String exerciseId;
-    String  exerciseName;
-    Integer Sets;
-    Integer Reps;
-    Double Weight;
+    String type;
+    int sets;
+    int reps;
+    double weight;
+    double distance;
+    double time;
 
-public Exercise(){}
-
-    public String getExerciseId() {
-        return exerciseId;
+    public Exercise() {
     }
 
-    public String getExerciseName() {
-        return exerciseName;
+    public Exercise(String type) {
+        this.type = type;
     }
 
-    public Integer getSets() {
-        return Sets;
+    public Exercise(int reps) {
+        this.reps = reps;
     }
 
-    public Integer getReps() {
-        return Reps;
+    public Exercise(String type, int sets, int reps, double weightOrTime) {
+        this.type = type;
+        this.sets = sets;
+        this.reps = reps;
+        if(type.equals("Exercise with weights")) {
+            this.weight = weightOrTime;
+        } else {
+            this.time = weightOrTime;
+        }
     }
 
-    public Double getWeight() {
-        return Weight;
+    public Exercise(String type, int sets, int reps) {
+        this.type = type;
+        this.sets = sets;
+        this.reps = reps;
     }
 
-    public Exercise(String exerciseId, String exerciseName, Integer sets, Integer reps, Double weight) {
-        this.exerciseId = exerciseId;
-        this.exerciseName = exerciseName;
-        Sets = sets;
-        Reps = reps;
-        Weight = weight;
+    public Exercise(String type, double distance, double time) {
+        this.type = type;
+        this.distance = distance;
+        this.time = time;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getSets() {
+        return sets;
+    }
+
+    public int getReps() {
+        return reps;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public double getTime() {
+        return time;
     }
 }

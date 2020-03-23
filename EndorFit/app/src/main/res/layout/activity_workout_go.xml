@@ -21,6 +21,12 @@
         android:layout_height="wrap_content"
         android:hint="Name of the workout" />
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerType"/>
+
+
     <GridLayout
         android:id="@+id/leyout"
         android:layout_width="match_parent"
