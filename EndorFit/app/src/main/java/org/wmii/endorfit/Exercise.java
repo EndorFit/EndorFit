@@ -1,6 +1,7 @@
 package org.wmii.endorfit;
 
 public class Exercise {
+    String name;
     String type;
     int sets;
     int reps;
@@ -19,7 +20,8 @@ public class Exercise {
         this.reps = reps;
     }
 
-    public Exercise(String type, int sets, int reps, double weightOrTime) {
+    public Exercise(String name,String type, int sets, int reps, double weightOrTime) {
+        this.name=name;
         this.type = type;
         this.sets = sets;
         this.reps = reps;
@@ -30,7 +32,8 @@ public class Exercise {
         }
     }
 
-    public Exercise(String type, int sets, int reps) {
+    public Exercise(String name,String type, int sets, int reps) {
+        this.name=name;
         this.type = type;
         this.sets = sets;
         this.reps = reps;
@@ -41,6 +44,7 @@ public class Exercise {
         this.distance = distance;
         this.time = time;
     }
+    public String getName (){ return name; }
 
     public String getType() {
         return type;
