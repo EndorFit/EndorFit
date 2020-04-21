@@ -6,4 +6,12 @@
         <item>Male</item>
         <item>Other</item>
     </array>
+
+    <array name="exercisesType">
+        <item>Exercise with weights</item>
+        <item>Exercise without weights</item>
+        <item>Exercise with time</item>
+        <item>Running</item>
+    </array>
+
 </resources>
