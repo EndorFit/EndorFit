@@ -24,6 +24,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
         findViewById(R.id.imageViewRightIcon).setOnClickListener(this);
         findViewById(R.id.imageViewCenterIcon).setOnClickListener(this);
+        findViewById(R.id.imageViewLeftIcon).setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -40,14 +41,19 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.imageViewRightIcon:
-                Intent intent = new Intent(MainWindowActivity.this,ProfileActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                Intent intentProfile = new Intent(MainWindowActivity.this,ProfileActivity.class);
+                intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentProfile);
                 break;
             case R.id.imageViewCenterIcon:
                 Intent intentwork = new Intent(MainWindowActivity.this,workoutPlan.class);
                 intentwork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentwork);
+                break;
+            case R.id.imageViewLeftIcon:
+                Intent intentPlan = new Intent(MainWindowActivity.this, PlanActivity.class);
+                intentPlan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentPlan);
                 break;
         }
 

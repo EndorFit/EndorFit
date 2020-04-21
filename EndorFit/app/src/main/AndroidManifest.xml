@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".workoutTimer"></activity>
+        <activity android:name=".PlanActivity"></activity>
+        <activity android:name=".workoutTimer" />
         <activity android:name=".MainWindowActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignUpActivity" />
@@ -23,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".workoutPlan" />
-        <activity android:name=".workoutGo"></activity>
+        <activity android:name=".workoutGo" />
     </application>
 
 </manifest>

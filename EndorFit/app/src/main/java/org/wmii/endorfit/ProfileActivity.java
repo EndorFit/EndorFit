@@ -95,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         imageViewProfileImage = findViewById(R.id.imageViewProfileImage);
         progressBar = findViewById(R.id.progressBar);
         //Spinner config
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.genders, R.layout.spinner_item);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.genders, R.layout.spinner_item_30dp);
         spinnerGender.setAdapter(adapter);
         //SetOnClickListener for clickable items
         btnEdit.setOnClickListener(this);

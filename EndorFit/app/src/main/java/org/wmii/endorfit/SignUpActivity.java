@@ -35,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     FirebaseDatabase database;
 
-    private FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
     //private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
