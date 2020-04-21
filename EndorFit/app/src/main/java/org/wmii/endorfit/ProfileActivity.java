@@ -111,7 +111,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //This listener will execute whenever database changes
 
-        callListenerForSingleEvent(databaseRef);
 
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
@@ -123,6 +122,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
+
+        callListenerForSingleEvent(databaseRef);
+
     }
 
     @Override
@@ -183,12 +185,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void showData(DataSnapshot dataSnapshot) throws IOException {
         progressBar.setVisibility(View.VISIBLE);
         String userId = user.getUid();
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            String name = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getName();
-            String gender = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getGender();
-            Integer age = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getAge();
-            Double height = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getHeight();
-            Double weight = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getWeight();
+
+        String name = dataSnapshot.getValue(User.class).getName();
+        String gender = dataSnapshot.getValue(User.class).getGender();
+        Integer age = dataSnapshot.getValue(User.class).getAge();
+        Double height = dataSnapshot.getValue(User.class).getHeight();
+        Double weight = dataSnapshot.getValue(User.class).getWeight();
 
             int genderPosition = 0;
             switch (gender){
@@ -208,11 +210,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             editTxtAge.setText(age.toString());
             editTxtHeight.setText(height.toString());
             editTxtWeight.setText(weight.toString());
-            updateImageView();
-            isImageChanged = false;
+            if(isImageChanged) {
+                updateImageView();
+                isImageChanged = false;
+            }
             showInformation();
             progressBar.setVisibility(View.GONE);
-        }
+
     }
 
     private void updateImageView() throws IOException {
@@ -343,6 +347,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void callListenerForSingleEvent(DatabaseReference databaseRef) {
+        databaseRef = database.getReference("users/" + user.getUid());
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -6,10 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainWindowActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +24,16 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
         findViewById(R.id.imageViewRightIcon).setOnClickListener(this);
         findViewById(R.id.imageViewCenterIcon).setOnClickListener(this);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null) {
+            Toast.makeText(this, "User is not sign in", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MainWindowActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override

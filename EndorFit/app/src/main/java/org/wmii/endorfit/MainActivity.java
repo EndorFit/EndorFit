@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
+            Toast.makeText(this, "User already signed in", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainActivity.this, MainWindowActivity.class);
             startActivity(intent);
         }
