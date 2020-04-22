@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddPlanActivity extends AppCompatActivity {
     ProgressBar progressBar;
@@ -147,7 +148,7 @@ public class AddPlanActivity extends AppCompatActivity {
                 exerciseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        txtViewExerciseType.setText(dataSnapshot.getValue(Exercise.class).getType().toString());
+                        txtViewExerciseType.setText(Objects.requireNonNull(dataSnapshot.getValue(Exercise.class)).getType());
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -172,7 +173,6 @@ public class AddPlanActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 progressBar.setVisibility(View.VISIBLE);
-                Toast.makeText(AddPlanActivity.this, "Edited", Toast.LENGTH_SHORT).show();
                 editTextTopLeft.setText("");
                 editTextTopRight.setText("");
                 editTextBotLeft.setText("");

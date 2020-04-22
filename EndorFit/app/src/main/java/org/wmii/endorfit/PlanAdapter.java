@@ -20,22 +20,22 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         void deleteItem(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;
     }
 
-    public static class PlanViewHolder extends RecyclerView.ViewHolder{
-        public TextView adapterItemName;
-        public TextView adapterItemNameLabel;
-        public TextView adapterItemFirstCol;
-        public TextView adapterItemFirstColLabel;
-        public TextView adapterItemSecondCol;
-        public TextView adapterItemSecondColLabel;
-        public TextView adapterItemThirdCol;
-        public TextView adapterItemThirdColLabel;
-        public ImageView imageViewDelete;
+    static class PlanViewHolder extends RecyclerView.ViewHolder{
+        TextView adapterItemName;
+        TextView adapterItemNameLabel;
+        TextView adapterItemFirstCol;
+        TextView adapterItemFirstColLabel;
+        TextView adapterItemSecondCol;
+        TextView adapterItemSecondColLabel;
+        TextView adapterItemThirdCol;
+        TextView adapterItemThirdColLabel;
+        ImageView imageViewDelete;
 
-        public PlanViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        PlanViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             adapterItemName = itemView.findViewById(R.id.textViewPlanItemName);
             adapterItemNameLabel = itemView.findViewById(R.id.textViewPlanItemNameLabel);
@@ -61,7 +61,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         }
     }
 
-    public PlanAdapter(ArrayList<PlanItem> planList) {
+    PlanAdapter(ArrayList<PlanItem> planList) {
         mPlanList = planList;
     }
 
