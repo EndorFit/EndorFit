@@ -2,6 +2,8 @@ package org.wmii.endorfit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,9 +24,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class PlanActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button buttonAddExercise;
+    Button buttonAddPlan;
     EditText editTxtExerciseName;
     Spinner spinnerExerciseType;
 
@@ -50,15 +55,22 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         user = mAuth.getCurrentUser();
 
 
+
+
+
         database = FirebaseDatabase.getInstance();
 
 
         buttonAddExercise = findViewById(R.id.buttonAddExercise);
-            buttonAddExercise.setOnClickListener(this);
+        buttonAddExercise.setOnClickListener(this);
+        buttonAddPlan = findViewById(R.id.buttonAddPlan);
+        buttonAddPlan.setOnClickListener(this);
+
         editTxtExerciseName = findViewById(R.id.editTxtExerciseName);
         spinnerExerciseType = findViewById(R.id.spinnerExerciseType);
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.exercisesType, R.layout.spinner_item_20dp);
         spinnerExerciseType.setAdapter(adapter);
+
 
 
 
@@ -77,7 +89,11 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
                     AddExerciseToDatabase();
                 }
                 break;
-            case R.id.imageViewCenterIcon:
+            case R.id.buttonAddPlan:
+                Intent intentProfile = new Intent(PlanActivity.this,AddPlanActivity.class);
+                intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentProfile);
+                ///recyclerViewExercises.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -95,7 +111,7 @@ public class PlanActivity extends AppCompatActivity implements View.OnClickListe
         }
         //Checking if exercise exists in DB is not needed, because we can't storage two exercise with the same name, so new exercise will just updated existing one.
         DatabaseReference exerciseRef = database.getReference("exercises/" + name);
-        Exercise newExercise = new Exercise(type);
+        Exercise newExercise = new Exercise(name,type);
         exerciseRef.setValue(newExercise).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

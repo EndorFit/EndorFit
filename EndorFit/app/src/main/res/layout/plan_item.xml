@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_marginBottom="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp">
+
+        <TextView
+            android:id="@+id/textViewPlanItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wyciskanie"
+            android:textSize="15sp"
+            android:textColor="@color/dark_text"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+
+        <TextView
+            android:id="@+id/textViewPlanItemNameLabel"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            android:textAlignment="center"
+            android:layout_below="@id/textViewPlanItemName"
+            android:layout_alignLeft="@+id/textViewPlanItemName"
+            android:layout_alignRight="@+id/textViewPlanItemName"/>
+
+        <TextView
+            android:id="@+id/textViewPlanItemFirst"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="122"
+            android:textSize="15sp"
+            android:textColor="@color/dark_text"
+            android:layout_toEndOf="@id/textViewPlanItemName"
+            android:textAlignment="center"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+
+        <TextView
+            android:id="@+id/textViewPlanItemFirstLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="series"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_below="@id/textViewPlanItemFirst"
+            android:textAlignment="center"
+            android:layout_alignLeft="@+id/textViewPlanItemFirst"
+            android:layout_alignRight="@+id/textViewPlanItemFirst"/>
+
+        <TextView
+        android:id="@+id/textViewPlanItemSecond"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textSize="15sp"
+        android:textColor="@color/dark_text"
+        android:layout_toEndOf="@id/textViewPlanItemFirst"
+        android:textAlignment="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"/>
+
+        <TextView
+            android:id="@+id/textViewPlanItemSecondLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="reps"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_below="@id/textViewPlanItemFirst"
+            android:textAlignment="center"
+            android:layout_alignLeft="@+id/textViewPlanItemSecond"
+            android:layout_alignRight="@+id/textViewPlanItemSecond"/>
+
+        <TextView
+            android:id="@+id/textViewPlanItemThird"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="150"
+            android:textSize="15sp"
+            android:textColor="@color/dark_text"
+            android:layout_toEndOf="@id/textViewPlanItemSecond"
+            android:textAlignment="center"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+
+        <TextView
+            android:id="@+id/textViewPlanItemThirdLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="weight"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_below="@id/textViewPlanItemFirst"
+            android:textAlignment="center"
+            android:layout_alignLeft="@+id/textViewPlanItemThird"
+            android:layout_alignRight="@+id/textViewPlanItemThird"/>
+
+        <ImageView
+            android:id="@+id/imageViewDelete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_cancel_button"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="4dp"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

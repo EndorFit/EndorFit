@@ -69,4 +69,25 @@ public class Exercise {
     public double getTime() {
         return time;
     }
+
+
+
+
+    public Exercise(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    public Exercise(String name, int reps) {
+        this.name = name;
+        this.reps = reps;
+    }
+
+
+    public Exercise(String name, String type, double distance, double time) {
+        this.name = name;
+        this.type = type;
+        this.distance = distance;
+        this.time = time;
+    }
 }
