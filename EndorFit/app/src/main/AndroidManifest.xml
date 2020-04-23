@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddPlanActivity"></activity>
+        <activity android:name=".AddNewExerciseActivity"></activity>
+        <activity android:name=".CreateNewPlanActivity" />
         <activity android:name=".PlanActivity" />
         <activity android:name=".workoutTimer" />
         <activity android:name=".MainWindowActivity" />

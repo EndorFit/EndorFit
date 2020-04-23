@@ -1,6 +1,5 @@
 package org.wmii.endorfit;
 
-import android.text.style.AlignmentSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         TextView adapterItemSecondColLabel;
         TextView adapterItemThirdCol;
         TextView adapterItemThirdColLabel;
-        ImageView imageViewDelete;
+        ImageView adapterImageViewDelete;
 
         PlanViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -45,9 +44,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             adapterItemSecondColLabel = itemView.findViewById(R.id.textViewPlanItemSecondLabel);
             adapterItemThirdCol = itemView.findViewById(R.id.textViewPlanItemThird);
             adapterItemThirdColLabel = itemView.findViewById(R.id.textViewPlanItemThirdLabel);
-            imageViewDelete = itemView.findViewById(R.id.imageViewDelete);
+            adapterImageViewDelete = itemView.findViewById(R.id.imageViewDelete);
 
-            imageViewDelete.setOnClickListener(new View.OnClickListener() {
+            adapterImageViewDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(listener != null){
@@ -85,6 +84,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         holder.adapterItemSecondColLabel.setText(currentItem.getSecondColLabel());
         holder.adapterItemThirdCol.setText(currentItem.getThirdCol());
         holder.adapterItemThirdColLabel.setText(currentItem.getThirdColLabel());
+        if(currentItem.isEnableDelete() == false){
+            holder.adapterImageViewDelete.setVisibility(View.GONE);
+        }
     }
 
     @Override

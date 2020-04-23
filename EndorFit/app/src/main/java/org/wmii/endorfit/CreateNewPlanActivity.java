@@ -33,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AddPlanActivity extends AppCompatActivity {
+public class CreateNewPlanActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     TextView txtViewExerciseType;
@@ -57,7 +57,7 @@ public class AddPlanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_plan);
+        setContentView(R.layout.activity_create_new_plan);
         ///Check users authority
         mAuth = FirebaseAuth.getInstance();
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
@@ -65,7 +65,7 @@ public class AddPlanActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 user = firebaseAuth.getCurrentUser();
                 if(user == null) {
-                    Intent intent = new Intent(AddPlanActivity.this, MainActivity.class);
+                    Intent intent = new Intent(CreateNewPlanActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
@@ -124,15 +124,15 @@ public class AddPlanActivity extends AppCompatActivity {
                         planDB.add(new Exercise(name,type,Double.parseDouble(topLeft),Double.parseDouble(topRight)));
                         break;
                     case "Exercise with weights":
-                        PlanItems.add(new PlanItem(name,"name",topLeft,"series",topRight,"reps",botLeft,"weights"));
+                        PlanItems.add(new PlanItem(name,"name",topLeft,"sets",topRight,"reps",botLeft,"weights"));
                         planDB.add(new Exercise(name,type, Integer.parseInt(topLeft), Integer.parseInt(topRight), Double.parseDouble(botLeft)));
                         break;
                     case "Exercise without weights":
-                        PlanItems.add(new PlanItem(name,"name",topLeft,"series",topRight,"reps"));
+                        PlanItems.add(new PlanItem(name,"name",topLeft,"sets",topRight,"reps"));
                         planDB.add(new Exercise(name,type, Integer.parseInt(topLeft), Integer.parseInt(topRight)));
                         break;
                     case "Exercise with time":
-                        PlanItems.add(new PlanItem(name,"name",topLeft,"series",topRight,"reps",botLeft,"time"));
+                        PlanItems.add(new PlanItem(name,"name",topLeft,"sets",topRight,"reps",botLeft,"time"));
                         planDB.add(new Exercise(name,type, Integer.parseInt(topLeft), Integer.parseInt(topRight), Double.parseDouble(botLeft)));
                         break;
                 }
@@ -248,7 +248,7 @@ public class AddPlanActivity extends AppCompatActivity {
                 for(DataSnapshot item: dataSnapshot.getChildren()){
                     spinnerData.add(item.getKey());
                 }
-                adapter = new ArrayAdapter<>(AddPlanActivity.this, R.layout.spinner_item_20dp, spinnerData);
+                adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData);
                 spinnerExercise.setAdapter(adapter);
             }
 
@@ -271,7 +271,7 @@ public class AddPlanActivity extends AppCompatActivity {
         }
         if(planDB.isEmpty())
         {
-            Toast.makeText(AddPlanActivity.this, "Plan cannot be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateNewPlanActivity.this, "Plan cannot be empty", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.GONE);
             return;
         }
@@ -280,7 +280,7 @@ public class AddPlanActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(AddPlanActivity.this, "Plan added successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateNewPlanActivity.this, "Plan added successful", Toast.LENGTH_SHORT).show();
                     PlanItems.clear();
                     planAdapter.notifyDataSetChanged();
                     planDB.clear();
@@ -291,7 +291,7 @@ public class AddPlanActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                 }
                 else {
-                    Toast.makeText(AddPlanActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateNewPlanActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
 

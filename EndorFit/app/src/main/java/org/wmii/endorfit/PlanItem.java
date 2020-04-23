@@ -9,6 +9,7 @@ public class PlanItem {
     private String secondColLabel;
     private String thirdCol;
     private String thirdColLabel;
+    private boolean enableDelete;
 
     PlanItem(String name, String nameLabel, String firstCol, String firstColLabel, String secondCol, String secondColLabel) {
         this.name = name;
@@ -17,7 +18,19 @@ public class PlanItem {
         this.firstColLabel = firstColLabel;
         this.secondCol = secondCol;
         this.secondColLabel = secondColLabel;
+        this.enableDelete = true;
     }
+
+    PlanItem(String name, String nameLabel, String firstCol, String firstColLabel, String secondCol, String secondColLabel, boolean enableDelete) {
+        this.name = name;
+        this.nameLabel = nameLabel;
+        this.firstCol = firstCol;
+        this.firstColLabel = firstColLabel;
+        this.secondCol = secondCol;
+        this.secondColLabel = secondColLabel;
+        this.enableDelete = enableDelete;
+    }
+
 
     PlanItem(String name, String nameLabel, String firstCol, String firstColLabel, String secondCol, String secondColLabel, String thirdCol, String thirdColLabel) {
         this.name = name;
@@ -28,6 +41,19 @@ public class PlanItem {
         this.secondColLabel = secondColLabel;
         this.thirdCol = thirdCol;
         this.thirdColLabel = thirdColLabel;
+        this.enableDelete = true;
+    }
+
+    PlanItem(String name, String nameLabel, String firstCol, String firstColLabel, String secondCol, String secondColLabel, String thirdCol, String thirdColLabel, boolean enableDelete) {
+        this.name = name;
+        this.nameLabel = nameLabel;
+        this.firstCol = firstCol;
+        this.firstColLabel = firstColLabel;
+        this.secondCol = secondCol;
+        this.secondColLabel = secondColLabel;
+        this.thirdCol = thirdCol;
+        this.thirdColLabel = thirdColLabel;
+        this.enableDelete = enableDelete;
     }
 
 
@@ -61,5 +87,9 @@ public class PlanItem {
 
     String getThirdColLabel() {
         return thirdColLabel;
+    }
+
+    public boolean isEnableDelete() {
+        return enableDelete;
     }
 }
