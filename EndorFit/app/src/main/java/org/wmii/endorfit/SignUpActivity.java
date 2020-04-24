@@ -43,6 +43,34 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        initializeObjects();
+
+        editTxtPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER) {
+                    registerUser();
+                    return true;
+                }  else {
+                    return false;
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnGotoLogin:
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+            case R.id.btnSignUp:
+                registerUser();
+                break;
+        }
+    }
+
+    private void initializeObjects() {
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
@@ -56,17 +84,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         btnSignUp.setOnClickListener(this);
         btnGoToLogin.setOnClickListener(this);
 
-        editTxtPassword.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_ENTER) {
-                    registerUser();
-                    return true;
-                }  else {
-                    return false;
-                }
-            }
-        });
     }
 
     private void registerUser() {
@@ -114,17 +131,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btnGotoLogin:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-            case R.id.btnSignUp:
-                registerUser();
-                break;
-        }
-    }
+
 
     public void addUserToDatabase(String email) {
         String currentUserId = mAuth.getCurrentUser().getUid();

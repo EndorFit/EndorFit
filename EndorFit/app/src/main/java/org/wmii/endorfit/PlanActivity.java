@@ -51,6 +51,8 @@ public class PlanActivity extends AppCompatActivity {
 
     ImageView imageViewDeletePlan;
 
+    ImageView imageViewLeftIcon, imageViewCenterIcon, imageViewRightIcon;
+
     FirebaseDatabase database;
     DatabaseReference plansRef;
     FirebaseAuth mAuth;
@@ -208,6 +210,25 @@ public class PlanActivity extends AppCompatActivity {
                 startActivity(intentAddNewExercise);
             }
         });
+
+
+        imageViewCenterIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMainWindow = new Intent(PlanActivity.this,MainWindowActivity.class);
+                intentMainWindow.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentMainWindow);
+            }
+        });
+
+        imageViewRightIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentProfile = new Intent(PlanActivity.this,ProfileActivity.class);
+                intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentProfile);
+            }
+        });
     }
 
     private void buildRecyclerView() {
@@ -236,6 +257,10 @@ public class PlanActivity extends AppCompatActivity {
         buttonAddNewExercise = findViewById(R.id.buttonAddNewExercise);
 
         imageViewDeletePlan = findViewById(R.id.imageViewDeletePlan);
+
+        imageViewLeftIcon = findViewById(R.id.imageViewLeftIcon);
+        imageViewCenterIcon = findViewById(R.id.imageViewCenterIcon);
+        imageViewRightIcon = findViewById(R.id.imageViewRightIcon);
 
         database = FirebaseDatabase.getInstance();
 

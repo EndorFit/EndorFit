@@ -40,6 +40,8 @@ public class CreateNewPlanActivity extends AppCompatActivity {
     EditText editTextTopLeft, editTextTopRight, editTextBotLeft, editTextPlanName;
     ImageView imageViewAddButton, imageViewSave;
 
+    ImageView imageViewLeftIcon, imageViewCenterIcon, imageViewRightIcon;
+
     Spinner spinnerExercise;
     SpinnerAdapter adapter;
     ArrayList<String> spinnerData;
@@ -215,6 +217,34 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                 }
             }
         });
+
+        imageViewLeftIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAddNewExercise = new Intent(CreateNewPlanActivity.this,PlanActivity.class);
+                intentAddNewExercise.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentAddNewExercise);
+            }
+        });
+
+        imageViewCenterIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMainWindow = new Intent(CreateNewPlanActivity.this,MainWindowActivity.class);
+                intentMainWindow.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentMainWindow);
+            }
+        });
+
+        imageViewRightIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentProfile = new Intent(CreateNewPlanActivity.this,ProfileActivity.class);
+                intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentProfile);
+            }
+        });
+
     }
 
     private void initializeObjects() {
@@ -229,6 +259,10 @@ public class CreateNewPlanActivity extends AppCompatActivity {
 
         imageViewSave = findViewById(R.id.imageViewSave);
         imageViewAddButton = findViewById(R.id.imageViewAddExercise);
+
+        imageViewLeftIcon = findViewById(R.id.imageViewLeftIcon);
+        imageViewCenterIcon = findViewById(R.id.imageViewCenterIcon);
+        imageViewRightIcon = findViewById(R.id.imageViewRightIcon);
 
         spinnerExercise = findViewById(R.id.spinnerExercise);
 

@@ -33,25 +33,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mAuth = FirebaseAuth.getInstance();
-
-        editTxtEmail = findViewById(R.id.editTxtEmail);
-        editTxtPassword = findViewById(R.id.editTxtPassword);
-        progressBar = findViewById(R.id.progressBar);
-
-        btnLogin = findViewById(R.id.btnLogin);
-        btnGoToSignUp = findViewById(R.id.btnGotoSignUp);
-
-        btnLogin.setOnClickListener(this);
-        btnGoToSignUp.setOnClickListener(this);
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
             Toast.makeText(this, "User already signed in", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainActivity.this, MainWindowActivity.class);
             startActivity(intent);
         }
+
+        initializeObjects();
 
         editTxtPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -64,6 +54,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+    }
+
+    private void initializeObjects() {
+        editTxtEmail = findViewById(R.id.editTxtEmail);
+        editTxtPassword = findViewById(R.id.editTxtPassword);
+        progressBar = findViewById(R.id.progressBar);
+
+        btnLogin = findViewById(R.id.btnLogin);
+        btnGoToSignUp = findViewById(R.id.btnGotoSignUp);
+
+        btnLogin.setOnClickListener(this);
+        btnGoToSignUp.setOnClickListener(this);
     }
 
     private void userLogin() {

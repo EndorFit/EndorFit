@@ -33,6 +33,8 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 
     Button buttonCreateNewPlan, buttonSeeYourPlans, buttonAddExercise;
 
+    ImageView imageViewLeftIcon, imageViewCenterIcon, imageViewRightIcon;
+
     EditText editTextExerciseName;
 
     FirebaseDatabase database;
@@ -110,6 +112,33 @@ public class AddNewExerciseActivity extends AppCompatActivity {
             }
         });
 
+        imageViewLeftIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAddNewExercise = new Intent(AddNewExerciseActivity.this,PlanActivity.class);
+                intentAddNewExercise.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentAddNewExercise);
+            }
+        });
+
+        imageViewCenterIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMainWindow = new Intent(AddNewExerciseActivity.this,MainWindowActivity.class);
+                intentMainWindow.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentMainWindow);
+            }
+        });
+
+        imageViewRightIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentProfile = new Intent(AddNewExerciseActivity.this,ProfileActivity.class);
+                intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentProfile);
+            }
+        });
+
     }
 
     private void initializeObjects() {
@@ -123,6 +152,11 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         buttonCreateNewPlan = findViewById(R.id.buttonCreateNewPlan);
         buttonSeeYourPlans = findViewById(R.id.buttonSeeYourPlans);
         buttonAddExercise = findViewById(R.id.buttonAddExercise);
+
+        imageViewLeftIcon = findViewById(R.id.imageViewLeftIcon);
+        imageViewCenterIcon = findViewById(R.id.imageViewCenterIcon);
+        imageViewRightIcon = findViewById(R.id.imageViewRightIcon);
+
 
         editTextExerciseName = findViewById(R.id.editTextExerciseName);
 

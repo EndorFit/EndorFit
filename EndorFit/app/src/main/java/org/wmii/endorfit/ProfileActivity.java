@@ -58,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     EditText editTxtName, editTxtAge, editTxtHeight, editTxtWeight;
     Button btnEdit, btnLogout, btnSave, btnDelete;
     ImageView imageViewProfileImage;
+    ImageView imageViewLeftIcon, imageViewCenterIcon, imageViewRightIcon;
     Spinner spinnerGender;
     ProgressBar progressBar;
 
@@ -80,6 +81,51 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        user = mAuth.getCurrentUser();
+
+        initializeObjects();
+
+        setListeners();
+
+        callListenerForSingleEvent(databaseRef);
+    }
+
+    private void setListeners() {
+
+        imageViewLeftIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAddNewExercise = new Intent(ProfileActivity.this,PlanActivity.class);
+                intentAddNewExercise.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentAddNewExercise);
+            }
+        });
+
+        imageViewCenterIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMainWindow = new Intent(ProfileActivity.this,MainWindowActivity.class);
+                intentMainWindow.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentMainWindow);
+            }
+        });
+
+
+    }
+
+
+    private void initializeObjects() {
         isImageChanged = true;
         //Initialize all items
         editTxtName = findViewById(R.id.editTxtName);
@@ -93,6 +139,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         btnSave = findViewById(R.id.btnSave);
         btnDelete = findViewById(R.id.btnDelete);
         imageViewProfileImage = findViewById(R.id.imageViewProfileImage);
+
+        imageViewLeftIcon = findViewById(R.id.imageViewLeftIcon);
+        imageViewCenterIcon = findViewById(R.id.imageViewCenterIcon);
+        imageViewRightIcon = findViewById(R.id.imageViewRightIcon);
+
         progressBar = findViewById(R.id.progressBar);
         //Spinner config
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.genders, R.layout.spinner_item_30dp);
@@ -108,22 +159,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference();
         storageRef = FirebaseStorage.getInstance().getReference("profileImages/" + user.getUid());
-
-        //This listener will execute whenever database changes
-
-
-        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if(user == null) {
-                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        callListenerForSingleEvent(databaseRef);
 
     }
 
