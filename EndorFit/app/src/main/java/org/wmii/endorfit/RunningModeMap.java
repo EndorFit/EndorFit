@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.hardware.biometrics.BiometricManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -70,21 +73,19 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-            Vector <LatLng> latLngs = new Vector<LatLng>();
-            for (int i=0;i<10;i++){
+
                 LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                latLngs.add(latLng);
 
-                MarkerOptions startMarker = new MarkerOptions().position(latLng);
+                MarkerOptions startMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                startMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.circle_marker));
                 googleMap.addMarker(startMarker);
-                pause(1000);
-            }
+                startMarker.title("START");
 
-            textView.setText(""+latLngs);
+                        
+            textView.setText("AKTUALNE POLOZENIE: "+currentLocation.getLatitude()+", "+currentLocation.getLongitude());
 
 
-
-        LatLng End = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        LatLng End = latLng;
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(End));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(End, 10));
 

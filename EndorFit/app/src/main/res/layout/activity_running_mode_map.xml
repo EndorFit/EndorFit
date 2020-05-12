@@ -18,8 +18,34 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="119dp"
+        android:layout_height="wrap_content"
         android:layout_x="6dp"
         android:layout_y="541dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="39dp"
+        android:layout_y="586dp"
+        android:backgroundTint="#4CAF50"
+        android:text="START"
+        android:textColor="#FAFAFA"
+        android:textColorLink="#FFFFFF"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/stopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="272dp"
+        android:layout_y="583dp"
+        android:backgroundTint="#F44336"
+        android:text="STOP"
+        android:textColor="#E8DEDE"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textSize="24sp" />
+
 </AbsoluteLayout>
