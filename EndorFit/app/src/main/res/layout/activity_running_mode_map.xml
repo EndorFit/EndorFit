@@ -10,8 +10,8 @@
     <fragment
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="395dp"
-        android:layout_height="547dp"
+        android:layout_width="403dp"
+        android:layout_height="514dp"
         android:layout_x="12dp"
         android:layout_y="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,15 +20,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="403dp"
-        android:layout_height="62dp"
+        android:id="@+id/textDistance"
+        android:layout_width="209dp"
+        android:layout_height="78dp"
         android:layout_x="0dp"
         android:layout_y="536dp"
         android:gravity="center_horizontal"
         android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/google_map"
-        tools:layout_editor_absoluteX="2dp" />
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/google_map" />
 
     <Button
         android:id="@+id/startButton"
@@ -60,5 +61,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="196dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/google_map"
+        app:layout_constraintVertical_bias="0.6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

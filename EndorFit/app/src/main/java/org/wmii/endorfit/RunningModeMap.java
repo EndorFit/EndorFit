@@ -1,21 +1,19 @@
 package org.wmii.endorfit;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.biometrics.BiometricManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -24,17 +22,11 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.Vector;
 
@@ -42,11 +34,14 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
     protected Vector<Location> route = new Vector<Location>();
 
+    long timer=0;
+
     boolean clicked=false;
     Button startButton;
     Button stopButton;
 
-    TextView textView;
+    TextView textDistance;
+    TextView textTime;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
@@ -66,7 +61,8 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
 
 
-        textView = (TextView) findViewById(R.id.textView3) ;
+        textDistance = (TextView) findViewById(R.id.textDistance) ;
+        textTime = (TextView) findViewById(R.id.textTime) ;
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -77,8 +73,9 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    textView.setTextSize(25);
-                    textView.setText("RUN!");
+                    timer= System.currentTimeMillis();
+                    textDistance.setTextSize(25);
+                    textDistance.setText("RUN!");
                     startButton.setEnabled(false);
                     stopButton.setEnabled(true);
                     startButton.setVisibility(View.GONE);
@@ -99,14 +96,19 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    long timerEnd = (System.currentTimeMillis()-timer)/1000;
+                    int min= (int) (timerEnd/60);
+                    int sec= (int) (timerEnd%60);
                     startButton.setEnabled(true);
                     stopButton.setEnabled(false);
                     stopButton.setVisibility(View.GONE);
                     startButton.setVisibility(View.VISIBLE);
                     clicked=false;
-                    textView.setTextSize(15);
+                    textDistance.setTextSize(15);
+                    textTime.setTextSize(15);
                     //textView.setText("DISTANCE: \n"+getTotalDistance()/1000+"km\n"+getTotalDistance()+"m");
-                    textView.setText(String.format("DISTANCE: \n%.2f km\n%.2f m",getTotalDistance()/1000,getTotalDistance()));
+                    textDistance.setText(String.format("DISTANCE: \n%.2f km\n%.2f m",getTotalDistance()/1000,getTotalDistance()));
+                    textTime.setText("TIME:\n"+min+" min\n"+sec+" sec");
 
                 }
             });
