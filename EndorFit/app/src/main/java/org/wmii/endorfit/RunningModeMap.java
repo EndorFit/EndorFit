@@ -99,14 +99,14 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    textView.setText("BBBBBB");
                     startButton.setEnabled(true);
                     stopButton.setEnabled(false);
                     stopButton.setVisibility(View.GONE);
                     startButton.setVisibility(View.VISIBLE);
                     clicked=false;
-
-                    textView.setText("DIS: "+getTotalDistance()/1000+"km\n"+getTotalDistance()+"m");
+                    textView.setTextSize(15);
+                    //textView.setText("DISTANCE: \n"+getTotalDistance()/1000+"km\n"+getTotalDistance()+"m");
+                    textView.setText(String.format("DISTANCE: \n%.2f km\n%.2f m",getTotalDistance()/1000,getTotalDistance()));
 
                 }
             });
@@ -129,7 +129,8 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                             LocationServices.getFusedLocationProviderClient(RunningModeMap.this)
                                     .removeLocationUpdates(this);
                             if (locationResult != null && locationResult.getLocations().size() > 0) {
-                                int LatestLocationIndex = locationResult.getLocations().size() - 1;
+                                if(clicked==true) {
+                                    int LatestLocationIndex = locationResult.getLocations().size() - 1;
 
                                 double latitude =
                                         locationResult.getLocations().get(LatestLocationIndex).getLatitude();
@@ -142,7 +143,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                                 supportMapFragment.getMapAsync(RunningModeMap.this);
 
 
-                                        if(clicked==true) {
+
                                             pause(2000);
                                             fetchLastLocation();
                                         }
@@ -170,20 +171,29 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                 LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
                 MarkerOptions startMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                if(route.size()==1){
                 startMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.start_marker));
                 googleMap.addMarker(startMarker);
-                startMarker.title("START");
+                startMarker.title("START");}
+                if(route.size()>1){
+                    startMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.circle_marker));
+                    googleMap.addMarker(startMarker);
+                    startMarker.title(""+route.size());
+                }
+
 
 
            // textView.setText("AKTUALNE POLOZENIE: "+currentLocation.getLatitude()+", "+currentLocation.getLongitude());
 
 
         LatLng End = latLng;
-
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(End));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(End, 14));
-        googleMap.getUiSettings().setScrollGesturesEnabled(false);
-        googleMap.getUiSettings().setZoomGesturesEnabled(false);
+        //googleMap.getUiSettings().setScrollGesturesEnabled(false);
+       // googleMap.getUiSettings().setZoomGesturesEnabled(false);
+
+
+
 
 
     }
