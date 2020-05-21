@@ -21,6 +21,7 @@ public class dynamicViews {
         editText.setMinEms(2);
         editText.setTextColor(Color.rgb(0,0,0));
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setHint("Name");
         return editText;
     }
     public EditText repsEditText(Context context){
@@ -31,6 +32,7 @@ public class dynamicViews {
         editText.setMinEms(2);
         editText.setTextColor(Color.rgb(0,0,0));
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        editText.setHint("Reps");
         return editText;
     }
     public EditText setsEditText(Context context){
@@ -41,6 +43,7 @@ public class dynamicViews {
         editText.setMinEms(2);
         editText.setTextColor(Color.rgb(0,0,0));
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        editText.setHint("Sets");
         return editText;
     }
     public EditText weightEditText(Context context){
@@ -51,6 +54,8 @@ public class dynamicViews {
         editText.setMinEms(2);
         editText.setTextColor(Color.rgb(0,0,0));
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        editText.setHint("Weight/Time");
         return editText;
     }
+
 }

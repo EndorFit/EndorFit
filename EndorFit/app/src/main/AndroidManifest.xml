@@ -15,7 +15,8 @@
         <activity android:name=".MainWindowActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".workoutGo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".workoutPlan" />
-        <activity android:name=".workoutGo"></activity>
+
     </application>
 
 </manifest>

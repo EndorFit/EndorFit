@@ -14,5 +14,8 @@
         <item name="android:textSize">20dp</item>
     </style>
 
+    <style name="spinnerItemStyle">
+        <![CDATA[<style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem"> </style>  <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem"> </style>]]></style>
+
 
 </resources>
