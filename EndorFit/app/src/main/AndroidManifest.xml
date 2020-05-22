@@ -15,6 +15,7 @@
         <activity android:name=".CreateNewPlanActivity" />
         <activity android:name=".PlanActivity" />
         <activity android:name=".workoutTimer" />
+        <activity android:name=".timerWindow" />
         <activity android:name=".MainWindowActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignUpActivity" />
