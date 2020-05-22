@@ -5,15 +5,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -27,6 +30,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.Vector;
 
@@ -34,16 +39,24 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
     protected Vector<Location> route = new Vector<Location>();
 
+
     long timer=0;
 
     boolean clicked=false;
     Button startButton;
     Button stopButton;
+    Button newRunButton;
 
+    TextView textSpeed;
     TextView textDistance;
     TextView textTime;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
+
+
+
+    LatLng oldLatLng;
+
     private static final int REQUEST_CODE = 101;
 
     @Override
@@ -56,26 +69,25 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
         startButton =(Button) findViewById(R.id.startButton);
         stopButton = (Button) findViewById(R.id.stopButton);
+        newRunButton = (Button) findViewById(R.id.newRunButton);
+
         stopButton.setEnabled(false);
         stopButton.setVisibility(View.GONE);
 
 
-
+        textSpeed = (TextView) findViewById(R.id.textSpeed) ;
         textDistance = (TextView) findViewById(R.id.textDistance) ;
         textTime = (TextView) findViewById(R.id.textTime) ;
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
 
-
-
-
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(), "RUN!", Toast.LENGTH_SHORT).show();
                     timer= System.currentTimeMillis();
                     textDistance.setTextSize(25);
-                    textDistance.setText("RUN!");
                     startButton.setEnabled(false);
                     stopButton.setEnabled(true);
                     startButton.setVisibility(View.GONE);
@@ -96,22 +108,46 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+
                     long timerEnd = (System.currentTimeMillis()-timer)/1000;
+                    double totalDistance=getTotalDistance();
+                    double speed=getSpeed(totalDistance,timerEnd);
+
+
                     int min= (int) (timerEnd/60);
                     int sec= (int) (timerEnd%60);
                     startButton.setEnabled(true);
                     stopButton.setEnabled(false);
                     stopButton.setVisibility(View.GONE);
-                    startButton.setVisibility(View.VISIBLE);
+                    newRunButton.setVisibility(View.VISIBLE);
                     clicked=false;
+
+                    textSpeed.setTextSize(15);
                     textDistance.setTextSize(15);
                     textTime.setTextSize(15);
-                    //textView.setText("DISTANCE: \n"+getTotalDistance()/1000+"km\n"+getTotalDistance()+"m");
-                    textDistance.setText(String.format("DISTANCE: \n%.2f km\n%.2f m",getTotalDistance()/1000,getTotalDistance()));
+
+                    textDistance.setText(String.format("DISTANCE: \n%.2f km\n%.2f m",totalDistance/1000,totalDistance));
                     textTime.setText("TIME:\n"+min+" min\n"+sec+" sec");
+                    textSpeed.setText("SPEED: \n"+speed+" m/s");
+
+                    SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
+                    supportMapFragment.getMapAsync(RunningModeMap.this);
+
+
 
                 }
             });
+
+            newRunButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), RunningModeStopConfirm.class);
+                    startActivity(intent);
+                }
+            });
+        //finish();
+       // startActivity(getIntent());
 
     }
 
@@ -134,13 +170,9 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                                 if(clicked==true) {
                                     int LatestLocationIndex = locationResult.getLocations().size() - 1;
 
-                                double latitude =
-                                        locationResult.getLocations().get(LatestLocationIndex).getLatitude();
-                                double longitude =
-                                        locationResult.getLocations().get(LatestLocationIndex).getLongitude();
-                                route.add(locationResult.getLocations().get(LatestLocationIndex));
                                 currentLocation=locationResult.getLocations().get(LatestLocationIndex);
-                               // textView.setText("LAT :"+ latitude+"\nLON : "+longitude);
+                                    //route.add(locationResult.getLocations().get(LatestLocationIndex));
+                                   route.add(currentLocation);
                                 SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
                                 supportMapFragment.getMapAsync(RunningModeMap.this);
 
@@ -165,40 +197,63 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
         return distance;
     }
 
+    public double getSpeed(double distance, long time) {
+        double speed = 0;
+        speed=distance/time;
+        if(distance!=0) return speed;
+        else return 0;
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+                if (clicked==true) {
+                    LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    MarkerOptions startMarker = new MarkerOptions().position(latLng);
 
-                LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    if (route.size() == 1) {
+                        startMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.start_marker));
+                        googleMap.addMarker(startMarker);
+                        startMarker.title("START");
+                    }
 
-                MarkerOptions startMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                if(route.size()==1){
-                startMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.start_marker));
-                googleMap.addMarker(startMarker);
-                startMarker.title("START");}
-                if(route.size()>1){
-                    startMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.circle_marker));
-                    googleMap.addMarker(startMarker);
-                    startMarker.title(""+route.size());
+                    if (route.size() > 1) {
+                        Polyline line = googleMap.addPolyline(new PolylineOptions()
+                                .add(oldLatLng, latLng)
+                                .width(10)
+                                .color(Color.BLUE));
+                        ;
+                    }
+
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+                    googleMap.getUiSettings().setScrollGesturesEnabled(false);
+                    googleMap.getUiSettings().setZoomGesturesEnabled(false);
+                    oldLatLng = latLng;
                 }
 
+        if (clicked==false) { //STOP MARKER
+            googleMap.getUiSettings().setScrollGesturesEnabled(true);
+            googleMap.getUiSettings().setZoomGesturesEnabled(true);
+
+            if(currentLocation!=null){
+            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+            MarkerOptions stopMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_marker));
+            googleMap.addMarker(stopMarker);
+
+            googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));}
+        }
 
 
-           // textView.setText("AKTUALNE POLOZENIE: "+currentLocation.getLatitude()+", "+currentLocation.getLongitude());
-
-
-        LatLng End = latLng;
-        googleMap.animateCamera(CameraUpdateFactory.newLatLng(End));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(End, 14));
-        //googleMap.getUiSettings().setScrollGesturesEnabled(false);
-       // googleMap.getUiSettings().setZoomGesturesEnabled(false);
 
 
 
 
 
     }
+
 
 
     @Override

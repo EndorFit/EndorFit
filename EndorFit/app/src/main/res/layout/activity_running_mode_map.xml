@@ -10,8 +10,8 @@
     <fragment
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="403dp"
-        android:layout_height="514dp"
+        android:layout_width="394dp"
+        android:layout_height="535dp"
         android:layout_x="12dp"
         android:layout_y="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,13 +21,12 @@
 
     <TextView
         android:id="@+id/textDistance"
-        android:layout_width="209dp"
-        android:layout_height="78dp"
+        android:layout_width="136dp"
+        android:layout_height="71dp"
         android:layout_x="0dp"
         android:layout_y="536dp"
         android:gravity="center_horizontal"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/google_map" />
 
@@ -64,13 +63,42 @@
 
     <TextView
         android:id="@+id/textTime"
-        android:layout_width="196dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="4dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        android:layout_width="136dp"
+        android:layout_height="71dp"
+        android:gravity="center_horizontal"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/google_map"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintTop_toBottomOf="@+id/google_map" />
+
+    <TextView
+        android:id="@+id/textSpeed"
+        android:layout_width="137dp"
+        android:layout_height="71dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/textTime"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toEndOf="@+id/textDistance"
+        app:layout_constraintTop_toBottomOf="@+id/google_map" />
+
+    <Button
+        android:id="@+id/newRunButton"
+        android:layout_width="141dp"
+        android:layout_height="49dp"
+        android:text="NEW RUN"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="88dp"
+        android:text="Button"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
