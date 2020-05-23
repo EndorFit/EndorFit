@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -14,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainWindowActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
-
+    private Button buttonToExercisesList;
     FirebaseAuth mAuth;
 
     @Override
@@ -36,7 +37,17 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         }
 
     }
-
+    public void setOnClickListener()
+    {
+        buttonToExercisesList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainWindowActivity.this, ExercisesListActivity.class);
+                // intent.putExtra(myDb);
+                startActivity(intent);
+            }
+        });
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){

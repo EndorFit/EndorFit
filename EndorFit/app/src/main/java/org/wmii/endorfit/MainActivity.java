@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,13 +22,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     EditText editTxtEmail, editTxtPassword;
     ProgressBar progressBar;
     Button btnLogin, btnGoToSignUp;
-
+    public static DataBaseHelper myDb;
+    public final static String TAG = "MainActivity";
     FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         initializeObjects();
-
+        myDb =new DataBaseHelper(this);
+        addToDataBase();
         editTxtPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -122,6 +128,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 userLogin();
                 break;
 
+        }
+    }
+    public boolean addToDataBase()
+    {
+        ArrayList<Boolean> booleans = new ArrayList<>();
+        booleans.add(myDb.insertData(getString(R.string.ex1Name), getString(R.string.exCategoryArms),getString(R.string.exDifficultyMedium),getString(R.string.ex1Description)));
+        booleans.add(myDb.insertData(getString(R.string.ex2Name), getString(R.string.exCategoryLegs),getString(R.string.exDifficultyMedium),getString(R.string.ex2Description)));
+        booleans.add(myDb.insertData(getString(R.string.ex3Name), getString(R.string.exCategoryShoulders),getString(R.string.exDifficultyEasy),getString(R.string.ex3Description)));
+        int trueCounter = 0;
+        for (;trueCounter < booleans.size();++trueCounter)
+        {
+            if(booleans.get(trueCounter) != true) break;
+        }
+        if(trueCounter == booleans.size())
+        {
+            Log.d(TAG,"addToDataBase: succeeded");
+            return true;
+        }
+        else
+        {
+            Log.e(TAG, "addToDataBase: failed, fail at position: " + trueCounter);
+            return false;
         }
     }
 

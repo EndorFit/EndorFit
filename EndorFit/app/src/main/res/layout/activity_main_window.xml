@@ -10,6 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="620dp"
         android:id="@+id/relLayoutMain">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="Show exercises list"
+            android:id="@+id/buttonToExercises"
+            />
     </RelativeLayout>
 
     <LinearLayout

@@ -13,5 +13,26 @@
         <item>Exercise with time</item>
         <item>Running</item>
     </array>
+    <string name="exDifficultyEasy">Easy</string>
+    <string name="exDifficultyMedium">Medium</string>
+    <string name="exDifficultyHard">Hard</string>
+    <string name="exDifficultyVeryHard">Very Hard</string>
+    <string name="exCategoryArms">Arms</string>
+    <string name="exCategoryLegs">Legs</string>
+    <string name="exCategoryABSAndBack">ABS &amp; Back</string>
+    <string name="exCategoryChest">Chest</string>
+    <string name="exCategoryShoulders">Shoulders</string>
+    <string name="ex1Name">Single arm tricep pushdown</string>
+    <string name="ex1Description">1. Attach the strap handle to the high pulley.&#10;
+        2. Stand facing towards the machine.&#10;
+        3. Grip strap with one hand, palm facing up.</string>
+    <string name="ex2Name">Inner thigh</string>
+    <string name="ex2Description">1. Attach the padded cuff to the lower pulley.&#10;
+        2. Stand sideways to the machine.&#10;
+        3. Attach the cuff to the leg closest to the machine.</string>
+    <string name="ex3Name">Standing shoulder press</string>
+    <string name="ex3Description">1. Stand over the seat facing away from the machine.&#10;
+        2. Hold the fixed handles slightly above shoulder height.&#10;
+        3. Press the handles at an upward angle until your arms are fully extended.</string>
 
 </resources>
