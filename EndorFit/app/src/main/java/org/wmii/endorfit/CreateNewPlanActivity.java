@@ -146,7 +146,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         spinnerExercise.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                DatabaseReference exerciseRef = database.getReference("exercises/" + spinnerExercise.getSelectedItem().toString());
+                DatabaseReference exerciseRef = database.getReference(user.getUid() + "/exercises/" + spinnerExercise.getSelectedItem().toString());
                 exerciseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -273,7 +273,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         database = FirebaseDatabase.getInstance();
-        exercisesRef = database.getReference("exercises/");
+        exercisesRef = database.getReference(user.getUid() + "/exercises/");
 
         exercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -281,6 +281,11 @@ public class CreateNewPlanActivity extends AppCompatActivity {
 
                 for(DataSnapshot item: dataSnapshot.getChildren()){
                     spinnerData.add(item.getKey());
+                }
+                if(spinnerData.isEmpty()){
+                    Toast.makeText(CreateNewPlanActivity.this, "There is no exercise. Add some and comeback", Toast.LENGTH_LONG).show();
+                    Intent backIntent = new Intent(CreateNewPlanActivity.this, PlanActivity.class);
+                    startActivity(backIntent);
                 }
                 adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData);
                 spinnerExercise.setAdapter(adapter);
