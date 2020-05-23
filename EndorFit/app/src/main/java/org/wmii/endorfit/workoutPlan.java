@@ -7,10 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,15 +33,17 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     dynamicViews dnv;
     private Button button,starter;
     Context context;
-    DatabaseReference exerciseRef;
+    DatabaseReference Ref;
     FirebaseDatabase database;
     FirebaseUser user;
     FirebaseAuth mAuth;
+    AdapterView adapterView;
     View view;
     LinearLayout mleyout;
-    ArrayList<PlanItem> planItems;
+    ArrayList<String> planItems;
     ArrayList<Button> allExer = new ArrayList<Button>();
     DataSnapshot dataSnapshot;
+    TextView lol;
     int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +52,8 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
         starter=(Button) findViewById(R.id.buttonStart);
         button =(Button) findViewById(R.id.button);
         mleyout = (LinearLayout) findViewById(R.id.leyout);
-        final ArrayList<PlanItem> planItems=new ArrayList<PlanItem>();
+        planItems=new ArrayList<String>();
+
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
@@ -77,24 +85,30 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
         user = mAuth.getCurrentUser();
 
         database = FirebaseDatabase.getInstance();
-        planItems.clear();
-        final DatabaseReference planContentRef = database.getReference("users/" + user.getUid() + "/plans/" );
-        planContentRef.addValueEventListener(new ValueEventListener() {
+        Ref = database.getReference("users/" +user.getUid() + "/plans/");
+
+        Ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                planItems.add(Objects.requireNonNull(dataSnapshot.getValue(PlanItem.class)));
 
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    planItems.add(item.getKey());
+                }
+                if(planItems.isEmpty()){
+                    Toast.makeText(workoutPlan.this, "There is no plans. Add some and comeback", Toast.LENGTH_LONG).show();}
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
-        });
-for (i=0;i<planItems.size();i++)
-{   addView(view);
-    allExer.get(i).setText(planItems.get(i).getName());
-}
+            });
+        Toast.makeText(workoutPlan.this, "There is this many items : "+planItems.size(), Toast.LENGTH_LONG).show();
+
+        for (i=0;i<planItems.size();i++)
+        {   addView(view);
+
+        }
+
     }
 
     public void openActivityWorking() {
