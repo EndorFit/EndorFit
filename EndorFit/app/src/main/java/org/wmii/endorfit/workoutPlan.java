@@ -41,7 +41,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     View view;
     LinearLayout mleyout;
     ArrayList<String> planItems;
-    ArrayList<Button> allExer = new ArrayList<Button>();
+    ArrayList<Button> allExer ;
     DataSnapshot dataSnapshot;
     TextView lol;
     int i;
@@ -53,6 +53,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
         button =(Button) findViewById(R.id.button);
         mleyout = (LinearLayout) findViewById(R.id.leyout);
         planItems=new ArrayList<String>();
+        allExer = new ArrayList<Button>();
 
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -83,25 +84,24 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
             }
         });
         user = mAuth.getCurrentUser();
-
         database = FirebaseDatabase.getInstance();
         Ref = database.getReference("users/" +user.getUid() + "/plans/");
 
-        Ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        Ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                planItems.clear();
+                for(DataSnapshot item: dataSnapshot.getChildren()){
                     planItems.add(item.getKey());
                 }
-                if(planItems.isEmpty()){
-                    Toast.makeText(workoutPlan.this, "There is no plans. Add some and comeback", Toast.LENGTH_LONG).show();}
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-            });
+        });
+
+
+
         Toast.makeText(workoutPlan.this, "There is this many items : "+planItems.size(), Toast.LENGTH_LONG).show();
 
         for (i=0;i<planItems.size();i++)
