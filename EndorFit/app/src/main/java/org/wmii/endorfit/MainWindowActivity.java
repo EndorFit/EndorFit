@@ -23,10 +23,11 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
 
+        initWidgets();
         findViewById(R.id.imageViewRightIcon).setOnClickListener(this);
         findViewById(R.id.imageViewCenterIcon).setOnClickListener(this);
         findViewById(R.id.imageViewLeftIcon).setOnClickListener(this);
-
+        setOnClickListener();
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -35,7 +36,13 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             Intent intent = new Intent(MainWindowActivity.this, MainActivity.class);
             startActivity(intent);
         }
-
+    }
+    public void initWidgets()
+    {
+        imageViewProfile = findViewById(R.id.imageViewRightIcon);
+        imageViewCenter = findViewById(R.id.imageViewCenterIcon);
+        imageViewLeft = findViewById(R.id.imageViewLeftIcon);
+        buttonToExercisesList = (Button) findViewById(R.id.buttonToExercises);
     }
     public void setOnClickListener()
     {

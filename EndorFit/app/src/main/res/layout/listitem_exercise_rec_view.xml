@@ -18,15 +18,15 @@
             />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:id="@+id/exerciseNameTextView"
             android:layout_marginLeft="130dp"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:text="Title"
             />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_below="@+id/exerciseNameTextView"
             android:id="@+id/exerciseCategoryAndDifficultyTextView"
             android:layout_marginLeft="130dp"

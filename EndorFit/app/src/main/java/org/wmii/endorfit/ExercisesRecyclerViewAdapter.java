@@ -38,7 +38,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
     public void onBindViewHolder(@NonNull ExercisesRecyclerViewAdapter.ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called");
         holder.exerciseName.setText(exerciseKnowledgeBases.get(position).getName());
-        holder.exerciseCategoryAndDifficulty.setText("Category: " + exerciseKnowledgeBases.get(position).getCategory() + ", Difficulty: " + exerciseKnowledgeBases.get(position).getDifficultyLevel());
+        holder.exerciseCategoryAndDifficulty.setText("Category: " + exerciseKnowledgeBases.get(position).getCategory() + "\nDifficulty: " + exerciseKnowledgeBases.get(position).getDifficultyLevel());
         holder.exerciseCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
