@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.InputType;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -58,4 +59,16 @@ public class dynamicViews {
         return editText;
     }
 
+    public Button buttonWorkout (Context context){
+        final ViewGroup.LayoutParams lparams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        final Button buttonWorkout=new Button(context);
+        int id=0;
+        buttonWorkout.setId(id);
+        buttonWorkout.setMinEms(2);
+        buttonWorkout.setBackgroundColor(Color.rgb(250,150,100));
+         buttonWorkout.setWidth(30);
+         buttonWorkout.setHeight(30);
+
+        return buttonWorkout;
+    }
 }
