@@ -98,10 +98,7 @@ public class workoutGo extends AppCompatActivity {
     public void addView(View view) {
         this.view = view;
         dnv = new dynamicViews(context);
-        allExer.add( dnv.descriptionTextView(getApplicationContext()));
-        allExer.add(dnv.repsEditText(getApplicationContext()));
-        allExer.add( dnv.setsEditText(getApplicationContext()));
-        allExer.add( dnv.weightEditText(getApplicationContext()));
+
 
         mleyout.addView(allExer.get(counter), counter);
         mleyout.addView(allExer.get(counter+1), counter + 1);

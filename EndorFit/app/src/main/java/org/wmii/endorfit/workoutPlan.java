@@ -44,6 +44,8 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     ArrayList<Button> allExer ;
     DataSnapshot dataSnapshot;
     TextView lol;
+
+
     int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +65,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
         user = mAuth.getCurrentUser();
 
         initializeObjects();
-
-       getDatafromDatabase();
-
-        createViews();
-
+        getDatafromDatabase();
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
@@ -76,7 +74,6 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
 
             }
         }      );
-
         starter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +128,10 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
                 for(DataSnapshot item: dataSnapshot.getChildren()){
                     planItems.add(item.getKey());
                 }
+                createViews();
+                for(Button btn:allExer)
+                    btn.setOnClickListener(btnListener);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -139,12 +140,34 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
 
     }
     private void createViews()
+
     {
         Toast.makeText(workoutPlan.this, "There is this many items : "+planItems.size(), Toast.LENGTH_LONG).show();
 
         for (i=0;i<planItems.size();i++)
-        {   addView(view);
+        {
+            addView(view);
+            allExer.get(i).setText(planItems.get(i));
 
         }
     }
+
+    private View.OnClickListener btnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            for(int i = 0 ; i < allExer.size() ; i++){
+
+                if(v == allExer.get(i)){
+
+                    Toast.makeText(workoutPlan.this, "got wo workout: "+allExer.get(i).getText(), Toast.LENGTH_SHORT).show();
+                    Intent intent =new Intent(getBaseContext(),workoutTimer.class);
+                    intent.putExtra("EXTRA_WORKOUT_KEY", allExer.get(i).getText());
+                    startActivity(intent);
+
+                }
+            }
+
+        }
+    };
 }
