@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class AdapterWorkout extends RecyclerView.Adapter<AdapterWorkout.ExercViewHolder> {
+    public ArrayList<CheckBox> getAllSets() {
+        return allSets;
+    }
+
     private ArrayList<PlanItem> mPlanList;
     private OnItemClickListener mListener;
     private View view;
@@ -74,7 +79,7 @@ int i=0;
         holder.adapterItemThirdCol.setText(currentItem.getThirdCol());
         holder.adapterItemThirdColLabel.setText(currentItem.getThirdColLabel());
 
-        for (int a=0;a<Integer.parseInt(currentItem.getFirstColLabel());a++)
+        for (int a=0;a<Integer.parseInt(currentItem.getFirstCol());a++)
         {
             allSets.add(dnv.checkSet(context));
             holder.placeForCheckbox.addView(allSets.get(i));

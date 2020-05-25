@@ -36,8 +36,9 @@ public class dynamicViews {
         int id=0;
         checkSet.setId(id);
         checkSet.setBackgroundColor(Color.rgb(250,150,100));
-        checkSet.setWidth(10);
-        checkSet.setHeight(10);
+        checkSet.setWidth(100);
+        checkSet.setHeight(100);
+        checkSet.setFadingEdgeLength(10);
         checkSet.setPadding(10,10,10,10);
 
         return checkSet;

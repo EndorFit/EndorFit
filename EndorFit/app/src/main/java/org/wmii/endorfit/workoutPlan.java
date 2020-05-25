@@ -160,7 +160,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
 
                 if(v == allExer.get(i)){
 
-                    Toast.makeText(workoutPlan.this, "got wo workout: "+allExer.get(i).getText(), Toast.LENGTH_SHORT).show();
+
                     Intent intent =new Intent(getBaseContext(),workoutTimer.class);
                     intent.putExtra("EXTRA_WORKOUT_KEY", allExer.get(i).getText());
                     startActivity(intent);

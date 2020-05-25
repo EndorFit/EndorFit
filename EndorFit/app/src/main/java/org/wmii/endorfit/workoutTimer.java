@@ -6,11 +6,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class workoutTimer extends AppCompatActivity implements timerDialog.timerDialogListener {
 private TextView timeSet,nameWorkout;
@@ -36,9 +42,119 @@ String timerValue;
     ArrayList<PlanItem> planItems;
     RecyclerView recyclerViewPlan;
     AdapterWorkout workoutAdapter;
+    ArrayList<CheckBox> allSets ;
+    ArrayList<Boolean> doneSets ;
+    Workout dbSave;
+    String state;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         SetupAll();
+        openDialog();
+        dataGet();
+
+      buildRecyclerView();
+
+        openTimer.setOnClickListener(new View.OnClickListener() {
+            boolean clicked=true;
+
+            public void onClick(View v) {
+            if (clicked==true) {
+                setListeners();
+                clicked = false;
+                for (int i = 0; i < allSets.size(); i++) {
+                    allSets.get(i).setChecked(false);
+                }
+            }
+               else if (clicked==false)
+                    {
+                        saveWorkout();
+                    }
+            }
+        });
+
+
+    }
+private void saveWorkout()
+{
+    planContentRef = database.getReference("users/" + user.getUid() + "/completed/"+Calendar.getInstance().getTime());
+    dbSave=new Workout(workoutKey,state,planItems);
+    //todo make it save whole planitem array
+    planContentRef.setValue(dbSave).addOnCompleteListener(new OnCompleteListener<Void>() {
+    @Override
+    public void onComplete(@NonNull Task<Void> task) {
+        if(task.isSuccessful()){
+            Toast.makeText(workoutTimer.this, "Saved your progress", Toast.LENGTH_SHORT).show();
+            planItems.clear();
+        }
+        else {
+            Toast.makeText(workoutTimer.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+});
+
+
+}
+    public void opentimerWindow() {
+        Intent intent =new Intent(this,timerWindow.class);
+        intent.putExtra(TIMER_VALUE,timerValue);
+        startActivity(intent);
+    }
+    public void openDialog()
+    {
+timerDialog timerdialog=new timerDialog();
+    timerdialog.show(getSupportFragmentManager(),"Timer set");
+    }
+
+    @Override
+    public void aplytext(String seconds) {
+        timerValue=seconds;
+    }
+
+    private void buildRecyclerView() {
+
+        recyclerViewPlan.setHasFixedSize(true);
+        workoutAdapter = new AdapterWorkout(planItems);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerViewPlan.setLayoutManager(mLayoutManager);
+        recyclerViewPlan.setAdapter(workoutAdapter);
+
+    }
+
+
+    private View.OnClickListener checkListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+
+            for(int i = 0 ; i < allSets.size() ; i++){
+
+                if(v == allSets.get(i)){
+
+                    doneSets.add(true);
+                    opentimerWindow();
+                    state=doneSets.size()+"/"+allSets.size();
+                    openTimer.setText(state);
+if (doneSets.size()==allSets.size())
+{
+    openTimer.setBackgroundColor(-16711936);
+    openTimer.setText("Save Progres");
+}
+                }
+            }
+
+        }
+    };
+    private void setListeners(){
+        allSets=workoutAdapter.getAllSets();
+        doneSets=new ArrayList<>();
+        for(CheckBox btn:allSets)
+            btn.setOnClickListener(checkListener);
+
+    }
+    private void SetupAll()
+    {
         setContentView(R.layout.activity_workout_timer);
         timeSet=(TextView) findViewById(R.id.editTimer);
         nameWorkout=(TextView) findViewById(R.id.nameWorkout);
@@ -50,16 +166,13 @@ String timerValue;
         recyclerViewPlan.setLayoutManager(mLayoutManager);
         recyclerViewPlan.setAdapter(workoutAdapter);
         planItems=new  ArrayList<PlanItem>();
-        openDialog();
-        buildRecyclerView();
-        openTimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                opentimerWindow();
-            }
-        });
+        allSets = new ArrayList<CheckBox>();
         workoutKey = getIntent().getStringExtra("EXTRA_WORKOUT_KEY");
         nameWorkout.setText(workoutKey);
+
+    }
+    private void dataGet()
+    {
         mAuth = FirebaseAuth.getInstance();
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
@@ -125,33 +238,5 @@ String timerValue;
 
             }
         });
-
-
-    }
-
-    public void opentimerWindow() {
-        Intent intent =new Intent(this,timerWindow.class);
-        intent.putExtra(TIMER_VALUE,timerValue);
-        startActivity(intent);
-    }
-    public void openDialog()
-    {
-timerDialog timerdialog=new timerDialog();
-    timerdialog.show(getSupportFragmentManager(),"Timer set");
-    }
-
-    @Override
-    public void aplytext(String seconds) {
-        timerValue=seconds;
-    }
-
-    private void buildRecyclerView() {
-
-        recyclerViewPlan.setHasFixedSize(true);
-        workoutAdapter = new AdapterWorkout(planItems);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerViewPlan.setLayoutManager(mLayoutManager);
-        recyclerViewPlan.setAdapter(workoutAdapter);
-
     }
 }
