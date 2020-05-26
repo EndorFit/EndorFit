@@ -40,6 +40,7 @@ String timerValue;
     DataSnapshot dataSnapshot;
     DatabaseReference planContentRef;
     ArrayList<PlanItem> planItems;
+    ArrayList<Exercise>planItemsExer;
     RecyclerView recyclerViewPlan;
     AdapterWorkout workoutAdapter;
     ArrayList<CheckBox> allSets ;
@@ -78,8 +79,7 @@ String timerValue;
 private void saveWorkout()
 {
     planContentRef = database.getReference("users/" + user.getUid() + "/completed/"+Calendar.getInstance().getTime());
-    dbSave=new Workout(workoutKey,state,planItems);
-    //todo make it save whole planitem array
+    dbSave=new Workout(workoutKey,state,planItemsExer);
     planContentRef.setValue(dbSave).addOnCompleteListener(new OnCompleteListener<Void>() {
     @Override
     public void onComplete(@NonNull Task<Void> task) {
@@ -166,6 +166,7 @@ if (doneSets.size()==allSets.size())
         recyclerViewPlan.setLayoutManager(mLayoutManager);
         recyclerViewPlan.setAdapter(workoutAdapter);
         planItems=new  ArrayList<PlanItem>();
+        planItemsExer=new ArrayList<Exercise>();
         allSets = new ArrayList<CheckBox>();
         workoutKey = getIntent().getStringExtra("EXTRA_WORKOUT_KEY");
         nameWorkout.setText(workoutKey);
@@ -208,23 +209,28 @@ if (doneSets.size()==allSets.size())
                         case "Running":
                             time = String.valueOf(tempExercise.getTime());
                             distance = String.valueOf(tempExercise.getDistance());
+                            planItemsExer.add(new Exercise(name,Double.parseDouble(time),Double.parseDouble(distance)));
+
                             planItems.add(new PlanItem(name, "name", time, "time", distance, "distance", false));
                             break;
                         case "Exercise with weights":
                             sets = String.valueOf(tempExercise.getSets());
                             reps = String.valueOf(tempExercise.getReps());
                             weights = String.valueOf(tempExercise.getWeight());
+                            planItemsExer.add(new Exercise(name,type,Integer.parseInt(sets),Integer.parseInt(reps),Double.parseDouble(weights)));
                             planItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", weights, "weights", false));
                             break;
                         case "Exercise without weights":
                             sets = String.valueOf(tempExercise.getSets());
                             reps = String.valueOf(tempExercise.getReps());
+                            planItemsExer.add(new Exercise(name,type,Integer.parseInt(sets),Integer.parseInt(reps)));
                             planItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", false));
                             break;
                         case "Exercise with time":
                             sets = String.valueOf(tempExercise.getSets());
                             reps = String.valueOf(tempExercise.getReps());
                             time = String.valueOf(tempExercise.getTime());
+                            planItemsExer.add(new Exercise(name,type,Integer.parseInt(sets),Integer.parseInt(reps),Double.parseDouble(time)));
                             planItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", time, "time", false));
                             break;
                     }
