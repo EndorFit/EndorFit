@@ -85,7 +85,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 25, outputStream);
         return outputStream.toByteArray();
     }
     public boolean insertData(String name, String category, String difficulty, String description, byte[] image, String internalType)
@@ -151,6 +151,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cur = MainActivity.myDb.getOneRow(id);
         cur.moveToFirst();
         if (cur.getBlob(columnIndex) != null){
+            byte[] imgByte = cur.getBlob(columnIndex);
+            cur.close();
+            return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+        }
+        if (cur != null && !cur.isClosed()) {
+            cur.close();
+        }
+
+        return null;
+    }
+    public static Bitmap getImageToList(int id, int columnIndex){
+        //SQLiteDatabase db = this.getWritableDatabase();
+        //String qu = "select " + COL_6 + "  from " + TABLE_NAME + " where " + COL_1 + "=" + i ;
+        //Cursor cur = db.rawQuery(qu, null);
+        Cursor cur = MainActivity.myDb.getOneRow(id);
+        cur.moveToFirst();
+        if (cur.getBlob(columnIndex) != null){
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
             byte[] imgByte = cur.getBlob(columnIndex);
             cur.close();
             return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);

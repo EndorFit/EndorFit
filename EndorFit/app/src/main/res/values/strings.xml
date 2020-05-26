@@ -140,9 +140,7 @@ B) Hinge forwards at the hips, keeping your arms straight so the barbell is dire
     7. Don\'t ride with headphones on.</string>
     <string name="ex22Name">Roller skating</string>
     <string name="ex22Description"></string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="exercisesListTitleBar">Exercises</string>
 
 
 </resources>
