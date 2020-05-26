@@ -6,4 +6,5 @@
     <color name="grey_text">#c9c9c9</color>
     <color name="dark_text">#000000</color>
     <color name="greyText">#706565</color>
+    <color name="greyTextTransparent">#8C706565</color>
 </resources>

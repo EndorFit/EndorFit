@@ -20,10 +20,12 @@ import java.util.ArrayList;
 public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<ExercisesRecyclerViewAdapter.ViewHolder>{
     public final static String TAG = "ExercisesRecViewAdapter";
     private Context context;
+    private int tab;
     private ArrayList<ExerciseKnowledgeBase> exerciseKnowledgeBases = new ArrayList<>();
 
-    public ExercisesRecyclerViewAdapter(Context context) {
+    public ExercisesRecyclerViewAdapter(Context context, int tab) {
         this.context = context;
+        this.tab = tab;
     }
 
     @NonNull
@@ -38,6 +40,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
     public void onBindViewHolder(@NonNull ExercisesRecyclerViewAdapter.ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called");
         holder.exerciseName.setText(exerciseKnowledgeBases.get(position).getName());
+        holder.exerciseImage.setImageBitmap(exerciseKnowledgeBases.get(position).getImage());
         holder.exerciseCategoryAndDifficulty.setText("Category: " + exerciseKnowledgeBases.get(position).getCategory() + "\nDifficulty: " + exerciseKnowledgeBases.get(position).getDifficultyLevel());
         holder.exerciseCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,13 +68,15 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
             exerciseImage = (ImageView) itemView.findViewById(R.id.exerciseImage);
             exerciseCategoryAndDifficulty = (TextView) itemView.findViewById(R.id.exerciseCategoryAndDifficultyTextView);
             exerciseName = (TextView) itemView.findViewById(R.id.exerciseNameTextView);
+            exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
+            exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
         }
     }
     public void setExerciseKnowledgeBases(DataBaseHelper db)
     {
         //TODO assigning data from database to this arrayList
         //for(int i = 0;i < db.getSize(context);++i)
-        Cursor result = db.getAllData();
+        Cursor result = db.getCategorizedData(tab);
         if(result.getCount() == 0){
             Log.d(TAG, "setExercises: Empty dataBase");
             return;
@@ -84,7 +89,8 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
         String category = "";
         String difficultyLevel = "";
         String description = "";
-        Bitmap image;
+        //Bitmap image;
+        String internalType = "";
         while (result.moveToNext())
         {
             //Log.d(TAG, "setExercises: Column name " + result.getColumnName());
@@ -93,10 +99,12 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
             category = result.getString(2);
             difficultyLevel = result.getString(3);
             description = result.getString(4);
-            ExerciseKnowledgeBase exerciseKnowledgeBase = new ExerciseKnowledgeBase(id, name,category,description,difficultyLevel);
+            internalType = result.getString(6);
+            ExerciseKnowledgeBase exerciseKnowledgeBase = new ExerciseKnowledgeBase(id, name,category,description,difficultyLevel,DataBaseHelper.getImage(id,5),internalType);
             Log.d(TAG, "setExercises: Name: " + exerciseKnowledgeBase.getName() + ", category: " + exerciseKnowledgeBase.getCategory());
             exerciseKnowledgeBases.add(exerciseKnowledgeBase);
         }
+        result.close();
         notifyDataSetChanged();
     }
 //

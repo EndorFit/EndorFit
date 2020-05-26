@@ -10,22 +10,23 @@ public class ExerciseKnowledgeBase {
     private String description;
     private String difficultyLevel;
     private Bitmap image;
+    private String internalType;
 
-    public ExerciseKnowledgeBase(int id, String name, String category, String description, String difficultyLevel, Bitmap image) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.description = description;
-        this.difficultyLevel = difficultyLevel;
-        //this.image = BitmapFactory.decodeResource(getResources(),R.drawable.inner_thigh);
+    public ExerciseKnowledgeBase(int id, String name, String category, String description, String difficultyLevel, Bitmap image, String internalType) {
+        this(id,name,category,description,difficultyLevel,internalType);
+        this.image = image;
     }
-    public ExerciseKnowledgeBase(int id, String name, String category, String description, String difficultyLevel) {
+    public ExerciseKnowledgeBase(int id, String name, String category, String description, String difficultyLevel, String internalType) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.description = description;
         this.difficultyLevel = difficultyLevel;
-        //this.image = BitmapFactory.decodeResource(getResources(),R.drawable.inner_thigh);
+        this.internalType = internalType;
+    }
+
+    public String getInternalType() {
+        return internalType;
     }
 
     public int getId() {

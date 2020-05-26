@@ -23,16 +23,126 @@
     <string name="exCategoryChest">Chest</string>
     <string name="exCategoryShoulders">Shoulders</string>
     <string name="ex1Name">Single arm tricep pushdown</string>
-    <string name="ex1Description">1. Attach the strap handle to the high pulley.&#10;
-        2. Stand facing towards the machine.&#10;
+    <string name="ex1Description">1. Attach the strap handle to the high pulley.\n
+        2. Stand facing towards the machine.\n
         3. Grip strap with one hand, palm facing up.</string>
     <string name="ex2Name">Inner thigh</string>
-    <string name="ex2Description">1. Attach the padded cuff to the lower pulley.&#10;
-        2. Stand sideways to the machine.&#10;
+    <string name="ex2Description">1. Attach the padded cuff to the lower pulley.\n
+        2. Stand sideways to the machine.\n
         3. Attach the cuff to the leg closest to the machine.</string>
     <string name="ex3Name">Standing shoulder press</string>
-    <string name="ex3Description">1. Stand over the seat facing away from the machine.&#10;
-        2. Hold the fixed handles slightly above shoulder height.&#10;
+    <string name="ex3Description">1. Stand over the seat facing away from the machine.\n
+        2. Hold the fixed handles slightly above shoulder height.\n
         3. Press the handles at an upward angle until your arms are fully extended.</string>
+    <string name="ex4Name">Pectoral fly</string>
+    <string name="ex4Description">1. Sit upright with your back supported by thee back pad.\n
+    2. Grip the revolving strap handles in a neutral position. Keep your arms out, at chest level, with your elbows slightly bent.\n
+    3. Rotate your arms forward, pivoting </string>
+    <string name="ex5Name">Push Up</string>
+    <string name="ex5Description">1. Get down on the ground.\n
+    2. Raise yourself by pushing the ground away from you.\n
+    3. Repeat lowering and raising at a steady pace.</string>
+    <string name="ex6Name">Pull Up</string>
+    <string name="ex6Description">1. Grab The Bar. Grip it about shoulder-width apart.\n
+2. Hang. Raise your feet off the floor by bending your knees.\n
+3. Pull. Pull yourself up by pulling your elbows down to the floor.\n
+4. Pass The bar. Pull yourself all the way up until your chin passes the bar.\n
+5. Repeat. Lower yourself all the way down until your arms are straight.</string>
+    <string name="ex7Name">Squat</string>
+    <string name="ex7Description">1. Stand with your head facing forward and your chest held up and out.\n
+2. Place your feet shoulder-width apart or slightly wider. Extend your hands straight out in front of you to help keep your balance. You can also bend the elbows or clasp the fingers.\n
+3. Sit back and down like you\'re sitting into an imaginary chair. Keep your head facing forward as your upper body bends forward a bit. Rather than allowing your back to round, let your lower back arch slightly as you descend.\n
+4. Lower down so your thighs are as parallel to the floor as possible, with your knees over your ankles. Press your weight back into your heels.\n
+5. Keep your body tight, and push through your heels to bring yourself back to the starting position.</string>
+    <string name="ex8Name">Plank</string>
+    <string name="ex8Description">1. Plant hands directly under shoulders (slightly wider than shoulder width) like you’re about to do a push-up.\n
+2. Ground toes into the floor and squeeze glutes to stabilize your body. Your legs should be working, too — be careful not to lock or hyperextend your knees.\n
+3. Neutralize your neck and spine by looking at a spot on the floor about a foot beyond your hands. Your head should be in line with your back.\n
+4. Hold the position for 20 seconds. As you get more comfortable with the move, hold your plank for as long as possible without compromising your form or breath.</string>
+    <string name="ex9Name">Crunches</string>
+    <string name="ex9Description">1.Lie on your back with your knees bent and feet flat on the floor, hip-width apart.\n
+2. Place your hands behind your head so your thumbs are behind your ears.\n
+3. Don’t lace your fingers together.\n
+4. Hold your elbows out to the sides but rounded slightly in.\n
+5. Tilt your chin slightly, leaving a few inches of space between your chin and your chest.\n
+6. Gently pull your abdominals inward.\n
+7. Curl up and forward so that your head, neck, and shoulder blades lift off the floor.\n
+8. Hold for a moment at the top of the movement and then lower slowly back down.</string>
+    <string name="ex10Name">Bench press</string>
+    <string name="ex10Description">1. Unrack the bar and position the bar directly above your shoulders (without losing tightness – keep squeezing your shoulder blades together!).\n
+2. Continue to look up at the ceiling, unlock your elbows and lower the bar to your chest. Don’t just drop the bar to your chest – you want to pull it down towards you with control.\n
+3. At the bottom of the movement, you want the bar to touch a few inches below your clavicles. If it’s up by your throat or on your stomach, it’s in the wrong position.\n
+        4. Once the bar touches your chest, press up to put the bar back to its starting position.\n
+        5. While pressing, remember to keep your elbows tucked in, and don’t let them flare out.\n
+        6. As you press, the same parts of your body that were touching the bench before should still be touching the bench, and your feet should still be on the floor.\n
+    </string>
+    <string name="ex11Name">Deadlift</string>
+    <string name="ex11Description">1. Stand with your mid-foot under the barbell.\n
+2. Bend over and grab the bar with a shoulder-width grip.\n
+3. Bend your knees until your shins touch the bar.\n
+4. Lift your chest up and straighten your lower back.\n
+5. Take a big breath, hold it, and stand up with the weight. </string>
+    <string name="ex12Name">Dips</string>
+    <string name="ex12Description">1.Setup. Grab the bars and jump up.\n
+2. Dip. Lower your body by bending your arms.\n
+3. Break Parallel. Go down until your shoulders are below your elbows at the bottom.\n
+4. Rise Up. Lift your body back up to the starting position by straightening your arms.\n
+5. Lockout. Balance yourself with your shoulders over your hands.</string>
+    <string name="ex13Name">Overhead Press</string>
+    <string name="ex13Description">1. Stand with the bar on your front shoulders, and your hands next to your shoulders\n
+2. Press the bar over your head, until it\’s balanced over your shoulders and mid-foot\n
+3. Lock your elbows at the top, and shrug your shoulders to the ceiling.\n
+        4. Hold the bar for a second at the top.\n
+        5. Then lower it back to your front shoulders and repeat.
+</string>
+    <string name="ex14Name">Romanian deadlift</string>
+    <string name="ex14Description">A) Holding a barbell in your hands, keep your knees slightly bent, your back straight and your core embraced.\n
+B) Hinge forwards at the hips, keeping your arms straight so the barbell is directly in front of your legs. Hold for 3 secs then return to the starting position.</string>
+    <string name="ex15Name">Farmer\'s Walk</string>
+    <string name="ex15Description">1. Standing with feet hip-width apart and weights at the outside of the ankles, hinge your hips back and bend the knees, keeping your back flat.\n
+2. Tighten up your lower back and abdominals before reaching down to grab the weights (again, the version above shows a variation where you\'re only using one weight, but if you\'re just starting out, you\'ll probably want to use two).\n
+3. After gripping the weights, begin to stand tall by driving your heels into the ground, maintaining a tight form. Once you reach full standing position, tighten your armpits and make sure your shoulders are pulled back to activate the muscles in the rotator cuff area.\n
+4. Finally, begin to take small steps forward, maintaining a strong grip and form. If you\'re returning in opposite direction, set the weights down, turn around, and then grab the weights again.</string>
+    <string name="ex16Name">Barbell hip thrust</string>
+    <string name="ex16Description">1. Begin by putting padding around your barbell to prevent it from digging into your hips when you thrust.\n
+2. Place your upper back on your bench with your barbell across your hips.\n
+3. Keep your feet planted firmly on the ground, close to your glutes.\n
+4. Drive your hips skyward, engaging your core and abs.\n
+5. Keep the movement in the lower body as much as possible (don\’t “rock” your upper body to complete the move).\n
+6. Hold for a count then lower to your starting position.</string>
+    <string name="ex17Name">Walking</string>
+    <string name="ex17Description"> If you\'re just starting to walk for fitness, begin with five to 10 minutes at a time. Add a few minutes to each walk until you get to at least 30 minutes per walk. Then, quicken your pace or add hills. </string>
+    <string name="ex18Name">Lunges</string>
+    <string name="ex18Description">1. Stand tall with feet hip-width apart. Engage your core.\n
+2. Take a big step forward with right leg. Start to shift your weight forward so heel hits the floor first.\n
+3. Lower your body until right thigh is parallel to the floor and right shin is vertical. It\’s OK if knee shifts forward a little as long as it doesn\’t go past right toe. If mobility allows, lightly tap left knee to the floor while keeping weight in right heel.\n
+4. Press into right heel to drive back up to starting position.\n
+5. Repeat on the other side.</string>
+    <string name="ex19Name">Military Press</string>
+    <string name="ex19Description">1. Position the bar in a squat rack at about shoulder height.\n
+2. Grab the bar with both hands, palms down, about shoulder-width apart.\n
+3. Position your feet so that if you drew a line straight down from the bar, it would go through the middle of your foot.\n
+4. Bring your upper chest to the bar so that it touches the base of your throat and rests atop your shoulders.\n
+5. Bring your shoulders under the bar so it\’s resting on top of your deltoids and upper chest.\n
+6. Stare at a point directly in front of you, lift the bar off the rack, take one step back with each foot, and position them about shoulder-width apart.\n
+7. Take a deep breath, flex your glutes as hard as you can, and push the bar into the ceiling, shifting your head back slightly if needed to allow the bar to move straight up.\n
+8. Once the bar clears the top of your head, force your torso under the bar while continuing to push it toward the ceiling until your arms are locked out.\n
+9. Reverse the motion to return the bar to your chest to get ready for the next rep.</string>
+    <string name="ex20Name">Running</string>
+    <string name="ex20Description"></string>
+    <string name="ex21Name">Cycling</string>
+    <string name="ex21Description">1. Protect your head.\n
+    2. Don\'t pedal in high gear for extended periods of time.\n
+    3. Use your gears.\n
+    4. Get a proper bike fit.\n
+    5. Get the right saddle.\n
+    6. Change position while riding.\n
+    7. Don\'t ride with headphones on.</string>
+    <string name="ex22Name">Roller skating</string>
+    <string name="ex22Description"></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

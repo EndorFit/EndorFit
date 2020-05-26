@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ public class ExercisesDetailsActivity extends AppCompatActivity {
         exTitleText.setText(thisExerciseKnowledgeBase.getName());
         exDescriptionText.setText(thisExerciseKnowledgeBase.getDescription());
         exCategoryAndDifficulty.setText("Category: " + thisExerciseKnowledgeBase.getCategory() + ", Difficulty: " + thisExerciseKnowledgeBase.getDifficultyLevel());
+        exImage.setImageBitmap(thisExerciseKnowledgeBase.getImage());
     }
     public ExerciseKnowledgeBase getOneExercise(int id)
     {
@@ -36,7 +39,15 @@ public class ExercisesDetailsActivity extends AppCompatActivity {
                 description.insert(i,'\n');
             }
         }
-        return new ExerciseKnowledgeBase(cursor.getInt(0),cursor.getString(1), cursor.getString(2), cursor.getString(4), description.toString());
+        Bitmap bitmap = DataBaseHelper.getImage(id,5);
+        //BitmapFactory.decodeByteArray(cursor.getBlob(5), 0, cursor.getBlob(5).length)
+        int exId = cursor.getInt(0);
+        String name = cursor.getString(1);
+        String category = cursor.getString(2);
+        String difficultyLevel = cursor.getString(4);
+        String internalType = cursor.getString(6);
+        cursor.close();
+        return new ExerciseKnowledgeBase(exId,name, category,description.toString() , difficultyLevel,DataBaseHelper.getImage(id,5),internalType);
     }
     public void initWidgets()
     {
