@@ -146,7 +146,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         spinnerExercise.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                DatabaseReference exerciseRef = database.getReference(user.getUid() + "/exercises/" + spinnerExercise.getSelectedItem().toString());
+                DatabaseReference exerciseRef = database.getReference("users/" + user.getUid() + "/exercises/" + spinnerExercise.getSelectedItem().toString());
                 exerciseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -273,12 +273,10 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         database = FirebaseDatabase.getInstance();
-        exercisesRef = database.getReference(user.getUid() + "/exercises/");
-
+        exercisesRef = database.getReference( "users/" + user.getUid() + "/exercises/");
         exercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 for(DataSnapshot item: dataSnapshot.getChildren()){
                     spinnerData.add(item.getKey());
                 }

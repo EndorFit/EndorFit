@@ -77,7 +77,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
                     return;
                 }
                 //Checking if exercise exists in DB is not needed, because we can't storage two exercise with the same name, so new exercise will just updated existing one.
-                exerciseRef = database.getReference("users/" + user.getUid() + "/exercises/" + name);
+                exerciseRef = database.getReference(  "users/" + user.getUid() + "/exercises/" + name);
                 Exercise newExercise = new Exercise(name,type);
                 exerciseRef.setValue(newExercise).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
