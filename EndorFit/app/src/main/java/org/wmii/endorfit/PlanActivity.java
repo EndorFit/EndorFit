@@ -250,7 +250,7 @@ public class PlanActivity extends AppCompatActivity {
 
         spinnerPlanName = findViewById(R.id.spinnerPlanName);
         plansList = new ArrayList<>();
-
+        recyclerViewPlan = findViewById(R.id.recyclerViewPlan);
         planContentList = new ArrayList<>();
         planItems = new ArrayList<>();
 

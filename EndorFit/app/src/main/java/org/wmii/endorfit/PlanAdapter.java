@@ -23,7 +23,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         mListener = listener;
     }
 
-    public static class PlanViewHolder extends RecyclerView.ViewHolder{
+    static class PlanViewHolder extends RecyclerView.ViewHolder{
         TextView adapterItemName;
         TextView adapterItemNameLabel;
         TextView adapterItemFirstCol;
