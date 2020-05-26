@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -14,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainWindowActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
-
+    private Button buttonToExercisesList;
     FirebaseAuth mAuth;
 
     @Override
@@ -22,10 +23,11 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
 
+        initWidgets();
         findViewById(R.id.imageViewRightIcon).setOnClickListener(this);
         findViewById(R.id.imageViewCenterIcon).setOnClickListener(this);
         findViewById(R.id.imageViewLeftIcon).setOnClickListener(this);
-
+        setOnClickListener();
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -34,9 +36,25 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             Intent intent = new Intent(MainWindowActivity.this, MainActivity.class);
             startActivity(intent);
         }
-
     }
-
+    public void initWidgets()
+    {
+        imageViewProfile = findViewById(R.id.imageViewRightIcon);
+        imageViewCenter = findViewById(R.id.imageViewCenterIcon);
+        imageViewLeft = findViewById(R.id.imageViewLeftIcon);
+        buttonToExercisesList = (Button) findViewById(R.id.buttonToExercises);
+    }
+    public void setOnClickListener()
+    {
+        buttonToExercisesList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainWindowActivity.this, ExercisesListActivity.class);
+                // intent.putExtra(myDb);
+                startActivity(intent);
+            }
+        });
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
