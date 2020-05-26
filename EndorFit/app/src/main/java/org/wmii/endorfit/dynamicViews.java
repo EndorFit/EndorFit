@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.InputType;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,44 +15,32 @@ public class dynamicViews {
     public dynamicViews(Context ctx) {
         this.ctx = ctx;
     }
-    public EditText descriptionTextView (Context context){
+
+
+    public Button buttonWorkout (Context context){
         final ViewGroup.LayoutParams lparams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        final EditText editText=new EditText(context);
+        final Button buttonWorkout=new Button(context);
         int id=0;
-        editText.setId(id);
-        editText.setMinEms(2);
-        editText.setTextColor(Color.rgb(0,0,0));
-        editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        return editText;
+        buttonWorkout.setId(id);
+        buttonWorkout.setMinEms(2);
+        buttonWorkout.setBackgroundColor(Color.rgb(250,150,100));
+        buttonWorkout.setWidth(30);
+        buttonWorkout.setHeight(30);
+
+        return buttonWorkout;
     }
-    public EditText repsEditText(Context context){
+
+    public CheckBox checkSet (Context context){
         final ViewGroup.LayoutParams lparams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        final EditText editText=new EditText(context);
+        final CheckBox checkSet=new CheckBox(context);
         int id=0;
-        editText.setId(id);
-        editText.setMinEms(2);
-        editText.setTextColor(Color.rgb(0,0,0));
-        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        return editText;
-    }
-    public EditText setsEditText(Context context){
-        final ViewGroup.LayoutParams lparams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        final EditText editText=new EditText(context);
-        int id=0;
-        editText.setId(id);
-        editText.setMinEms(2);
-        editText.setTextColor(Color.rgb(0,0,0));
-        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        return editText;
-    }
-    public EditText weightEditText(Context context){
-        final ViewGroup.LayoutParams lparams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        final EditText editText=new EditText(context);
-        int id=0;
-        editText.setId(id);
-        editText.setMinEms(2);
-        editText.setTextColor(Color.rgb(0,0,0));
-        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        return editText;
+        checkSet.setId(id);
+        checkSet.setBackgroundColor(Color.rgb(250,150,100));
+        checkSet.setWidth(100);
+        checkSet.setHeight(100);
+        checkSet.setFadingEdgeLength(10);
+        checkSet.setPadding(10,10,10,10);
+
+        return checkSet;
     }
 }

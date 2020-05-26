@@ -233,13 +233,15 @@ public class PlanActivity extends AppCompatActivity {
 
     private void buildRecyclerView() {
         progressBar.setVisibility(View.VISIBLE);
-        recyclerViewPlan.setHasFixedSize(true);
+
         planAdapter = new PlanAdapter(planItems);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-
+        recyclerViewPlan.setHasFixedSize(true);
         recyclerViewPlan.setLayoutManager(mLayoutManager);
         recyclerViewPlan.setAdapter(planAdapter );
         progressBar.setVisibility(View.GONE);
+        recyclerViewPlan = findViewById(R.id.recyclerViewPlan);
+
     }
 
     private void initializeObjects() {
@@ -249,7 +251,6 @@ public class PlanActivity extends AppCompatActivity {
         spinnerPlanName = findViewById(R.id.spinnerPlanName);
         plansList = new ArrayList<>();
 
-        recyclerViewPlan = findViewById(R.id.recyclerViewPlan);
         planContentList = new ArrayList<>();
         planItems = new ArrayList<>();
 
