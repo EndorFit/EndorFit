@@ -9,12 +9,12 @@ public class ExerciseKnowledgeBase {
     private String category;
     private String description;
     private String difficultyLevel;
-    private Bitmap image;
+    private String imagePath;
     private String internalType;
 
-    public ExerciseKnowledgeBase(int id, String name, String category, String description, String difficultyLevel, Bitmap image, String internalType) {
+    public ExerciseKnowledgeBase(int id, String name, String category, String description, String difficultyLevel, String imagePath, String internalType) {
         this(id,name,category,description,difficultyLevel,internalType);
-        this.image = image;
+        this.imagePath = imagePath;
     }
     public ExerciseKnowledgeBase(int id, String name, String category, String description, String difficultyLevel, String internalType) {
         this.id = id;
@@ -64,13 +64,22 @@ public class ExerciseKnowledgeBase {
     public void setDifficultyLevel(String difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
     }
-
     public Bitmap getImage() {
-        return image;
+        if (imagePath == null || imagePath.length() == 0)
+            return (null);
+        Bitmap reportPicture;
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 64;
+         reportPicture = BitmapFactory.decodeFile(imagePath);
+
+        return (reportPicture);
+    }
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
     //    public Exercise(String name, String category, String difficultyLevel, String path)
 //    {
