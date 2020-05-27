@@ -39,7 +39,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
     public void onBindViewHolder(@NonNull ExercisesRecyclerViewAdapter.ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called");
         holder.exerciseName.setText(exerciseKnowledgeBases.get(position).getName());
-        holder.exerciseImage.setImageBitmap(exerciseKnowledgeBases.get(position).getImage());
+//        holder.exerciseImage.setImageBitmap(exerciseKnowledgeBases.get(position).getImage());
         holder.exerciseCategoryAndDifficulty.setText("Category: " + exerciseKnowledgeBases.get(position).getCategory() + "\nDifficulty: " + exerciseKnowledgeBases.get(position).getDifficultyLevel());
         holder.exerciseCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +64,11 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             exerciseCard = (CardView) itemView.findViewById(R.id.exerciseCardView);
-            exerciseImage = (ImageView) itemView.findViewById(R.id.exerciseImage);
+            //exerciseImage = (ImageView) itemView.findViewById(R.id.exerciseImage);
             exerciseCategoryAndDifficulty = (TextView) itemView.findViewById(R.id.exerciseCategoryAndDifficultyTextView);
             exerciseName = (TextView) itemView.findViewById(R.id.exerciseNameTextView);
-            exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
-            exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
+            //exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
+           // exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
         }
     }
     public void setExerciseKnowledgeBases(DataBaseHelper db)
