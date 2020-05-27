@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp">
 
         <TextView
@@ -92,15 +92,14 @@
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp" />
 
-        <LinearLayout
+        <GridLayout
             android:id="@+id/placeCheck"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="5dp"
-            android:orientation="horizontal"
-            android:textAlignment="center"></LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:columnCount="5"
+            android:layout_toEndOf="@+id/textViewPlanItemThird"
+           ></GridLayout>
     </RelativeLayout>
 
 

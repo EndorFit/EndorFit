@@ -70,7 +70,8 @@ String timerValue;
                else if (clicked==false)
                     {
                         saveWorkout();
-                    }
+                        finish();
+                   }
             }
         });
 
@@ -136,6 +137,7 @@ timerDialog timerdialog=new timerDialog();
                     opentimerWindow();
                     state=doneSets.size()+"/"+allSets.size();
                     openTimer.setText(state);
+
 if (doneSets.size()==allSets.size())
 {
     openTimer.setBackgroundColor(-16711936);
