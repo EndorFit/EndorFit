@@ -78,7 +78,7 @@
                 android:layout_below="@id/buttonCreateNewPlan"
                 android:layout_marginTop="30dp"
                 android:textSize="20sp"
-                android:text="Add new exercise"
+                android:text="Exercises"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
                 android:background="@drawable/main_button_stroke_bg"

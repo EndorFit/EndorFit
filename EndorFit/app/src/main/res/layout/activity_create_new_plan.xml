@@ -42,8 +42,11 @@
         <RelativeLayout
             android:id="@+id/relLayoutPlan"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:background="@color/colorPrimary">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@id/relLayoutPlanButton">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewExercises"
@@ -51,79 +54,91 @@
                 android:layout_height="match_parent"
                 android:padding="4dp"
                 android:scrollbars="vertical" />
-
         </RelativeLayout>
+
 
         <RelativeLayout
-            android:id="@+id/relLayoutPlanButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/relLayoutPlan"
-            android:layout_marginTop="3dp">
+                android:id="@+id/relLayoutPlanButton"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="3dp">
 
-            <Spinner
-                android:id="@+id/spinnerExercise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp" />
+                <Spinner
+                    android:id="@+id/spinnerExercise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp" />
 
-            <TextView
-                android:id="@+id/txtViewExerciseType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_alignParentEnd="true"
-                android:textColor="@color/dark_text"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/txtViewExerciseType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/spinnerExercise"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_text"
+                    android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/editTextTopLeft"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/spinnerExercise"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:inputType="number"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/editTextTopLeft"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtViewExerciseType"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:inputType="number"
+                    android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/editTextTopRight"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/spinnerExercise"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:inputType="number"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/editTextTopRight"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtViewExerciseType"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:inputType="number"
+                    android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/editTextBotLeft"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/editTextTopLeft"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="15dp"
-                android:inputType="number"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/editTextBotLeft"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editTextTopLeft"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:inputType="number"
+                    android:singleLine="true" />
 
-            <ImageView
-                android:id="@+id/imageViewAddExercise"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_add_button"
-                android:layout_below="@id/editTextTopRight"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="25dp"/>
+                <ImageView
+                    android:id="@+id/imageViewAddExercise"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/editTextTopRight"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/ic_add_button" />
 
         </RelativeLayout>
 
-
     </RelativeLayout>
+
+
+
+    <ImageView
+        android:id="@+id/whiteLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorAccent"
+        android:layout_above="@+id/linLayoutBot"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
