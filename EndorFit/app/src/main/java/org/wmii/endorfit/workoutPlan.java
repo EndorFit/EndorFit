@@ -39,7 +39,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     FirebaseUser user;
     FirebaseAuth mAuth;
     View view;
-    LinearLayout mleyout;
+    GridLayout mleyout;
     ArrayList<String> planItems;
     ArrayList<Button> allExer ;
     DataSnapshot dataSnapshot;
@@ -111,7 +111,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     {
         starter=(Button) findViewById(R.id.buttonStart);
         button =(Button) findViewById(R.id.button);
-        mleyout = (LinearLayout) findViewById(R.id.leyout);
+        mleyout = (GridLayout) findViewById(R.id.leyout);
         planItems=new ArrayList<String>();
         allExer = new ArrayList<Button>();
 

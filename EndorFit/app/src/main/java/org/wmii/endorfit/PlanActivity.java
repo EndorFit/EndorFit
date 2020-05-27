@@ -270,3 +270,4 @@ public class PlanActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
     }
 }
+

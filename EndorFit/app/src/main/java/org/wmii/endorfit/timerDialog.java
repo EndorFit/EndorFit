@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ throw new ClassCastException(context.toString()+"must implement timer listener")
         AlertDialog.Builder builder =new AlertDialog.Builder(getActivity());
         LayoutInflater inflater =getActivity().getLayoutInflater();
         View view =inflater.inflate(R.layout.set_timer,null);
+
 builder.setView(view);
 builder.setTitle("Set timer");
 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

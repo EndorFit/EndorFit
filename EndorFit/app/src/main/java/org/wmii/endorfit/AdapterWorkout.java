@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ int i=0;
         TextView adapterItemSecondColLabel;
         TextView adapterItemThirdCol;
         TextView adapterItemThirdColLabel;
-        LinearLayout placeForCheckbox;
+        GridLayout placeForCheckbox;
 
 
         ExercViewHolder(@NonNull View itemView, final AdapterWorkout.OnItemClickListener listener) {
@@ -78,15 +79,14 @@ int i=0;
         holder.adapterItemSecondColLabel.setText(currentItem.getSecondColLabel());
         holder.adapterItemThirdCol.setText(currentItem.getThirdCol());
         holder.adapterItemThirdColLabel.setText(currentItem.getThirdColLabel());
+if(currentItem.getFirstColLabel()=="sets") {
+    for (int a = 0; a < Integer.parseInt(currentItem.getFirstCol()); a++) {
+        allSets.add(dnv.checkSet(context));
+        holder.placeForCheckbox.addView(allSets.get(i));
+        i++;
+    }
 
-        for (int a=0;a<Integer.parseInt(currentItem.getFirstCol());a++)
-        {
-            allSets.add(dnv.checkSet(context));
-            holder.placeForCheckbox.addView(allSets.get(i));
-            i++;
-        }
-
-
+}
     }
 
 

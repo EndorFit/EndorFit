@@ -79,14 +79,7 @@ public class workoutGo extends AppCompatActivity {
                 }
 
 
-                //todo wydobyć dane z dynamicznego widoku !!!!!!!
-                //todo zaplanować baze przechowujaca treningi cwiczenia etc
-                //todo zapakowac wszystko do struktur exercise Workout
-                //testowy kawalek kodu sztywne dodanie cwiczenia->workoutu ->baza
-                //tab[0]= new Exercise("nazwa","Exercise without weights",6,6,6);
-                // Workout nowy=new Workout("0",name.toString(),tab);
-                // exerciseRef = database.getReference(users.getUid() + "exercises/"+name );
-                // exerciseRef.setValue(tab[0]);
+                //todo delete this file ?
 
 
             }

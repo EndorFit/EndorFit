@@ -1,11 +1,16 @@
 package org.wmii.endorfit;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -19,7 +24,7 @@ public class timerWindow extends AppCompatActivity {
     private long TValue;
     private boolean isItRunning;
     private ProgressBar progressBar;
-
+    Vibrator v;
 
 
 
@@ -30,6 +35,8 @@ public class timerWindow extends AppCompatActivity {
         countdownText = findViewById(R.id.countdownText);
         startTimer = findViewById(R.id.buttonStart);
         progressBar=findViewById(R.id.progressTimer);
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         Intent intent=getIntent();
         String TimerValue=intent.getStringExtra(workoutTimer.TIMER_VALUE);
          TValue=Long.parseLong(TimerValue);
@@ -42,6 +49,7 @@ public class timerWindow extends AppCompatActivity {
                 startStop();
             }
         });
+        startStop();
 
     }
 
@@ -68,11 +76,13 @@ public class timerWindow extends AppCompatActivity {
             UpdateTimer();
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onFinish() {
                 countdownText.setText("00:00");
                 progressBar.setProgress((int)TValue*1000);
-//ask if set was complited then close timer ?TODO make dialog window with this question
+                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                finish();
             }
 
 
