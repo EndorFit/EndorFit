@@ -31,23 +31,16 @@ public class ExercisesDetailsActivity extends AppCompatActivity {
     {
         Cursor cursor = MainActivity.myDb.getOneRow(id);
         cursor.moveToFirst();
-        StringBuilder description = new StringBuilder(cursor.getString(3));
-        for(int i = 0;i < description.length();++i)
-        {
-            if(description.charAt(i) == '.')
-            {
-                description.insert(i,'\n');
-            }
-        }
         Bitmap bitmap = DataBaseHelper.getImage(id,5);
         //BitmapFactory.decodeByteArray(cursor.getBlob(5), 0, cursor.getBlob(5).length)
         int exId = cursor.getInt(0);
         String name = cursor.getString(1);
         String category = cursor.getString(2);
+        String description = cursor.getString(3);
         String difficultyLevel = cursor.getString(4);
         String internalType = cursor.getString(6);
         cursor.close();
-        return new ExerciseKnowledgeBase(exId,name, category,description.toString() , difficultyLevel,DataBaseHelper.getImage(id,5),internalType);
+        return new ExerciseKnowledgeBase(exId,name, category,difficultyLevel ,description.toString() ,DataBaseHelper.getImage(id,5),internalType);
     }
     public void initWidgets()
     {

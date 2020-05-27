@@ -74,15 +74,13 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
     }
     public void setExerciseKnowledgeBases(DataBaseHelper db)
     {
-        //TODO assigning data from database to this arrayList
-        //for(int i = 0;i < db.getSize(context);++i)
         Cursor result = db.getCategorizedData(tab);
         if(result.getCount() == 0){
             Log.d(TAG, "setExercises: Empty dataBase");
             return;
         }
         Log.d(TAG, "setExercises getCount" + result.getCount());
-        //else result.moveToFirst();
+        result.moveToFirst();
         //StringBuffer buffer = new StringBuffer();
         int id;
         String name = "";
@@ -100,7 +98,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
             difficultyLevel = result.getString(3);
             description = result.getString(4);
             internalType = result.getString(6);
-            ExerciseKnowledgeBase exerciseKnowledgeBase = new ExerciseKnowledgeBase(id, name,category,description,difficultyLevel,DataBaseHelper.getImage(id,5),internalType);
+            ExerciseKnowledgeBase exerciseKnowledgeBase = new ExerciseKnowledgeBase(id, name,category,description,difficultyLevel,DataBaseHelper.getImageToList(id,5),internalType);
             Log.d(TAG, "setExercises: Name: " + exerciseKnowledgeBase.getName() + ", category: " + exerciseKnowledgeBase.getCategory());
             exerciseKnowledgeBases.add(exerciseKnowledgeBase);
         }

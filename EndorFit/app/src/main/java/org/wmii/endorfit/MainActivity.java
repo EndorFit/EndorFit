@@ -55,7 +55,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         initializeObjects();
         myDb = new DataBaseHelper(this);
-        addToDataBase(this);
+        SharedPreferences settings = getSharedPreferences("prefs", 0);
+        boolean firstRun = settings.getBoolean("firstRun", true);
+        if ( firstRun )
+        {
+            // here run your first-time instructions, for example :
+            addToDataBase(this);
+        }
         editTxtPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -172,6 +178,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(trueCounter == booleans.size())
         {
             Log.d(TAG,"addToDataBase: succeeded");
+            SharedPreferences settings = getSharedPreferences("prefs", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("firstRun", false);
+            editor.commit();
             return true;
         }
         else
