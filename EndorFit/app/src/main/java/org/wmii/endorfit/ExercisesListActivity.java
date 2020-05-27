@@ -1,13 +1,12 @@
 package org.wmii.endorfit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import android.os.Bundle;
+import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,14 +16,16 @@ import com.google.android.material.tabs.TabLayout;
 
 public class ExercisesListActivity extends AppCompatActivity {
     private static String TAG = "ExercisesListActivity";
+    public static RecyclerView exercisesListRecyclerView;
+    public Bitmap exerciseDetailsImage;
     private TabLayout tabLayout;
     private TabItem tabChest, tabLegs, tabABSBack, tabShoulders, tabArms;
     private ViewPager viewPager;
     public PageAdapter pageAdapter;
-    public RecyclerView exercisesListRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises_list);
         Log.d(TAG,"onCreate: started");
@@ -71,6 +72,7 @@ public class ExercisesListActivity extends AppCompatActivity {
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
+
     public void initWidgets()
     {
         //exercisesListRecyclerView = (RecyclerView)findViewById(R.id.exersisesListRecyclerView);

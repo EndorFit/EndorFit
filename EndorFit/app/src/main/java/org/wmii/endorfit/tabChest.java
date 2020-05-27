@@ -32,9 +32,9 @@ public class tabChest extends Fragment {
         v = inflater.inflate(R.layout.fragment_tab_chest, container, false);
         //ExercisesListActivity.exercisesListRecyclerView = (RecyclerView) itemList.findViewById(R.id.exersisesListRecyclerView);
         ExercisesRecyclerViewAdapter adapter = new ExercisesRecyclerViewAdapter(super.getContext(),0);
-        exercisesListRecyclerView = (RecyclerView) v.findViewById(R.id.exersisesListRecyclerView);
-        exercisesListRecyclerView.setAdapter(adapter);
-        exercisesListRecyclerView.setLayoutManager(new LinearLayoutManager(super.getContext()));
+        ExercisesListActivity.exercisesListRecyclerView = (RecyclerView) v.findViewById(R.id.exersisesListRecyclerView);
+        ExercisesListActivity.exercisesListRecyclerView.setAdapter(adapter);
+        ExercisesListActivity.exercisesListRecyclerView.setLayoutManager(new LinearLayoutManager(super.getContext()));
         adapter.setExerciseKnowledgeBases(MainActivity.myDb);
         return v;
     }
