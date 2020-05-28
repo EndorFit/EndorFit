@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Blob;
 
 
@@ -27,7 +28,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COL_3 = "CATEGORY";
     public static final String COL_4 = "DIFFICULTY_LEVEL";
     public static final String COL_5 = "DESCRIPTION";
-    public static final String COL_6 = "IMAGE";
+    public static final String COL_6 = "IMAGE_FILE_NAME";
     public static final String COL_7 = "INTERNAL_TYPE";
     private int size = 0;
     private static final String TAG = "DataBaseHelper";
@@ -61,7 +62,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 COL_3 + " TEXT," +
                 COL_4 + " TEXT," +
                 COL_5 + " TEXT," +
-                COL_6 + " BLOB,"  +
+                COL_6 + " TEXT,"  +
                 COL_7 + " TEXT);");
     }
 
@@ -70,25 +71,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
-//    public void insertImg(int id , Bitmap img ) {
-//
-//
-//        byte[] data = getBitmapAsByteArray(img); // this is a function
-//
-//        insertStatement_logo.bindLong(1, id);
-//        insertStatement_logo.bindBlob(2, data);
-//
-//        insertStatement_logo.executeInsert();
-//        insertStatement_logo.clearBindings() ;
-//
-//    }
+
 
     public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 25, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 16, outputStream);
         return outputStream.toByteArray();
     }
-    public boolean insertData(String name, String category, String difficulty, String description, byte[] image, String internalType)
+    public boolean insertData(String name, String category, String difficulty, String description, String imageFileName, String internalType)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -96,7 +86,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_3, category);
         contentValues.put(COL_4, difficulty);
         contentValues.put(COL_5, description);
-        contentValues.put(COL_6,image);
+        contentValues.put(COL_6,imageFileName);
         contentValues.put(COL_7,internalType);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
@@ -115,35 +105,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.rawQuery("DROP TABLE " + TABLE_NAME, null);
     }
-    public void insertImg(int id , Bitmap img ) {
-        // String insertStatement_logo = "INSERT INTO "
-        SQLiteDatabase db = this.getWritableDatabase();
-        byte[] data = getBitmapAsByteArray(img); // this is a function
-        ContentValues contentValues = new ContentValues();
-//        contentValues.put(COL_6, img).bindLong(1, id);
-//        insertStatement_logo.bindBlob(2, data);
-//
-//        insertStatement_logo.executeInsert();
-//        insertStatement_logo.clearBindings() ;
 
-    }
-    //TODO method returning One Exercise - I will use that in  both list and description
-    //TODO so I need 2 methods - one for the list and one for the description
-    //TODO - I don't need a description in the list
-    //doesn't work properly!!!
-//    public Exercise getExerciseFromDatabase(int id){
-//        SQLiteDatabase db = this.getWritableDatabase();
-////        if(db.rawQuery("SELECT " + "*" + " FROM " + TABLE_NAME + " WHERE " + )){
-////
-////        }
-//
-//        Exercise exercise = new Exercise(
-//                db.rawQuery("SELECT " + COL_2 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + id + ";", null).toString(),
-//                db.rawQuery("SELECT " + COL_3 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + id + ";", null).toString(),
-//                db.rawQuery("SELECT " + COL_5 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + id + ";", null).toString(),
-//                db.rawQuery("SELECT " + COL_4 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + id + ";", null).toString());
-//        return exercise;
-//    }
     public static Bitmap getImage(int id, int columnIndex){
         //SQLiteDatabase db = this.getWritableDatabase();
         //String qu = "select " + COL_6 + "  from " + TABLE_NAME + " where " + COL_1 + "=" + i ;
@@ -158,7 +120,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (cur != null && !cur.isClosed()) {
             cur.close();
         }
-
         return null;
     }
     public static Bitmap getImageToList(int id, int columnIndex){
@@ -188,7 +149,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getCategorizedData(int category)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         String categoryString;
         switch (category)
         {
@@ -227,10 +188,31 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getOneRow(int id)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + id,null);
         return result;
     }
+    public String getPicturePath(int id, Context context, Bitmap picture) {
+        // Saves the new picture to the internal storage with the unique identifier of the report as
+        // the name. That way, there will never be two report pictures with the same name.
+        String picturePath = "";
+        File internalStorage = context.getDir("DatabasePictures", Context.MODE_PRIVATE);
+        File reportFilePath = new File(internalStorage + Integer.toString(id) + ".jpeg");
+        picturePath = reportFilePath.toString();
 
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(reportFilePath);
+            picture.compress(Bitmap.CompressFormat.JPEG, 10 /*quality*/, fos);
+            fos.close();
+        }
+        catch (Exception ex) {
+            Log.i("DATABASE", "Problem updating picture", ex);
+            picturePath = "";
+        }
 
+                return picturePath;
+
+    }
 }
+

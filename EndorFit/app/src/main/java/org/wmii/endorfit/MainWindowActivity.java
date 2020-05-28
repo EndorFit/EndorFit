@@ -11,12 +11,18 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class MainWindowActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
     private Button buttonToExercisesList;
     FirebaseAuth mAuth;
+
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +36,50 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         setOnClickListener();
         mAuth = FirebaseAuth.getInstance();
 
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser == null) {
             Toast.makeText(this, "User is not sign in", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainWindowActivity.this, MainActivity.class);
             startActivity(intent);
         }
+
+
+        preparePreDefineExercise();
+
     }
+
+    private void preparePreDefineExercise() {
+        ArrayList<Exercise> predefExercise = new ArrayList<>();
+        predefExercise.add(new Exercise("Bench press","Exercise with weights"));
+        predefExercise.add(new Exercise("Single arm tricep pushdown","Exercise with weights"));
+        predefExercise.add(new Exercise("Romanian deadlift","Exercise with weights"));
+        predefExercise.add(new Exercise("Overhead Press","Exercise with weights"));
+        predefExercise.add(new Exercise("Military Press","Exercise with weights"));
+        predefExercise.add(new Exercise("Inner thigh","Exercise with weights"));
+        predefExercise.add(new Exercise("Deadlift","Exercise with weights"));
+        predefExercise.add(new Exercise("Lunges","Exercise without weights"));
+
+        predefExercise.add(new Exercise("Dips","Exercise without weights"));
+        predefExercise.add(new Exercise("Crunches","Exercise without weights"));
+        predefExercise.add(new Exercise("Pull Up","Exercise without weights"));
+        predefExercise.add(new Exercise("Barbell hip thrust","Exercise without weights"));
+        predefExercise.add(new Exercise("Squat","Exercise without weights"));
+
+        predefExercise.add(new Exercise("Walking","Running"));
+        predefExercise.add(new Exercise("Cycling","Running"));
+        predefExercise.add(new Exercise("Running","Running"));
+        predefExercise.add(new Exercise("Roller skating","Running"));
+
+        database = FirebaseDatabase.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        for(Exercise exercise : predefExercise)
+        {
+            DatabaseReference preExe = database.getReference("users/" + user.getUid() + "/exercises/" + exercise.getName());
+            preExe.setValue(exercise);
+        }
+    }
+
     public void initWidgets()
     {
         imageViewProfile = findViewById(R.id.imageViewRightIcon);

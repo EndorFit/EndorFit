@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +30,7 @@ public class ExercisesDetailsActivity extends AppCompatActivity {
     {
         Cursor cursor = MainActivity.myDb.getOneRow(id);
         cursor.moveToFirst();
-        Bitmap bitmap = DataBaseHelper.getImage(id,5);
+        //Bitmap bitmap = DataBaseHelper.getImage(id,5);
         //BitmapFactory.decodeByteArray(cursor.getBlob(5), 0, cursor.getBlob(5).length)
         int exId = cursor.getInt(0);
         String name = cursor.getString(1);
@@ -39,8 +38,9 @@ public class ExercisesDetailsActivity extends AppCompatActivity {
         String description = cursor.getString(3);
         String difficultyLevel = cursor.getString(4);
         String internalType = cursor.getString(6);
+        String imagePath = cursor.getString(5);
         cursor.close();
-        return new ExerciseKnowledgeBase(exId,name, category,difficultyLevel ,description.toString() ,DataBaseHelper.getImage(id,5),internalType);
+        return new ExerciseKnowledgeBase(exId,name, category,difficultyLevel ,description.toString() ,imagePath,internalType);
     }
     public void initWidgets()
     {
