@@ -66,6 +66,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
     LatLng oldLatLng;
 
+    pl.droidsonroids.gif.GifImageView gifIMG;
 
     FirebaseDatabase database;
     DatabaseReference exerciseRef;
@@ -87,7 +88,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
         saveRunButton = (Button) findViewById(R.id.saveRunButton);
         stopButton.setEnabled(false);
         stopButton.setVisibility(View.GONE);
-
+        gifIMG= (pl.droidsonroids.gif.GifImageView) findViewById(R.id.gifIMG);
 
         textSpeed = (TextView) findViewById(R.id.textSpeed) ;
         textDistance = (TextView) findViewById(R.id.textDistance) ;
@@ -106,6 +107,9 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                     stopButton.setEnabled(true);
                     startButton.setVisibility(View.GONE);
                     stopButton.setVisibility(View.VISIBLE);
+                    gifIMG.setVisibility(View.GONE);
+
+
                     clicked=true;
 
 
@@ -144,6 +148,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                             RunTime=timerEnd;
                             double totalDistance=getTotalDistance();
                             double speed=getSpeed(totalDistance,timerEnd);
+
 
 
                             int min= (int) (timerEnd/60);

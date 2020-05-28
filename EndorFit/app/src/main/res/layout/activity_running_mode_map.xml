@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".RunningModeMap">
+
+
 
     <fragment
         android:id="@+id/google_map"
@@ -101,5 +104,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/startButton" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifIMG"
+        android:layout_width="438dp"
+        android:layout_height="99dp"
+        android:layout_marginStart="60dp"
+        android:layout_x="142dp"
+        android:layout_y="593dp"
+        android:src="@drawable/skaczacy_krolik"
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/google_map"
+        app:layout_constraintVertical_bias="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
