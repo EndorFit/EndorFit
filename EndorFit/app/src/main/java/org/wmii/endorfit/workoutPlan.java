@@ -1,10 +1,12 @@
 package org.wmii.endorfit;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -92,6 +94,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void addView(View view) {
         this.view = view;
         dnv = new dynamicViews(context);
