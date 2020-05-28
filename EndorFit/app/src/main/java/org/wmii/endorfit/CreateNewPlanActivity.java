@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -265,6 +266,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         imageViewRightIcon = findViewById(R.id.imageViewRightIcon);
 
         spinnerExercise = findViewById(R.id.spinnerExercise);
+
 
         spinnerData = new ArrayList<>();
         planDB= new ArrayList<>();

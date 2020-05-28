@@ -212,6 +212,8 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
+        MainActivity.myDb.getAllData();
+
     }
 
     private void initializeObjects() {

@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public boolean addToDataBase(Context context)
     {
+
         Context thisContext = context;
         String[] internalTypes = context.getResources().getStringArray(R.array.exercisesType);
         ArrayList<Boolean> booleans = new ArrayList<>();

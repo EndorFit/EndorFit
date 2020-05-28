@@ -28,6 +28,7 @@ public class tabLegs extends Fragment { View v;
         ExercisesListActivity.exercisesListRecyclerView.setAdapter(adapter);
         ExercisesListActivity.exercisesListRecyclerView.setLayoutManager(new LinearLayoutManager(super.getContext()));
         adapter.setExerciseKnowledgeBases(MainActivity.myDb);
+
         return v;
     }
 }
