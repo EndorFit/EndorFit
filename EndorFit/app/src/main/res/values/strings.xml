@@ -13,7 +13,7 @@
         <item>Exercise with weights</item>
         <item>Exercise without weights</item>
         <item>Exercise with time</item>
-        <item>Running</item>
+        <item>Moving</item>
     </array>
     <string name="exDifficultyEasy">Easy</string>
     <string name="exDifficultyMedium">Medium</string>

@@ -211,7 +211,7 @@ if (doneSets.size()==allSets.size())
                     String distance;
 
                     switch (type) {
-                        case "Running":
+                        case "Moving":
                             time = String.valueOf(tempExercise.getTime());
                             distance = String.valueOf(tempExercise.getDistance());
                             planItemsExer.add(new Exercise(name,Double.parseDouble(time),Double.parseDouble(distance)));

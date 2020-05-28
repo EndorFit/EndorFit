@@ -120,10 +120,10 @@ public class PlanActivity extends AppCompatActivity {
                             String distance;
 
                             switch (type){
-                                case "Running":
+                                case "Moving":
                                     time = String.valueOf(tempExercise.getTime());
                                     distance = String.valueOf(tempExercise.getDistance());
-                                    planItems.add(new PlanItem(name,"name",time,"time",distance,"distance",false));
+                                    planItems.add(new PlanItem(name,"name","","","","name",false));
                                     break;
                                 case "Exercise with weights":
                                     sets = String.valueOf(tempExercise.getSets());

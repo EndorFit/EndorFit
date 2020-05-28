@@ -30,7 +30,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -45,7 +44,9 @@ public class CreateNewPlanActivity extends AppCompatActivity {
 
     Spinner spinnerExercise;
     SpinnerAdapter adapter;
-    ArrayList<String> spinnerData;
+    ArrayList<String> spinnerData_full;
+    ArrayList<String> spinnerData_gym;
+    ArrayList<String> spinnerData_moving;
 
     RecyclerView recyclerViewExercises;
     PlanAdapter planAdapter;
@@ -102,13 +103,13 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                 String topRight = editTextTopRight.getText().toString();
                 String botLeft = editTextBotLeft.getText().toString();
 
-                if(topLeft.isEmpty()){
+                if(topLeft.isEmpty() && !type.equals("Moving")){
                     editTextTopLeft.setError("Required");
                     editTextTopLeft.requestFocus();
                     progressBar.setVisibility(View.GONE);
                     return;
                 }
-                if(topRight.isEmpty()){
+                if(topRight.isEmpty() && !type.equals("Moving")){
                     editTextTopRight.setError("Required");
                     editTextTopRight.requestFocus();
                     progressBar.setVisibility(View.GONE);
@@ -122,9 +123,11 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                 }
 
                 switch (type){
-                    case "Running":
-                        PlanItems.add(new PlanItem(name,"name",topLeft,"time",topRight,"distance"));
-                        planDB.add(new Exercise(name,type,Double.parseDouble(topLeft),Double.parseDouble(topRight)));
+                    case "Moving":
+                        PlanItems.add(new PlanItem(name,"","","","",""));
+                        planDB.add(new Exercise(name,type,0,0));
+                        editTextPlanName.setText(name);
+                        editTextPlanName.setEnabled(false);
                         break;
                     case "Exercise with weights":
                         PlanItems.add(new PlanItem(name,"name",topLeft,"sets",topRight,"reps",botLeft,"weights"));
@@ -140,6 +143,9 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                         break;
                 }
                 planAdapter.notifyItemInserted(PlanItems.size()-1);
+
+
+                planChanged(false);
 
             }
         });
@@ -181,19 +187,23 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                 editTextBotLeft.setText("");
                 switch(txtViewExerciseType.getText().toString())
                 {
-                    case "Running":
+                    case "Moving":
                         editTextTopLeft.setVisibility(View.VISIBLE);
-                        editTextTopLeft.setHint("Time");
+                        editTextTopLeft.setHint("");
+                        editTextTopLeft.setEnabled(false);
                         editTextTopRight.setVisibility(View.VISIBLE);
-                        editTextTopRight.setHint("Distance");
+                        editTextTopRight.setEnabled(false);
+                        editTextTopRight.setHint("");
                         editTextBotLeft.setVisibility(View.GONE);
                         progressBar.setVisibility(View.GONE);
                         break;
                     case "Exercise with weights":
                         editTextTopLeft.setVisibility(View.VISIBLE);
                         editTextTopLeft.setHint("Series");
+                        editTextTopLeft.setEnabled(true);
                         editTextTopRight.setVisibility(View.VISIBLE);
                         editTextTopRight.setHint("Reps");
+                        editTextTopRight.setEnabled(true);
                         editTextBotLeft.setVisibility(View.VISIBLE);
                         editTextBotLeft.setHint("Weights");
                         progressBar.setVisibility(View.GONE);
@@ -201,16 +211,20 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                     case "Exercise without weights":
                         editTextTopLeft.setVisibility(View.VISIBLE);
                         editTextTopLeft.setHint("Series");
+                        editTextTopLeft.setEnabled(true);
                         editTextTopRight.setVisibility(View.VISIBLE);
                         editTextTopRight.setHint("Reps");
+                        editTextTopRight.setEnabled(true);
                         editTextBotLeft.setVisibility(View.GONE);
                         progressBar.setVisibility(View.GONE);
                         break;
                     case "Exercise with time":
                         editTextTopLeft.setVisibility(View.VISIBLE);
                         editTextTopLeft.setHint("Series");
+                        editTextTopLeft.setEnabled(true);
                         editTextTopRight.setVisibility(View.VISIBLE);
                         editTextTopRight.setHint("Reps");
+                        editTextTopRight.setEnabled(true);
                         editTextBotLeft.setVisibility(View.VISIBLE);
                         editTextBotLeft.setHint("Time");
                         progressBar.setVisibility(View.GONE);
@@ -248,6 +262,36 @@ public class CreateNewPlanActivity extends AppCompatActivity {
 
     }
 
+    private void planChanged(boolean isMinus) {
+        if(planDB.size() == 0)
+        {
+            adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_full);
+            spinnerExercise.setAdapter(adapter);
+            imageViewAddButton.setEnabled(true);
+            spinnerExercise.setEnabled(true);
+            editTextPlanName.setText("");
+            editTextPlanName.setEnabled(true);
+        }
+        else if(planDB.size() == 1)
+        {
+            if(txtViewExerciseType.getText().toString().equals("Moving"))
+            {
+                //ArrayList<String> empty = new ArrayList<>();
+                //adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, empty);
+                //spinnerExercise.setAdapter(adapter);
+                spinnerExercise.setEnabled(false);
+                imageViewAddButton.setEnabled(!imageViewAddButton.isEnabled());
+            }
+            else if(!isMinus)
+            {
+                adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_gym);
+                spinnerExercise.setAdapter(adapter);
+                imageViewAddButton.setEnabled(true);
+                spinnerExercise.setEnabled(true);
+            }
+        }
+    }
+
     private void initializeObjects() {
         progressBar = findViewById(R.id.progressBar);
 
@@ -268,7 +312,8 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         spinnerExercise = findViewById(R.id.spinnerExercise);
 
 
-        spinnerData = new ArrayList<>();
+        spinnerData_full = new ArrayList<>();
+        spinnerData_gym = new ArrayList<>();
         planDB= new ArrayList<>();
         PlanItems = new ArrayList<>();
 
@@ -280,14 +325,22 @@ public class CreateNewPlanActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot item: dataSnapshot.getChildren()){
-                    spinnerData.add(item.getKey());
+                    spinnerData_full.add(item.getKey());
+                    String name = "";
+                    String type = "";
+                    for(DataSnapshot temp : item.getChildren())
+                    {
+                        if(temp.getKey().equals("name")) name = temp.getValue().toString();
+                        if(temp.getKey().equals("type")) type = temp.getValue().toString();
+                    }
+                    if(!type.equals("Moving")) spinnerData_gym.add(name);
                 }
-                if(spinnerData.isEmpty()){
+                if(spinnerData_full.isEmpty()){
                     Toast.makeText(CreateNewPlanActivity.this, "There is no exercise. Add some and comeback", Toast.LENGTH_LONG).show();
                     Intent backIntent = new Intent(CreateNewPlanActivity.this, PlanActivity.class);
                     startActivity(backIntent);
                 }
-                adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData);
+                adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_full);
                 spinnerExercise.setAdapter(adapter);
             }
 
@@ -328,6 +381,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                     editTextBotLeft.setText("");
                     editTextPlanName.setText("");
                     progressBar.setVisibility(View.GONE);
+                    planChanged(false);
                 }
                 else {
                     Toast.makeText(CreateNewPlanActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -353,6 +407,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                 PlanItems.remove(position);
                 planAdapter.notifyItemRemoved(position);
                 planDB.remove(position);
+                planChanged(true);
             }
         });
     }

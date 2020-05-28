@@ -32,6 +32,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         TextView adapterItemSecondColLabel;
         TextView adapterItemThirdCol;
         TextView adapterItemThirdColLabel;
+        TextView adapterItemFull;
         ImageView adapterImageViewDelete;
 
         PlanViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
@@ -45,6 +46,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             adapterItemThirdCol = itemView.findViewById(R.id.textViewPlanItemThird);
             adapterItemThirdColLabel = itemView.findViewById(R.id.textViewPlanItemThirdLabel);
             adapterImageViewDelete = itemView.findViewById(R.id.imageViewDelete);
+            adapterItemFull = itemView.findViewById(R.id.textViewFull);
 
             adapterImageViewDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,17 +78,39 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     public void onBindViewHolder(@NonNull PlanViewHolder holder, int position) {
         PlanItem currentItem = mPlanList.get(position);
 
-        holder.adapterItemName.setText(currentItem.getName());
-        holder.adapterItemNameLabel.setText(currentItem.getNameLabel());
-        holder.adapterItemFirstCol.setText(currentItem.getFirstCol());
-        holder.adapterItemFirstColLabel.setText(currentItem.getFirstColLabel());
-        holder.adapterItemSecondCol.setText(currentItem.getSecondCol());
-        holder.adapterItemSecondColLabel.setText(currentItem.getSecondColLabel());
-        holder.adapterItemThirdCol.setText(currentItem.getThirdCol());
-        holder.adapterItemThirdColLabel.setText(currentItem.getThirdColLabel());
-        if(currentItem.isEnableDelete() == false){
-            holder.adapterImageViewDelete.setVisibility(View.GONE);
+
+        if(!currentItem.getSecondCol().isEmpty())
+        {
+            holder.adapterItemName.setText(currentItem.getName());
+            holder.adapterItemNameLabel.setText(currentItem.getNameLabel());
+            holder.adapterItemFirstCol.setText(currentItem.getFirstCol());
+            holder.adapterItemFirstColLabel.setText(currentItem.getFirstColLabel());
+            holder.adapterItemSecondCol.setText(currentItem.getSecondCol());
+            holder.adapterItemSecondColLabel.setText(currentItem.getSecondColLabel());
+            holder.adapterItemThirdCol.setText(currentItem.getThirdCol());
+            holder.adapterItemThirdColLabel.setText(currentItem.getThirdColLabel());
+            holder.adapterItemFull.setVisibility(View.GONE);
+            if(currentItem.isEnableDelete() == false){
+                holder.adapterImageViewDelete.setVisibility(View.GONE);
+            }
         }
+        else
+        {
+            holder.adapterItemFull.setText(currentItem.getName());
+            holder.adapterItemFull.setVisibility(View.VISIBLE);
+            if(currentItem.isEnableDelete() == false){
+                holder.adapterImageViewDelete.setVisibility(View.GONE);
+            }
+            holder.adapterItemName.setText("");
+            holder.adapterItemNameLabel.setText("");
+            holder.adapterItemFirstCol.setText("");
+            holder.adapterItemFirstColLabel.setText("");
+            holder.adapterItemSecondCol.setText("");
+            holder.adapterItemSecondColLabel.setText("");
+            holder.adapterItemThirdCol.setText("");
+            holder.adapterItemThirdColLabel.setText("");
+        }
+
     }
 
     @Override

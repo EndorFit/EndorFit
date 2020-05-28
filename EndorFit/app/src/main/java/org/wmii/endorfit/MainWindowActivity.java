@@ -21,6 +21,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
     private Button buttonToExercisesList;
     Button startRun;
+    Button buttonCompletedPlans;
     FirebaseAuth mAuth;
 
     FirebaseDatabase database;
@@ -67,10 +68,10 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         predefExercise.add(new Exercise("Barbell hip thrust","Exercise without weights"));
         predefExercise.add(new Exercise("Squat","Exercise without weights"));
 
-        predefExercise.add(new Exercise("Walking","Running"));
-        predefExercise.add(new Exercise("Cycling","Running"));
-        predefExercise.add(new Exercise("Running","Running"));
-        predefExercise.add(new Exercise("Roller skating","Running"));
+        predefExercise.add(new Exercise("Walking","Moving"));
+        predefExercise.add(new Exercise("Cycling","Moving"));
+        predefExercise.add(new Exercise("Running","Moving"));
+        predefExercise.add(new Exercise("Roller skating","Moving"));
 
         database = FirebaseDatabase.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -88,6 +89,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         imageViewLeft = findViewById(R.id.imageViewLeftIcon);
         buttonToExercisesList = (Button) findViewById(R.id.buttonToExercises);
         startRun = (Button) findViewById(R.id.buttonStartRunningMode);
+        buttonCompletedPlans = findViewById(R.id.buttonCompletedPlans);
     }
     public void setOnClickListener()
     {
@@ -104,6 +106,14 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RunningModeMap.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonCompletedPlans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CompletedPlansActivity.class);
                 startActivity(intent);
             }
         });

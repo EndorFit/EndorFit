@@ -31,6 +31,12 @@ public class PlanItem {
         this.enableDelete = enableDelete;
     }
 
+    PlanItem(String name, String nameLabel)
+    {
+        this.name = name;
+        this.nameLabel = nameLabel;
+    }
+
 
     PlanItem(String name, String nameLabel, String firstCol, String firstColLabel, String secondCol, String secondColLabel, String thirdCol, String thirdColLabel) {
         this.name = name;
