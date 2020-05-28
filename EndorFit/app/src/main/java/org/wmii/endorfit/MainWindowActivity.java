@@ -60,7 +60,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainWindowActivity.this, Calendar.class);
+                Intent intent = new Intent(MainWindowActivity.this, CalendarDateChoosing.class);
                 startActivity(intent);
             }
         });

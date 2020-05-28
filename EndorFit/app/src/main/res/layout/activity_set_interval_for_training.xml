@@ -8,113 +8,131 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set the interval"
+        android:text="@string/setTheInterval"
         android:textColor="@color/colorPrimary"
-        android:textSize="25sp"
+        android:textSize="30sp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:id="@+id/textViewIntervalSetting"
         />
-    <Button
-        android:layout_width="match_parent"
+    <RadioGroup
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewIntervalSetting"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="I don't won't to set an interval"
+        android:id="@+id/radioGroupInterval"
+        android:theme="@style/AlertDialog"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setInterval1"
+            android:id="@+id/radioButton1Day"
+            android:textSize="20sp"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setInterval2"
+            android:id="@+id/radioButton2Days"
+            android:textSize="20sp"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setInterval3"
+            android:id="@+id/radioButton3Days"
+            android:textSize="20sp"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setInterval4"
+            android:id="@+id/radioButton4Days"
+            android:textSize="20sp"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setInterval5"
+            android:id="@+id/radioButton5Days"
+            android:textSize="20sp"
+
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setInterval6"
+            android:id="@+id/radioButton6Days"
+            android:textSize="20sp"
+
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setInterval7"
+            android:id="@+id/radioButton7Days"
+            android:textSize="20sp"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/IntervalOther"
+            android:id="@+id/radioButtonOther"
+            android:textSize="20sp"
+            />
+    </RadioGroup>
+    <EditText
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSetIntervalDone"
+        android:layout_toRightOf="@+id/radioGroupInterval"
+        android:textSize="20sp"
+        android:id="@+id/editTextTypeInYourInterval"
+        android:inputType="number"
+        android:layout_marginBottom="0dp"
+        android:outlineSpotShadowColor="@color/dark_text"
+        android:hint=" No"
+        android:padding="4sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="days"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textViewIntervalDays"
+        android:layout_above="@+id/buttonSetIntervalDone"
+        android:layout_toRightOf="@+id/editTextTypeInYourInterval"
+        android:layout_marginLeft="0dp"
+        android:textColor="@color/dark_text"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroupInterval"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/DateDone"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="20sp"
+        android:background="@drawable/main_button_stroke_bg"
+        android:id="@+id/buttonSetIntervalDone"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSetIntervalDone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/setIntervalDontWantTo"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:textSize="20sp"
         android:background="@drawable/main_button_stroke_bg"
         android:id="@+id/buttonNoInterval"
         />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="days"
-        android:textSize="10sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/textViewDateDays"
-        />
-
-    <EditText
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button5Days"
-        android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:id="@+id/editTextTypeInYourInterval"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="days"
-        android:textSize="10sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/textViewDateDays"
-        android:layout_below="@+id/button5Days"
-        android:layout_toRightOf="@+id/editTextTypeInYourInterval"
-        />
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonNoInterval"
-        android:layout_centerHorizontal="true"
-        >
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 day"
-            android:id="@+id/radioButton1Day"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 day"
-            android:id="@+id/radioButton2Days"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 day"
-            android:id="@+id/radioButton3Days"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 day"
-            android:id="@+id/radioButton4Days"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 day"
-            android:id="@+id/radioButton5Days"
-
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 day"
-            android:id="@+id/radioButton6Days"
-
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 day"
-            android:id="@+id/radioButton7Days"
-
-            />
-    </RadioGroup>
-
 </RelativeLayout>
