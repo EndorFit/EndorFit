@@ -2,6 +2,7 @@ package org.wmii.endorfit;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -52,7 +53,6 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
     TextView textTime;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
-
 
 
     LatLng oldLatLng;
@@ -109,30 +109,52 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                 @Override
                 public void onClick(View view) {
 
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(RunningModeMap.this);
+                    builder.setCancelable(false);
+                    builder.setIcon(R.drawable.warning_icon_default);
+                    builder.setMessage("Are you sure to stop?");
+                    builder.setTitle("Please, Confirm...");
+                    builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            long timerEnd = (System.currentTimeMillis()-timer)/1000;
+                            double totalDistance=getTotalDistance();
+                            double speed=getSpeed(totalDistance,timerEnd);
 
-                    long timerEnd = (System.currentTimeMillis()-timer)/1000;
-                    double totalDistance=getTotalDistance();
-                    double speed=getSpeed(totalDistance,timerEnd);
+
+                            int min= (int) (timerEnd/60);
+                            int sec= (int) (timerEnd%60);
+                            startButton.setEnabled(true);
+                            stopButton.setEnabled(false);
+                            stopButton.setVisibility(View.GONE);
+                            newRunButton.setVisibility(View.VISIBLE);
+                            clicked=false;
+
+                            textSpeed.setTextSize(15);
+                            textDistance.setTextSize(15);
+                            textTime.setTextSize(15);
+
+                            textDistance.setText(String.format("DISTANCE: \n%.2f km\n%.2f m",totalDistance/1000,totalDistance));
+                            textTime.setText("TIME:\n"+min+" min\n"+sec+" sec");
+                            textSpeed.setText(String.format("SPEED: \n%.2f m/s",speed));
+
+                            SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
+                            supportMapFragment.getMapAsync(RunningModeMap.this);
+                        }
+                    });
+                    final AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                    dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                    dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
 
 
-                    int min= (int) (timerEnd/60);
-                    int sec= (int) (timerEnd%60);
-                    startButton.setEnabled(true);
-                    stopButton.setEnabled(false);
-                    stopButton.setVisibility(View.GONE);
-                    newRunButton.setVisibility(View.VISIBLE);
-                    clicked=false;
-
-                    textSpeed.setTextSize(15);
-                    textDistance.setTextSize(15);
-                    textTime.setTextSize(15);
-
-                    textDistance.setText(String.format("DISTANCE: \n%.2f km\n%.2f m",totalDistance/1000,totalDistance));
-                    textTime.setText("TIME:\n"+min+" min\n"+sec+" sec");
-                    textSpeed.setText("SPEED: \n"+speed+" m/s");
-
-                    SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
-                    supportMapFragment.getMapAsync(RunningModeMap.this);
 
 
 
