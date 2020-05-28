@@ -203,7 +203,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(reportFilePath);
-            picture.compress(Bitmap.CompressFormat.JPEG, 10 /*quality*/, fos);
+            picture.compress(Bitmap.CompressFormat.JPEG, 32 /*quality*/, fos);
             fos.close();
         }
         catch (Exception ex) {

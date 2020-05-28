@@ -18,6 +18,15 @@
             android:text="Show exercises list"
             android:id="@+id/buttonToExercises"
             />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SET TRAINING DATE"
+            android:id="@+id/buttonSetTrainingDate"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/buttonToExercises"
+            android:layout_marginTop="50dp"
+            />
     </RelativeLayout>
 
     <LinearLayout

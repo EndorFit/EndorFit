@@ -16,6 +16,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
     private Button buttonToExercisesList;
+    private Button buttonToDateSetting;
     FirebaseAuth mAuth;
 
     @Override
@@ -43,6 +44,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         imageViewCenter = findViewById(R.id.imageViewCenterIcon);
         imageViewLeft = findViewById(R.id.imageViewLeftIcon);
         buttonToExercisesList = (Button) findViewById(R.id.buttonToExercises);
+        buttonToDateSetting = (Button) findViewById(R.id.buttonSetTrainingDate);
     }
     public void setOnClickListener()
     {
@@ -54,6 +56,15 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
             }
         });
+        buttonToDateSetting.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainWindowActivity.this, Calendar.class);
+                startActivity(intent);
+            }
+        });
+
     }
     @Override
     public void onClick(View view) {
