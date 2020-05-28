@@ -20,6 +20,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
     private Button buttonToExercisesList;
+    Button startRun;
     FirebaseAuth mAuth;
 
     FirebaseDatabase database;
@@ -86,6 +87,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         imageViewCenter = findViewById(R.id.imageViewCenterIcon);
         imageViewLeft = findViewById(R.id.imageViewLeftIcon);
         buttonToExercisesList = (Button) findViewById(R.id.buttonToExercises);
+        startRun = (Button) findViewById(R.id.buttonStartRunningMode);
     }
     public void setOnClickListener()
     {
@@ -94,6 +96,14 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             public void onClick(View v) {
                 Intent intent = new Intent(MainWindowActivity.this, ExercisesListActivity.class);
                 // intent.putExtra(myDb);
+                startActivity(intent);
+            }
+        });
+
+        startRun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RunningModeMap.class);
                 startActivity(intent);
             }
         });

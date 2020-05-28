@@ -7,13 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class workoutPlan extends AppCompatActivity implements View.OnClickListener {
@@ -110,7 +103,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     private void initializeObjects()
     {
         starter=(Button) findViewById(R.id.buttonStart);
-        button =(Button) findViewById(R.id.button);
+        button =(Button) findViewById(R.id.buttonStartRunningMode);
         mleyout = (GridLayout) findViewById(R.id.leyout);
         planItems=new ArrayList<String>();
         allExer = new ArrayList<Button>();
