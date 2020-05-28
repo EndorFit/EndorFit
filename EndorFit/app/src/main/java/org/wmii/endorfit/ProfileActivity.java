@@ -58,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     EditText editTxtName, editTxtAge, editTxtHeight, editTxtWeight;
     Button btnEdit, btnLogout, btnSave, btnDelete;
     ImageView imageViewProfileImage;
+    ImageView imageViewLeftIcon, imageViewCenterIcon, imageViewRightIcon;
     Spinner spinnerGender;
     ProgressBar progressBar;
 
@@ -80,6 +81,51 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        user = mAuth.getCurrentUser();
+
+        initializeObjects();
+
+        setListeners();
+
+        callListenerForSingleEvent(databaseRef);
+    }
+
+    private void setListeners() {
+
+        imageViewLeftIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAddNewExercise = new Intent(ProfileActivity.this,PlanActivity.class);
+                intentAddNewExercise.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentAddNewExercise);
+            }
+        });
+
+        imageViewCenterIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentMainWindow = new Intent(ProfileActivity.this,MainWindowActivity.class);
+                intentMainWindow.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentMainWindow);
+            }
+        });
+
+
+    }
+
+
+    private void initializeObjects() {
         isImageChanged = true;
         //Initialize all items
         editTxtName = findViewById(R.id.editTxtName);
@@ -93,9 +139,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         btnSave = findViewById(R.id.btnSave);
         btnDelete = findViewById(R.id.btnDelete);
         imageViewProfileImage = findViewById(R.id.imageViewProfileImage);
+
+        imageViewLeftIcon = findViewById(R.id.imageViewLeftIcon);
+        imageViewCenterIcon = findViewById(R.id.imageViewCenterIcon);
+        imageViewRightIcon = findViewById(R.id.imageViewRightIcon);
+
         progressBar = findViewById(R.id.progressBar);
         //Spinner config
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.genders, R.layout.spinner_item);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.genders, R.layout.spinner_item_30dp);
         spinnerGender.setAdapter(adapter);
         //SetOnClickListener for clickable items
         btnEdit.setOnClickListener(this);
@@ -109,20 +160,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         databaseRef = database.getReference();
         storageRef = FirebaseStorage.getInstance().getReference("profileImages/" + user.getUid());
 
-        //This listener will execute whenever database changes
-
-        callListenerForSingleEvent(databaseRef);
-
-        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if(user == null) {
-                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
     }
 
     @Override
@@ -183,12 +220,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void showData(DataSnapshot dataSnapshot) throws IOException {
         progressBar.setVisibility(View.VISIBLE);
         String userId = user.getUid();
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            String name = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getName();
-            String gender = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getGender();
-            Integer age = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getAge();
-            Double height = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getHeight();
-            Double weight = Objects.requireNonNull(ds.child(userId).getValue(User.class)).getWeight();
+
+        String name = dataSnapshot.getValue(User.class).getName();
+        String gender = dataSnapshot.getValue(User.class).getGender();
+        Integer age = dataSnapshot.getValue(User.class).getAge();
+        Double height = dataSnapshot.getValue(User.class).getHeight();
+        Double weight = dataSnapshot.getValue(User.class).getWeight();
 
             int genderPosition = 0;
             switch (gender){
@@ -208,11 +245,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             editTxtAge.setText(age.toString());
             editTxtHeight.setText(height.toString());
             editTxtWeight.setText(weight.toString());
-            updateImageView();
-            isImageChanged = false;
+            if(isImageChanged) {
+                updateImageView();
+                isImageChanged = false;
+            }
             showInformation();
             progressBar.setVisibility(View.GONE);
-        }
+
     }
 
     private void updateImageView() throws IOException {
@@ -343,6 +382,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void callListenerForSingleEvent(DatabaseReference databaseRef) {
+        databaseRef = database.getReference("users/" + user.getUid());
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

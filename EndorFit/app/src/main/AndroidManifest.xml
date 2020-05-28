@@ -6,8 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
 
     <application
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +20,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m" >
+		
         <activity android:name=".RunningModeStopConfirm" android:theme="@style/AlertDialog">
         </activity>
 
@@ -32,7 +37,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+       
+        <activity android:name=".ExercisesDetailsActivity"></activity>
+        <activity android:name=".ExercisesListActivity" />
+        <activity android:name=".AddNewExerciseActivity" />
+        <activity android:name=".CreateNewPlanActivity" />
+        <activity android:name=".PlanActivity" />
         <activity android:name=".workoutTimer" />
+        <activity android:name=".timerWindow" />
         <activity android:name=".MainWindowActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignUpActivity" />

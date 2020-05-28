@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_marginBottom="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <TextView
+            android:id="@+id/textViewPlanItemName"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:text="Wyciskanie"
+            android:textAlignment="center"
+            android:textColor="@color/dark_text"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textViewPlanItemNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewPlanItemName"
+            android:layout_alignLeft="@+id/textViewPlanItemName"
+            android:layout_alignRight="@+id/textViewPlanItemName"
+            android:text="name"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewPlanItemSecond"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@+id/textViewPlanItemName"
+            android:text="10"
+            android:textAlignment="center"
+            android:textColor="@color/dark_text"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textViewPlanItemSecondLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textViewPlanItemSecond"
+            android:layout_alignRight="@+id/textViewPlanItemSecond"
+            android:layout_alignBottom="@+id/textViewPlanItemSecond"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="-18dp"
+            android:text="reps"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textViewPlanItemThird"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@id/textViewPlanItemSecond"
+            android:text="150"
+            android:textAlignment="center"
+            android:textColor="@color/dark_text"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textViewPlanItemThirdLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textViewPlanItemThird"
+            android:layout_alignRight="@+id/textViewPlanItemThird"
+            android:layout_alignBottom="@+id/textViewPlanItemThird"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="-18dp"
+            android:text="weight"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
+
+        <GridLayout
+            android:id="@+id/placeCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:columnCount="5"
+            android:layout_toEndOf="@+id/textViewPlanItemThird"
+           ></GridLayout>
+    </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

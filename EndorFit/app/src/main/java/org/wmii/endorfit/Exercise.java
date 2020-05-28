@@ -1,5 +1,9 @@
 package org.wmii.endorfit;
 
+import android.location.Location;
+
+import java.util.Vector;
+
 public class Exercise {
     String name;
     String type;
@@ -8,6 +12,7 @@ public class Exercise {
     double weight;
     double distance;
     double time;
+    Vector<Location> route;
 
     public Exercise() {
     }
@@ -31,6 +36,8 @@ public class Exercise {
             this.time = weightOrTime;
         }
     }
+
+
 
     public Exercise(String name,String type, int sets, int reps) {
         this.name=name;
@@ -68,5 +75,42 @@ public class Exercise {
 
     public double getTime() {
         return time;
+    }
+
+
+
+
+    public Exercise(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    public Exercise(String name, int reps) {
+        this.name = name;
+        this.reps = reps;
+    }
+
+
+    public Exercise(String name, String type, double distance, double time) {
+        this.name = name;
+        this.type = type;
+        this.distance = distance;
+        this.time = time;
+    }
+
+    public Exercise(String name, String type, double distance, double time, Vector<Location> route) {
+        this.name = name;
+        this.type = type;
+        this.distance = distance;
+        this.time = time;
+        this.route = route;
+    }
+
+    public Vector<Location> getRoute() {
+        return route;
+    }
+
+    public void setRoute(Vector<Location> route) {
+        this.route = route;
     }
 }

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ProfileActivity"
+    android:scrollbars="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/relLayoutPlanTop"
+        android:background="@color/colorPrimary">
+
+        <EditText
+            android:id="@+id/EditTxtPlanName"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:hint="Plan name"
+            android:singleLine="true"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/imageViewSave"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_save_button"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="5dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:backgroundTint="#B84C4C"
+        android:layout_below="@+id/relLayoutPlanTop">
+
+        <RelativeLayout
+            android:id="@+id/relLayoutPlan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@id/relLayoutPlanButton">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewExercises"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:scrollbars="vertical" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+                android:id="@+id/relLayoutPlanButton"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="3dp">
+
+            <Spinner
+                android:id="@+id/spinnerExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:animateLayoutChanges="true"
+                android:animationCache="true"
+                android:fadeScrollbars="true"
+                android:minHeight="5dp"
+                android:scrollbars="horizontal"
+                android:spinnerMode="dialog"
+                android:splitMotionEvents="true" />
+
+                <TextView
+                    android:id="@+id/txtViewExerciseType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/spinnerExercise"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_text"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/editTextTopLeft"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtViewExerciseType"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/editTextTopRight"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtViewExerciseType"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/editTextBotLeft"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editTextTopLeft"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:inputType="number"
+                    android:singleLine="true" />
+
+                <ImageView
+                    android:id="@+id/imageViewAddExercise"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/editTextTopRight"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/ic_add_button" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+    <ImageView
+        android:id="@+id/whiteLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorAccent"
+        android:layout_above="@+id/linLayoutBot"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linLayoutBot"
+        android:layout_below="@+id/relLayoutMain"
+        android:background="@color/colorPrimary"
+        android:weightSum="99">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_assignment_white_24dp"
+            android:id="@+id/imageViewLeftIcon"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_fitness_fit_white_24dp"
+            android:id="@+id/imageViewCenterIcon"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_assignment_ind_white_24dp"
+            android:id="@+id/imageViewRightIcon"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        style="@android:style/Widget.Holo.ProgressBar"/>
+
+</RelativeLayout>

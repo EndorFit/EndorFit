@@ -1,28 +1,29 @@
 package org.wmii.endorfit;
 
+import java.util.ArrayList;
+
 public class Workout {
-    String WorkoutId;
-    String WorkoutName;
-    Exercise tab[];
-    Workout(){
+    private  String nameWorkout;
+        private  String stateWorkout;
+        private ArrayList<Exercise> planItems;
 
+
+
+    public String getStateWorkout() {
+        return stateWorkout;
     }
 
-    public Workout(String workoutId, String workoutName, Exercise[] tab) {
-        WorkoutId = workoutId;
-        WorkoutName = workoutName;
-        this.tab = tab;
+    public ArrayList<Exercise> getPlanItems() {
+        return planItems;
     }
 
-    public String getWorkoutId() {
-        return WorkoutId;
-    }
-
-    public String getWorkoutName() {
-        return WorkoutName;
-    }
-
-    public Exercise[] getTab() {
-        return tab;
+    public Workout( String nameWorkout,String stateWorkout, ArrayList<Exercise> planItems) {
+this.nameWorkout=nameWorkout;
+        this.stateWorkout = stateWorkout;
+        this.planItems = planItems;
     }
 }
+
+
+
+
