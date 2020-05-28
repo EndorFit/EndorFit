@@ -3,7 +3,6 @@ package org.wmii.endorfit;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +39,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
     public void onBindViewHolder(@NonNull ExercisesRecyclerViewAdapter.ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called");
         holder.exerciseName.setText(exerciseKnowledgeBases.get(position).getName());
-        holder.exerciseImage.setImageBitmap(exerciseKnowledgeBases.get(position).getImage());
+//        holder.exerciseImage.setImageBitmap(exerciseKnowledgeBases.get(position).getImage());
         holder.exerciseCategoryAndDifficulty.setText("Category: " + exerciseKnowledgeBases.get(position).getCategory() + "\nDifficulty: " + exerciseKnowledgeBases.get(position).getDifficultyLevel());
         holder.exerciseCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,11 +64,11 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             exerciseCard = (CardView) itemView.findViewById(R.id.exerciseCardView);
-            exerciseImage = (ImageView) itemView.findViewById(R.id.exerciseImage);
+            //exerciseImage = (ImageView) itemView.findViewById(R.id.exerciseImage);
             exerciseCategoryAndDifficulty = (TextView) itemView.findViewById(R.id.exerciseCategoryAndDifficultyTextView);
             exerciseName = (TextView) itemView.findViewById(R.id.exerciseNameTextView);
-            exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
-            exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
+            //exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
+           // exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
         }
     }
     public void setExerciseKnowledgeBases(DataBaseHelper db)
@@ -80,7 +79,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
             return;
         }
         Log.d(TAG, "setExercises getCount" + result.getCount());
-        result.moveToFirst();
+        //result.moveToFirst();
         //StringBuffer buffer = new StringBuffer();
         int id;
         String name = "";
@@ -88,6 +87,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
         String difficultyLevel = "";
         String description = "";
         //Bitmap image;
+        String imagePath;
         String internalType = "";
         while (result.moveToNext())
         {
@@ -98,7 +98,8 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
             difficultyLevel = result.getString(3);
             description = result.getString(4);
             internalType = result.getString(6);
-            ExerciseKnowledgeBase exerciseKnowledgeBase = new ExerciseKnowledgeBase(id, name,category,description,difficultyLevel,DataBaseHelper.getImageToList(id,5),internalType);
+            imagePath = result.getString(5);
+            ExerciseKnowledgeBase exerciseKnowledgeBase = new ExerciseKnowledgeBase(id, name,category,description,difficultyLevel,imagePath,internalType);
             Log.d(TAG, "setExercises: Name: " + exerciseKnowledgeBase.getName() + ", category: " + exerciseKnowledgeBase.getCategory());
             exerciseKnowledgeBases.add(exerciseKnowledgeBase);
         }
