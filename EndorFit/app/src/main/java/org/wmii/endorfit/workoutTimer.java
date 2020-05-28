@@ -62,6 +62,7 @@ String timerValue;
             public void onClick(View v) {
             if (clicked==true) {
                 setListeners();
+                recyclerViewPlan.setVisibility(View.VISIBLE);
                 clicked = false;
                 for (int i = 0; i < allSets.size(); i++) {
                     allSets.get(i).setChecked(false);
@@ -106,10 +107,12 @@ private void saveWorkout()
     {
 timerDialog timerdialog=new timerDialog();
     timerdialog.show(getSupportFragmentManager(),"Timer set");
+
     }
 
     @Override
     public void aplytext(String seconds) {
+
         timerValue=seconds;
     }
 

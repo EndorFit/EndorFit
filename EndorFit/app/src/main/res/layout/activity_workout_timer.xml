@@ -35,6 +35,7 @@
         android:id="@+id/recyclerViewPlan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/nameWorkout"
         tools:layout_editor_absoluteX="0dp" />
