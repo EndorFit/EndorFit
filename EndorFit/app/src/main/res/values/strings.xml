@@ -141,6 +141,15 @@ B) Hinge forwards at the hips, keeping your arms straight so the barbell is dire
     <string name="ex22Name">Roller skating</string>
     <string name="ex22Description"></string>
     <string name="exercisesListTitleBar">Exercises</string>
-
+    <string name="setDateTitle">Set the date for your training</string>
+    <string name="setTheInterval">Set the interval</string>
+    <string name="setInterval1">1 day</string>
+    <string name="setInterval2">2 days</string>
+    <string name="setInterval3">3 days</string>
+    <string name="setInterval4">4 days</string>
+    <string name="setInterval5">5 days</string>
+    <string name="setInterval6">6 days</string>
+    <string name="setInterval7">7 days</string>
+    <string name="setIntervalDontWantTo">I don\'t won\'t to set an interval</string>
 
 </resources>

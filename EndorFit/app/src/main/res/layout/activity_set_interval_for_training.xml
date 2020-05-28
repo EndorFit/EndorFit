@@ -28,58 +28,7 @@
         android:background="@drawable/main_button_stroke_bg"
         android:id="@+id/buttonNoInterval"
         />
-    <Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/buttonNoInterval"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="20dp"
-    android:text="Done"
-    android:layout_marginRight="30dp"
-    android:layout_marginLeft="30dp"
-    android:textSize="20sp"
-    android:background="@drawable/main_button_stroke_bg"
-    android:id="@+id/button1Day"
-    />
-    <Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/button1Day"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="20dp"
-    android:text="Done"
-    android:layout_marginRight="30dp"
-    android:layout_marginLeft="30dp"
-    android:textSize="20sp"
-    android:background="@drawable/main_button_stroke_bg"
-    android:id="@+id/button2Days"
-    />
-    <Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/button2Days"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="20dp"
-    android:text="Done"
-    android:layout_marginRight="30dp"
-    android:layout_marginLeft="30dp"
-    android:textSize="20sp"
-    android:background="@drawable/main_button_stroke_bg"
-    android:id="@+id/button3Days"
-    />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button3Days"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="4 days"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:textSize="20sp"
-        android:background="@drawable/main_button_stroke_bg"
-        android:id="@+id/button4Days"
-        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -117,7 +66,10 @@
 
     <RadioGroup
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonNoInterval"
+        android:layout_centerHorizontal="true"
+        >
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
