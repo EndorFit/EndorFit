@@ -12,6 +12,7 @@ public class Exercise {
     double weight;
     double distance;
     double time;
+
     Vector<Location> route;
 
     public Exercise() {

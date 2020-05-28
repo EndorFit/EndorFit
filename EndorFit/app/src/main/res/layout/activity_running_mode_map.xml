@@ -82,23 +82,24 @@
 
     <Button
         android:id="@+id/newRunButton"
-        android:layout_width="141dp"
-        android:layout_height="49dp"
+        android:layout_width="205dp"
+        android:layout_height="54dp"
         android:text="NEW RUN"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintEnd_toStartOf="@+id/startButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:text="Button"
+        android:id="@+id/saveRunButton"
+        android:layout_width="201dp"
+        android:layout_height="54dp"
+        android:text="SAVE YOUR RUN"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/startButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,9 +20,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m" >
-		
-        <activity android:name=".RunningModeStopConfirm" android:theme="@style/AlertDialog">
-        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
