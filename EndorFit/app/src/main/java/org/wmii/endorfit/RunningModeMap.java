@@ -249,7 +249,10 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
 
         database = FirebaseDatabase.getInstance();
-        exerciseRef = database.getReference("users/" + user.getUid() + "/ukonczoneBiegi/"+data);
+       // exerciseRef = database.getReference("users/" + user.getUid() + "/ukonczoneBiegi/"+data);//stara sciezka
+
+        String nazwa_planu="xyz";
+        exerciseRef = database.getReference("users/" + user.getUid() + "/completed/"+data+"/"+nazwa_planu);
 
         double totalDistance=getTotalDistance();
 
