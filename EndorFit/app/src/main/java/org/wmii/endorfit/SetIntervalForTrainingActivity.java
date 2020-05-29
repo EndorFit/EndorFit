@@ -2,6 +2,9 @@ package org.wmii.endorfit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,13 +15,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SetIntervalForTraining extends AppCompatActivity {
-    public static final String TAG = "SetIntervalForTraining";
+import java.util.Calendar;
+
+public class SetIntervalForTrainingActivity extends AppCompatActivity {
+    public static final String TAG = "SetIntervalForTrainAct";
     private TextView textViewIntervalSetting, textViewIntervalDays;
     private Button buttonSetIntervalDone, buttonNoInterval;
     private EditText editTextTypeInYourInterval;
     private RadioGroup radioGroupInterval;
     private Button buttonChecked;
+    private int interval;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +52,7 @@ public class SetIntervalForTraining extends AppCompatActivity {
         buttonSetIntervalDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SetIntervalForTraining.this,MainWindowActivity.class);
+                Intent intent = new Intent(SetIntervalForTrainingActivity.this,MainWindowActivity.class);
 
                 checkButton(v);
                 try {
@@ -55,6 +61,8 @@ public class SetIntervalForTraining extends AppCompatActivity {
                         if(Integer.parseInt(editTextTypeInYourInterval.getText().toString()) > 0 && Integer.parseInt(editTextTypeInYourInterval.getText().toString()) <= 60)
                         {
                             Toast.makeText(v.getContext(),getString(R.string.ToastIntervalChosenSuccesfully1) + " " + editTextTypeInYourInterval.getText().toString() + " " + getString(R.string.ToastIntervalChosenSuccesfully2),Toast.LENGTH_SHORT).show();
+                            //interval =
+                            setNotificationScheduler(getApplicationContext(),);
                         }
                         else
                         {
@@ -87,11 +95,25 @@ public class SetIntervalForTraining extends AppCompatActivity {
         buttonNoInterval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SetIntervalForTraining.this,MainWindowActivity.class);
+                Intent intent = new Intent(SetIntervalForTrainingActivity.this,MainWindowActivity.class);
                 Toast.makeText(v.getContext(),getString(R.string.ToastNoIntervalChosen),Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
+    }
+    public void setNotificationScheduler(Context context, int year, int month, int day) {
+
+        Intent intent = new Intent(context, NotificationPublisher.class);
+        intent.setAction("MY_NOTIFICATION_MESSAGE");
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        // Set the alarm to start at 00:00
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(year, month,day,5,34);
+        //calendar.set(Calendar.MINUTE, 0);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
     }
 
 }

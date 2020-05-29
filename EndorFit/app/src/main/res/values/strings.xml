@@ -150,7 +150,7 @@ B) Hinge forwards at the hips, keeping your arms straight so the barbell is dire
     <string name="setInterval5">5 days</string>
     <string name="setInterval6">6 days</string>
     <string name="setInterval7">7 days</string>
-    <string name="setIntervalDontWantTo">I don\'t won\'t to set an interval</string>
+    <string name="setIntervalDontWantTo">I don\'t want to set an interval</string>
     <string name="DateDone">Done</string>
     <string name="IntervalOther">Other: </string>
     <string name="ToastNoIntervalChosen">No interval chosen</string>

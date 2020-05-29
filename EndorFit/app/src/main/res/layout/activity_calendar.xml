@@ -4,25 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalendarDateChoosing">
-    <TextView
-        android:layout_width="wrap_content"
+    tools:context=".CalendarDateChoosingActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_height="wrap_content"
-        android:text="Set the date for your training"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/textViewDateSetting"
-        />
+        android:layout_width="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_scrollFlags="scroll|enterAlways">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:text="@string/setDateTitle"
+            android:id="@+id/textViewDateSetting"
+            android:textSize="30sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <CalendarView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:theme="@style/AlertDialog"
         android:id="@+id/choosingCalendar"
-        android:layout_below="@+id/textViewDateSetting"
+        android:layout_below="@+id/appbar"
         />
 
     <Button

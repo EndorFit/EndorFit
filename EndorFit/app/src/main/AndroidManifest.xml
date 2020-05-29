@@ -3,6 +3,8 @@
     package="org.wmii.endorfit">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+   
 
     <application
         android:allowBackup="true"
@@ -13,8 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SetIntervalForTraining"></activity>
-        <activity android:name=".CalendarDateChoosing" />
+
+        <activity android:name=".SetIntervalForTrainingActivity"></activity>
+        <activity android:name=".CalendarDateChoosingActivity" />
         <activity android:name=".ExercisesDetailsActivity" />
         <activity android:name=".ExercisesListActivity" />
         <activity android:name=".AddNewExerciseActivity" />
@@ -34,8 +37,7 @@
         </activity>
         <activity android:name=".workoutPlan" />
         <activity android:name=".workoutGo" />
-
-        <receiver android:name=".NotificationPublisher" />
+        <receiver android:name=".NotificationPublisher"/>
     </application>
 
 </manifest>
