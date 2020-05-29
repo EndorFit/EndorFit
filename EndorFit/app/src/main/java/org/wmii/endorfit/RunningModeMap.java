@@ -80,7 +80,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_running_mode_map);
 
 
-
+       String workoutKey = getIntent().getStringExtra("EXTRA_WORKOUT_KEY");
 
         startButton =(Button) findViewById(R.id.startButton);
         stopButton = (Button) findViewById(R.id.stopButton);
