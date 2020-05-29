@@ -45,7 +45,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".workoutPlan" />
-        <activity android:name=".workoutGo" />
     </application>
 
 </manifest>

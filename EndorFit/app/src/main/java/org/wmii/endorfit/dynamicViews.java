@@ -20,7 +20,6 @@ public class dynamicViews {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     public Button buttonWorkout (Context context){
         final ViewGroup.LayoutParams lparams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         context.setTheme(R.style.AppTheme);
@@ -38,7 +37,6 @@ public class dynamicViews {
 
     public CheckBox checkSet (Context context){
         final ViewGroup.LayoutParams lparams=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        context.setTheme(R.style.AppTheme);
         final CheckBox checkSet=new CheckBox(context);
         int id=0;
         checkSet.setId(id);

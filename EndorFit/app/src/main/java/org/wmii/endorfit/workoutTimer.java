@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class workoutTimer extends AppCompatActivity implements timerDialog.timerDialogListener {
 private TextView timeSet,nameWorkout;
@@ -80,7 +81,8 @@ String timerValue;
     }
 private void saveWorkout()
 {
-    planContentRef = database.getReference("users/" + user.getUid() + "/completed/"+Calendar.getInstance().getTime());
+    String data = java.text.DateFormat.getDateTimeInstance().format(new Date());
+    planContentRef = database.getReference("users/" + user.getUid() + "/completed/"+data+"/"+workoutKey);
     dbSave=new Workout(workoutKey,state,planItemsExer);
     planContentRef.setValue(dbSave).addOnCompleteListener(new OnCompleteListener<Void>() {
     @Override

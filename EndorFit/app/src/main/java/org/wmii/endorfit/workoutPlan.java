@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class workoutPlan extends AppCompatActivity implements View.OnClickListener {
     dynamicViews dnv;
-    private Button button,starter;
+
     Context context;
     DatabaseReference Ref;
     FirebaseDatabase database;
@@ -36,6 +36,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     View view;
     GridLayout mleyout;
     ArrayList<String> planItems;
+    ArrayList<String> planItemstype;
     ArrayList<Button> allExer ;
     DataSnapshot dataSnapshot;
     TextView lol;
@@ -61,27 +62,12 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
 
         initializeObjects();
         getDatafromDatabase();
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                openActivityWorking();
 
-            }
-        }      );
-        starter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivityTimer();
-            }
-        });
+
 
     }
 
-    public void openActivityWorking() {
-        Intent intent =new Intent(this,workoutGo.class);
-        startActivity(intent);
-    }
+
 
     public void openActivityTimer()
     {
@@ -105,10 +91,9 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     }
     private void initializeObjects()
     {
-        starter=(Button) findViewById(R.id.buttonStart);
-        button =(Button) findViewById(R.id.buttonStartRunningMode);
         mleyout = (GridLayout) findViewById(R.id.leyout);
         planItems=new ArrayList<String>();
+        planItemstype=new ArrayList<String>();
         allExer = new ArrayList<Button>();
 
         database = FirebaseDatabase.getInstance();
@@ -118,12 +103,16 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     private void getDatafromDatabase()
     {
         Ref.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 planItems.clear();
                 for(DataSnapshot item: dataSnapshot.getChildren()){
                     planItems.add(item.getKey());
+
                 }
+               addType();
+
                 createViews();
                 for(Button btn:allExer)
                     btn.setOnClickListener(btnListener);
@@ -135,10 +124,34 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
         });
 
     }
+    public void addType()
+    {planItemstype.clear();
+        for (int i =0;i<planItems.size()-1;i++)
+        {
+            Ref = database.getReference("users/" + user.getUid() + "/plans/" + planItems.get(i));
+
+            Ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot item : dataSnapshot.getChildren()) {
+                        Exercise tempExercise = item.getValue(Exercise.class);
+                        planItemstype.add(tempExercise.getType());
+
+                    }}
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+    }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     private void createViews()
 
     {
-        Toast.makeText(workoutPlan.this, "There is this many items : "+planItems.size(), Toast.LENGTH_LONG).show();
+        Toast.makeText(workoutPlan.this, "There is this many workout plans : "+planItems.size(), Toast.LENGTH_LONG).show();
 
         for (i=0;i<planItems.size();i++)
         {
@@ -156,10 +169,17 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
 
                 if(v == allExer.get(i)){
 
-
-                    Intent intent =new Intent(getBaseContext(),workoutTimer.class);
-                    intent.putExtra("EXTRA_WORKOUT_KEY", allExer.get(i).getText());
-                    startActivity(intent);
+if (planItemstype.get(i).equals("Moving"))
+{
+    Intent intent = new Intent(getBaseContext(), RunningModeMap.class);
+    intent.putExtra("EXTRA_WORKOUT_KEY", allExer.get(i).getText());
+    startActivity(intent);
+}
+else {
+    Intent intent = new Intent(getBaseContext(), workoutTimer.class);
+    intent.putExtra("EXTRA_WORKOUT_KEY", allExer.get(i).getText());
+    startActivity(intent);
+}
 
                 }
             }
