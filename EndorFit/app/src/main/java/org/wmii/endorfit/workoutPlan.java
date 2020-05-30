@@ -126,7 +126,7 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     }
     public void addType()
     {planItemstype.clear();
-        for (int i =0;i<planItems.size()-1;i++)
+        for (int i =0;i<planItems.size();i++)
         {
             Ref = database.getReference("users/" + user.getUid() + "/plans/" + planItems.get(i));
 
