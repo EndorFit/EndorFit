@@ -80,7 +80,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_running_mode_map);
 
 
-       String workoutKey = getIntent().getStringExtra("EXTRA_WORKOUT_KEY");
+
 
         startButton =(Button) findViewById(R.id.startButton);
         stopButton = (Button) findViewById(R.id.stopButton);
@@ -251,7 +251,8 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
         database = FirebaseDatabase.getInstance();
        // exerciseRef = database.getReference("users/" + user.getUid() + "/ukonczoneBiegi/"+data);//stara sciezka
 
-        String nazwa_planu="xyz";
+
+        String nazwa_planu = getIntent().getStringExtra("EXTRA_WORKOUT_KEY");
         exerciseRef = database.getReference("users/" + user.getUid() + "/completed/"+data+"/"+nazwa_planu);
 
         double totalDistance=getTotalDistance();
