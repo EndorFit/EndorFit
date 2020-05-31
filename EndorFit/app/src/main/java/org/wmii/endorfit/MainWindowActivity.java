@@ -3,6 +3,7 @@ package org.wmii.endorfit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -53,27 +54,12 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void preparePreDefineExercise() {
+        Cursor cursor = MainActivity.myDb.getDataForFirebase();
         ArrayList<Exercise> predefExercise = new ArrayList<>();
-        predefExercise.add(new Exercise("Bench press","Exercise with weights"));
-        predefExercise.add(new Exercise("Single arm tricep pushdown","Exercise with weights"));
-        predefExercise.add(new Exercise("Romanian deadlift","Exercise with weights"));
-        predefExercise.add(new Exercise("Overhead Press","Exercise with weights"));
-        predefExercise.add(new Exercise("Military Press","Exercise with weights"));
-        predefExercise.add(new Exercise("Inner thigh","Exercise with weights"));
-        predefExercise.add(new Exercise("Deadlift","Exercise with weights"));
-        predefExercise.add(new Exercise("Lunges","Exercise without weights"));
-
-        predefExercise.add(new Exercise("Dips","Exercise without weights"));
-        predefExercise.add(new Exercise("Crunches","Exercise without weights"));
-        predefExercise.add(new Exercise("Pull Up","Exercise without weights"));
-        predefExercise.add(new Exercise("Barbell hip thrust","Exercise without weights"));
-        predefExercise.add(new Exercise("Squat","Exercise without weights"));
-
-        predefExercise.add(new Exercise("Walking","Moving"));
-        predefExercise.add(new Exercise("Cycling","Moving"));
-        predefExercise.add(new Exercise("Running","Moving"));
-        predefExercise.add(new Exercise("Roller skating","Moving"));
-
+        while(cursor.moveToNext())
+        {
+            predefExercise.add(new Exercise(cursor.getString(1),cursor.getString(2)));
+        }
         database = FirebaseDatabase.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         for(Exercise exercise : predefExercise)

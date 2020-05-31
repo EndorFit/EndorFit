@@ -84,10 +84,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MAIN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_INTERNAL_TYPES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_DIFFICULTY_LVLS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CATEGORIES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MAIN);
         onCreate(db);
     }
 
@@ -173,7 +173,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void dropDataBase()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("DROP TABLE " + TABLE_NAME_MAIN, null);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_INTERNAL_TYPES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_DIFFICULTY_LVLS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CATEGORIES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MAIN);
     }
 
     public static Bitmap getImage(int id, int columnIndex){
@@ -213,12 +216,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getAllData()
     {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", diflvl." + CCOL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2 + ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2 + ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
                 " FROM " + TABLE_NAME_MAIN +
                 " JOIN " + TABLE_NAME_DIFFICULTY_LVLS + " diflvl USING (" + COL_4 + ")" +
                 " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ")" +
                 " JOIN " + TABLE_NAME_CATEGORIES + " cat USING (" + COL_3 + ")",null);
+        return result;
+    }
+    public Cursor getDataForFirebase()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", intertypes." + CCOL_2 +
+                " FROM " + TABLE_NAME_MAIN +
+                " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ");",null);
         return result;
     }
     public Cursor getCategorizedData(int category)
@@ -231,7 +242,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 return getAllData();
             }
 
-        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", diflvl." + CCOL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2 + ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
+        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2+ ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
                 " FROM " + TABLE_NAME_MAIN +
                 " JOIN " + TABLE_NAME_DIFFICULTY_LVLS + " diflvl USING (" + COL_4 + ")" +
                 " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ")" +
@@ -242,7 +253,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public Cursor getOneRow(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME_MAIN + " WHERE " + COL_1 + " = " + id,null);
+        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2 + ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
+                " FROM " + TABLE_NAME_MAIN +
+                " JOIN " + TABLE_NAME_DIFFICULTY_LVLS + " diflvl USING (" + COL_4 + ")" +
+                " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ")" +
+                " JOIN " + TABLE_NAME_CATEGORIES + " cat USING (" + COL_3 + ")" +
+                " WHERE " + COL_1 + " = " + id,null);
         return result;
     }
     public String getPicturePath(int id, Context context, Bitmap picture) {
