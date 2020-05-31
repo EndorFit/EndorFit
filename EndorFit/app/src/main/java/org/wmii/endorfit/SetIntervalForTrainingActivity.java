@@ -79,7 +79,7 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
                         interval = buttonChecked.getText().charAt(0);
 
                     }
-                    setNotificationScheduler(getApplicationContext(),yearMonthDay[0],yearMonthDay[1],yearMonthDay[2], interval);
+                    setNotificationScheduler(getApplicationContext(),yearMonthDay[0],yearMonthDay[1],yearMonthDay[2], 0);
                     startActivity(intent);
                 }
                 catch (NullPointerException e)
@@ -99,8 +99,10 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
         buttonNoInterval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int[]yearMonthDay = getIntent().getIntArrayExtra("yearMonthDay");
                 Intent intent = new Intent(SetIntervalForTrainingActivity.this,MainWindowActivity.class);
                 Toast.makeText(v.getContext(),getString(R.string.ToastNoIntervalChosen),Toast.LENGTH_SHORT).show();
+                setNotificationScheduler(getApplicationContext(),yearMonthDay[0],yearMonthDay[1],yearMonthDay[2], 0);
                 startActivity(intent);
             }
         });
@@ -113,8 +115,28 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(year, month,day,Calendar.HOUR_OF_DAY,Calendar.MINUTE+1);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES*1, alarmIntent);
+        calendar.set(year, month,day,6,0);
+        if(interval == 0)
+        {
+            alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),  alarmIntent);
+        }
+        else
+        {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY*interval, alarmIntent);
+        }
+
     }
+//    public void setNotificationSchedulerWithoutRepeating(Context context, int year, int month, int day, int interval) {
+//
+//        Intent intent = new Intent(context, NotificationPublisher.class);
+//        intent.setAction("MY_NOTIFICATION_MESSAGE");
+//        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.set(year, month,day,6,0);
+//        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),  alarmIntent);
+//        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY*interval, alarmIntent);
+//    }
 
 }

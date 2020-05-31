@@ -11,8 +11,10 @@ import android.graphics.Color;
 
 import androidx.core.app.NotificationCompat;
 
+
 public class NotificationPublisher extends BroadcastReceiver {
 
+    private  String CHANNEL_ID = "my_channel_01";
     public static String NOTIFICATION_ID = "notification-id";
     public static String NOTIFICATION = "notification";
 
@@ -33,29 +35,28 @@ public class NotificationPublisher extends BroadcastReceiver {
             mChannel.setShowBadge(false);
             notificationManager.createNotificationChannel(mChannel);
         }
-        else
-        {
+
             Intent repeating_intent = new Intent(context, MainWindowActivity.class);
             repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context,100, repeating_intent, PendingIntent
+            PendingIntent pendingIntent = PendingIntent.getActivity(context,MainActivity.not_id, repeating_intent, PendingIntent
                     .FLAG_UPDATE_CURRENT);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
                     .setContentIntent(pendingIntent)
                     .setSmallIcon(R.drawable.ic_fitness_fit_white_24dp)
                     .setContentTitle("Training today!")
                     .setContentText("Get ready, remember about towel and water!")
                     .setAutoCancel(true)
                     .setVibrate(new long[] { 500, 200, 500, 200, 500 });
-        }
 
         if(intent.getAction().equals("MY_NOTIFICATION_MESSAGE"))
         {
-            notificationManager.notify(100, builder.build());
+            notificationManager.notify(MainActivity.not_id, builder.build());
         }
-
+        MainActivity.not_id++;
 //        Notification notification = intent.getParcelableExtra(NOTIFICATION);
 //        int id = intent.getIntExtra(NOTIFICATION_ID, 0);
 //        notificationManager.notify(id, notification);
 
     }
+
 }

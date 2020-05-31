@@ -20,19 +20,24 @@
             android:textColor="@color/colorAccent"
             android:text="@string/setDateTitle"
             android:id="@+id/textViewDateSetting"
-            android:textSize="30sp"
+            android:textSize="25sp"
             />
     </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
 
+    </com.google.android.material.appbar.AppBarLayout>
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"/>
     <CalendarView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:theme="@style/AlertDialog"
         android:id="@+id/choosingCalendar"
-        android:layout_below="@+id/appbar"
+        android:layout_below="@+id/spinner2"
         />
 
     <Button
@@ -40,13 +45,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/choosingCalendar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="7dp"
         android:text="Done"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:textSize="20sp"
         android:background="@drawable/main_button_stroke_bg"
         android:id="@+id/buttonDoneWithDateSetting"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonDoneWithDateSetting"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:text="I don't want to set date"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="20sp"
+        android:background="@drawable/main_button_stroke_bg"
+        android:id="@+id/buttonDontWantToDateSetting"
         />
 
 

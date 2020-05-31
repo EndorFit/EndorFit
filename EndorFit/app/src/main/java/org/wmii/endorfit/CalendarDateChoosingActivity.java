@@ -2,45 +2,90 @@ package org.wmii.endorfit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class CalendarDateChoosingActivity extends AppCompatActivity {
+    private Spinner spinnerTrainingToDate;
     private Button buttonDoneWithDateSetting;
+    private Button buttonDontWantToSetDate;
     private CalendarView calendarView;
     private int fromCalendarYear;
     private int fromCalendarMonth;
     private int fromCalendarDay;
     public static final String TAG = "CalendarDateChoosingAct";
-    private int interval;
+    ViewPager viewPager;
+    ArrayList<String> completedPlansNames;
+
+    FirebaseDatabase database;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        InitializeObjects();
         initWidgets();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,completedPlansNames);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTrainingToDate.setAdapter(arrayAdapter);
+        spinnerTrainingToDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (parent.getItemAtPosition(position).equals(getString(R.string.SpinnerTrainingToDate))
+                ) {
+                }else {
+                    String item = parent.getItemAtPosition(position).toString();
+                    Toast.makeText(parent.getContext(),"Selected: " + item, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         setOnDateChangeListener();
         //setNotificationScheduler(getApplicationContext());
         setOnClickListener();
         //Toast.makeText(this, Calendar.DAY_OF_MONTH Calendar.MONTH Calendar.YEAR;)
+
     }
     public void initWidgets()
     {
         calendarView = (CalendarView) findViewById(R.id.choosingCalendar);
         buttonDoneWithDateSetting = (Button) findViewById(R.id.buttonDoneWithDateSetting);
+        buttonDontWantToSetDate = (Button) findViewById(R.id.buttonDontWantToDateSetting);
+        spinnerTrainingToDate = (Spinner)findViewById(R.id.spinner2);
+        //TODO training list
+
     }
     public void setOnDateChangeListener()
     {
@@ -95,18 +140,38 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        buttonDontWantToSetDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarDateChoosingActivity.this, MainWindowActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
-    public int getFromCalendarYear() {
-        return fromCalendarYear;
-    }
 
-    public int getFromCalendarMonth() {
-        return fromCalendarMonth;
-    }
+    private void InitializeObjects() {
+        viewPager = findViewById(R.id.viewPagerListy);
+        completedPlansNames = new ArrayList<>();
+        final DatabaseReference completedPlansRef = database.getReference("users/" + user.getUid() + "/plans/");
+        completedPlansNames.add(0,getString(R.string.SpinnerTrainingToDate));
+        completedPlansRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot date : dataSnapshot.getChildren())
+                {
+                    completedPlansNames.add(date.getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    public int getFromCalendarDay() {
-        return fromCalendarDay;
+            }
+        });
+
+
+
+
     }
 }

@@ -90,7 +90,6 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
-
         startRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
