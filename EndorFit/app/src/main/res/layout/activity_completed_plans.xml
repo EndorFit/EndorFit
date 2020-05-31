@@ -13,6 +13,33 @@
         android:foregroundGravity="center"
         android:overScrollMode="never"
         android:visibility="visible"
-        android:splitMotionEvents="true" />
+        android:splitMotionEvents="true"
+        ></androidx.viewpager.widget.ViewPager>
+
+
+    <ImageButton
+        android:id="@+id/left_nav"
+        android:layout_width="55dp"
+        android:layout_height="192dp"
+        android:background="@android:color/transparent"
+        android:clickable="false"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/right_nav"
+        android:layout_width="55dp"
+        android:layout_height="192dp"
+        android:background="@android:color/transparent"
+        android:clickable="false"
+        android:src="@drawable/ic_arrow_forward_black_24dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
