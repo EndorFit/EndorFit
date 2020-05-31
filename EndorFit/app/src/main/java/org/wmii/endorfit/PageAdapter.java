@@ -27,6 +27,8 @@ public class PageAdapter extends FragmentPagerAdapter {
                 return new tabShoulders();
             case 4:
                 return new tabLegs();
+            case 5:
+                return new tabMoving();
             default:
                 return null;
 

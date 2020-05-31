@@ -56,13 +56,14 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
 
                 checkButton(v);
                 try {
+                    int[]yearMonthDay = getIntent().getIntArrayExtra("yearMonthDay");
+                    Log.d(TAG,"DoneOnClick: getArrayExtra, " + "year: " + yearMonthDay[0] + "month: " + yearMonthDay[1] + "day: " + yearMonthDay[2]);
                     if(buttonChecked.getId() == R.id.radioButtonOther)
                     {
                         if(Integer.parseInt(editTextTypeInYourInterval.getText().toString()) > 0 && Integer.parseInt(editTextTypeInYourInterval.getText().toString()) <= 60)
                         {
                             Toast.makeText(v.getContext(),getString(R.string.ToastIntervalChosenSuccesfully1) + " " + editTextTypeInYourInterval.getText().toString() + " " + getString(R.string.ToastIntervalChosenSuccesfully2),Toast.LENGTH_SHORT).show();
-                            //interval =
-                            setNotificationScheduler(getApplicationContext(),);
+                            interval = Integer.parseInt(editTextTypeInYourInterval.getText().toString());
                         }
                         else
                         {
@@ -74,8 +75,11 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
                     else
                     {
                         Toast.makeText(v.getContext(),getString(R.string.ToastIntervalChosenSuccesfully1) + " " + buttonChecked.getText().charAt(0) + " " + getString(R.string.ToastIntervalChosenSuccesfully2),Toast.LENGTH_SHORT).show();
-                    }
 
+                        interval = buttonChecked.getText().charAt(0);
+
+                    }
+                    setNotificationScheduler(getApplicationContext(),yearMonthDay[0],yearMonthDay[1],yearMonthDay[2], interval);
                     startActivity(intent);
                 }
                 catch (NullPointerException e)
@@ -101,19 +105,16 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
             }
         });
     }
-    public void setNotificationScheduler(Context context, int year, int month, int day) {
+    public void setNotificationScheduler(Context context, int year, int month, int day, int interval) {
 
         Intent intent = new Intent(context, NotificationPublisher.class);
         intent.setAction("MY_NOTIFICATION_MESSAGE");
         PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        // Set the alarm to start at 00:00
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(year, month,day,5,34);
-        //calendar.set(Calendar.MINUTE, 0);
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
+        calendar.set(year, month,day,Calendar.HOUR_OF_DAY,Calendar.MINUTE+1);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES*1, alarmIntent);
     }
 
 }

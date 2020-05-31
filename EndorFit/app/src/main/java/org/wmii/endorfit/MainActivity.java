@@ -2,15 +2,11 @@ package org.wmii.endorfit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -26,10 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -146,37 +139,81 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean addToDataBase(Context context)
     {
         Context thisContext = context;
+        ArrayList<Boolean> booleansCat = new ArrayList<>();
+        booleansCat.add(myDb.insertDataCategoryTable(getString(R.string.exCategoryChest)));
+        booleansCat.add(myDb.insertDataCategoryTable(getString(R.string.exCategoryArms)));
+        booleansCat.add(myDb.insertDataCategoryTable(getString(R.string.exCategoryABSAndBack)));
+        booleansCat.add(myDb.insertDataCategoryTable(getString(R.string.exCategoryShoulders)));
+        booleansCat.add(myDb.insertDataCategoryTable(getString(R.string.exCategoryLegs)));
+        booleansCat.add(myDb.insertDataCategoryTable(getString(R.string.exCategoryMoving)));
+        int trueCounterCat = 0;
+        for (;trueCounterCat < booleansCat.size();++trueCounterCat)
+        {
+            if(booleansCat.get(trueCounterCat) != true) break;
+        }
+        if(trueCounterCat != booleansCat.size())
+        {
+            Log.d(TAG,"addToDataBase: Category: fail");
+        }
+        ArrayList<Boolean> booleansDiff = new ArrayList<>();
+        booleansDiff.add(myDb.insertDataDifficultyTable(getString(R.string.exDifficultyEasy)));
+        booleansDiff.add(myDb.insertDataDifficultyTable(getString(R.string.exDifficultyMedium)));
+        booleansDiff.add(myDb.insertDataDifficultyTable(getString(R.string.exDifficultyHard)));
+        booleansDiff.add(myDb.insertDataDifficultyTable(getString(R.string.exDifficultyVeryHard)));
+        int trueCounterDiff = 0;
+        for (;trueCounterDiff < booleansDiff.size();++trueCounterDiff)
+        {
+            if(booleansDiff.get(trueCounterDiff) != true) break;
+        }
+        if(trueCounterDiff != booleansDiff.size())
+        {
+            Log.d(TAG,"addToDataBase: Difficulty: fail");
+        }
         String[] internalTypes = context.getResources().getStringArray(R.array.exercisesType);
+        ArrayList<Boolean> booleansInterTypes = new ArrayList<>();
+        booleansInterTypes.add(myDb.insertDataInternalTypeTable(internalTypes[0]));
+        booleansInterTypes.add(myDb.insertDataInternalTypeTable(internalTypes[1]));
+        booleansInterTypes.add(myDb.insertDataInternalTypeTable(internalTypes[2]));
+        booleansInterTypes.add(myDb.insertDataInternalTypeTable(internalTypes[3]));
+        int trueCounterInterTypes = 0;
+        for (;trueCounterInterTypes < booleansInterTypes.size();++trueCounterInterTypes)
+        {
+            if(booleansInterTypes.get(trueCounterInterTypes) != true) break;
+        }
+        if(trueCounterInterTypes != booleansInterTypes.size())
+        {
+            Log.d(TAG,"addToDataBase: InterTypes: fail");
+        }
         ArrayList<Boolean> booleans = new ArrayList<>();
         this.getClass().getResource("cycling.jpg");
-        booleans.add(myDb.insertData(getString(R.string.ex1Name), getString(R.string.exCategoryArms),getString(R.string.exDifficultyMedium),getString(R.string.ex1Description),myDb.getPicturePath(R.drawable.single_arm_tricep_pushdown,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.single_arm_tricep_pushdown)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex2Name), getString(R.string.exCategoryLegs),getString(R.string.exDifficultyMedium),getString(R.string.ex2Description),myDb.getPicturePath(R.drawable.inner_thigh,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.inner_thigh)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex3Name), getString(R.string.exCategoryShoulders),getString(R.string.exDifficultyEasy),getString(R.string.ex3Description),myDb.getPicturePath(R.drawable.standing_shoulder_press,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.standing_shoulder_press)),internalTypes[0]));
-       booleans.add(myDb.insertData(getString(R.string.ex4Name), getString(R.string.exCategoryArms),getString(R.string.exDifficultyHard),getString(R.string.ex4Description),null,internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex5Name), getString(R.string.exCategoryChest),getString(R.string.exDifficultyMedium),getString(R.string.ex5Description),myDb.getPicturePath(R.drawable.push_up,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.push_up)),internalTypes[1]));
-        booleans.add(myDb.insertData(getString(R.string.ex6Name), getString(R.string.exCategoryABSAndBack),getString(R.string.exDifficultyHard),getString(R.string.ex6Description),myDb.getPicturePath(R.drawable.pull_up,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.pull_up)),internalTypes[1]));
-        booleans.add(myDb.insertData(getString(R.string.ex7Name), getString(R.string.exCategoryLegs),getString(R.string.exDifficultyMedium),getString(R.string.ex7Description),myDb.getPicturePath(R.drawable.squat,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.squat)),internalTypes[1]));
-        booleans.add(myDb.insertData(getString(R.string.ex8Name), getString(R.string.exCategoryABSAndBack),getString(R.string.exDifficultyEasy),getString(R.string.ex8Description),myDb.getPicturePath(R.drawable.plank,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.plank)),internalTypes[1]));
-        booleans.add(myDb.insertData(getString(R.string.ex9Name), getString(R.string.exCategoryABSAndBack),getString(R.string.exDifficultyEasy),getString(R.string.ex9Description),myDb.getPicturePath(R.drawable.crunches,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.crunches)),internalTypes[1]));
-        booleans.add(myDb.insertData(getString(R.string.ex10Name), getString(R.string.exCategoryChest),getString(R.string.exDifficultyMedium),getString(R.string.ex10Description),myDb.getPicturePath(R.drawable.bench_press,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.bench_press)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex11Name), getString(R.string.exCategoryABSAndBack),getString(R.string.exDifficultyVeryHard),getString(R.string.ex11Description),myDb.getPicturePath(R.drawable.deadlift,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.deadlift)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex12Name), getString(R.string.exCategoryChest),getString(R.string.exDifficultyMedium),getString(R.string.ex12Description),myDb.getPicturePath(R.drawable.dips,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.dips)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex13Name), getString(R.string.exCategoryShoulders),getString(R.string.exDifficultyMedium),getString(R.string.ex13Description),myDb.getPicturePath(R.drawable.overhead_press,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.overhead_press)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex14Name), getString(R.string.exCategoryABSAndBack),getString(R.string.exDifficultyMedium),getString(R.string.ex14Description),myDb.getPicturePath(R.drawable.romanian_deadlift,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.romanian_deadlift)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex15Name), getString(R.string.exCategoryLegs),getString(R.string.exDifficultyEasy),getString(R.string.ex15Description),myDb.getPicturePath(R.drawable.farmers_walk,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.farmers_walk)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex16Name), getString(R.string.exCategoryABSAndBack),getString(R.string.exDifficultyMedium),getString(R.string.ex16Description),myDb.getPicturePath(R.drawable.barbell_hip_thrust,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.barbell_hip_thrust)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex17Name), getString(R.string.exCategoryLegs),getString(R.string.exDifficultyEasy),getString(R.string.ex17Description),myDb.getPicturePath(R.drawable.walking,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.walking)),internalTypes[2]));
-        booleans.add(myDb.insertData(getString(R.string.ex18Name), getString(R.string.exCategoryLegs),getString(R.string.exDifficultyMedium),getString(R.string.ex18Description),myDb.getPicturePath(R.drawable.lunges,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.lunges)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex19Name), getString(R.string.exCategoryShoulders),getString(R.string.exDifficultyMedium),getString(R.string.ex19Description),myDb.getPicturePath(R.drawable.military_press,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.military_press)),internalTypes[0]));
-        booleans.add(myDb.insertData(getString(R.string.ex20Name), getString(R.string.exCategoryLegs),getString(R.string.exDifficultyMedium),getString(R.string.ex20Description),myDb.getPicturePath(R.drawable.running,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.running)),internalTypes[3]));
-        booleans.add(myDb.insertData(getString(R.string.ex21Name), getString(R.string.exCategoryLegs),getString(R.string.exDifficultyEasy),getString(R.string.ex21Description),myDb.getPicturePath(R.drawable.cycling,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.cycling)),internalTypes[2]));
-        booleans.add(myDb.insertData(getString(R.string.ex22Name), getString(R.string.exCategoryLegs),getString(R.string.exDifficultyMedium),getString(R.string.ex22Description),myDb.getPicturePath(R.drawable.roller_skating,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.roller_skating)),internalTypes[2]));
-        int trueCounter = 0;
-        for (;trueCounter < booleans.size();++trueCounter)
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex1Name), 2,2,getString(R.string.ex1Description),myDb.getPicturePath(R.drawable.single_arm_tricep_pushdown,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.single_arm_tricep_pushdown)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex2Name), 5,2,getString(R.string.ex2Description),myDb.getPicturePath(R.drawable.inner_thigh,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.inner_thigh)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex3Name), 4,1,getString(R.string.ex3Description),myDb.getPicturePath(R.drawable.standing_shoulder_press,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.standing_shoulder_press)),1));
+       booleans.add(myDb.insertDataMainTable(getString(R.string.ex4Name), 2,3,getString(R.string.ex4Description),null,1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex5Name), 1,2,getString(R.string.ex5Description),myDb.getPicturePath(R.drawable.push_up,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.push_up)),2));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex6Name), 3,3,getString(R.string.ex6Description),myDb.getPicturePath(R.drawable.pull_up,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.pull_up)),2));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex7Name), 5,2,getString(R.string.ex7Description),myDb.getPicturePath(R.drawable.squat,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.squat)),2));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex8Name), 3,1,getString(R.string.ex8Description),myDb.getPicturePath(R.drawable.plank,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.plank)),2));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex9Name), 3,1,getString(R.string.ex9Description),myDb.getPicturePath(R.drawable.crunches,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.crunches)),2));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex10Name), 1,1,getString(R.string.ex10Description),myDb.getPicturePath(R.drawable.bench_press,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.bench_press)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex11Name), 3,4,getString(R.string.ex11Description),myDb.getPicturePath(R.drawable.deadlift,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.deadlift)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex12Name), 1,2,getString(R.string.ex12Description),myDb.getPicturePath(R.drawable.dips,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.dips)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex13Name), 4,2,getString(R.string.ex13Description),myDb.getPicturePath(R.drawable.overhead_press,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.overhead_press)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex14Name), 3,2,getString(R.string.ex14Description),myDb.getPicturePath(R.drawable.romanian_deadlift,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.romanian_deadlift)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex15Name), 5,1,getString(R.string.ex15Description),myDb.getPicturePath(R.drawable.farmers_walk,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.farmers_walk)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex16Name), 3,2,getString(R.string.ex16Description),myDb.getPicturePath(R.drawable.barbell_hip_thrust,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.barbell_hip_thrust)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex17Name), 6,1,getString(R.string.ex17Description),myDb.getPicturePath(R.drawable.walking,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.walking)),3));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex18Name), 5,2,getString(R.string.ex18Description),myDb.getPicturePath(R.drawable.lunges,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.lunges)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex19Name), 4,2,getString(R.string.ex19Description),myDb.getPicturePath(R.drawable.military_press,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.military_press)),1));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex20Name), 6,2,getString(R.string.ex20Description),myDb.getPicturePath(R.drawable.running,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.running)),4));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex21Name), 6,1,getString(R.string.ex21Description),myDb.getPicturePath(R.drawable.cycling,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.cycling)),3));
+        booleans.add(myDb.insertDataMainTable(getString(R.string.ex22Name), 6,2,getString(R.string.ex22Description),myDb.getPicturePath(R.drawable.roller_skating,thisContext,BitmapFactory.decodeResource(getResources(),R.drawable.roller_skating)),3));
+        int trueCounterMain = 0;
+        for (;trueCounterMain < booleans.size();++trueCounterMain)
         {
-            if(booleans.get(trueCounter) != true) break;
+            if(booleans.get(trueCounterMain) != true) break;
         }
-        if(trueCounter == booleans.size())
+        if(trueCounterMain == booleans.size())
         {
             Log.d(TAG,"addToDataBase: succeeded");
             SharedPreferences settings = getSharedPreferences("prefs", 0);
@@ -187,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else
         {
-            Log.e(TAG, "addToDataBase: failed, fail at position: " + trueCounter);
+            Log.e(TAG, "addToDataBase: Main: failed, fail at position: " + trueCounterMain);
             return false;
         }
     }

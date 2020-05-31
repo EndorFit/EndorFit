@@ -22,6 +22,7 @@
     <string name="exCategoryABSAndBack">ABS &amp; Back</string>
     <string name="exCategoryChest">Chest</string>
     <string name="exCategoryShoulders">Shoulders</string>
+    <string name="exCategoryMoving">Moving</string>
     <string name="ex1Name">Single arm tricep pushdown</string>
     <string name="ex1Description">1. Attach the strap handle to the high pulley.\n
         2. Stand facing towards the machine.\n
@@ -157,7 +158,8 @@ B) Hinge forwards at the hips, keeping your arms straight so the barbell is dire
     <string name="ToastIntervalChosenSuccesfully1">Date added for this training with interval of </string>
     <string name="ToastIntervalChosenSuccesfully2"> days.</string>
     <string name="ToastValueIncorrect">Typed in value is incorrect. Please, type in number between 1 and 60</string>
-
+    <string name="ToastDateFromPast">Chosen date cannot be a date from the past</string>
+    <string name="ToastDateSet">Date set: </string>
 
 
 

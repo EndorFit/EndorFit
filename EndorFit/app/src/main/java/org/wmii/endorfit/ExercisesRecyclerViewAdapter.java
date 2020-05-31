@@ -73,7 +73,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
     }
     public void setExerciseKnowledgeBases(DataBaseHelper db)
     {
-        Cursor result = db.getCategorizedData(tab);
+        Cursor result = db.getCategorizedData(tab+1);
         if(result.getCount() == 0){
             Log.d(TAG, "setExercises: Empty dataBase");
             return;
