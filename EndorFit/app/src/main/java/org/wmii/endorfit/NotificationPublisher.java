@@ -25,9 +25,9 @@ public class NotificationPublisher extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_fitness_fit_white_24dp)
                 .setContentTitle("Training today!")
-                //.setContentText("Get ready, remember about towel and take some water with you. It will be helpful :)")
-                .setAutoCancel(true);
-                //.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                .setContentText("Get ready, remember about towel and water!")
+                .setAutoCancel(true)
+                .setVibrate(new long[] { 500, 200, 500, 200, 500 });
         if(intent.getAction().equals("MY_NOTIFICATION_MESSAGE"))
         {
             notificationManager.notify(100, builder.build());
