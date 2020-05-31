@@ -263,7 +263,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
         exerciseRef.setValue(new Exercise("bieganie", "running", totalDistance, RunTime, route)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(RunningModeMap.this, "Dodano do bazy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RunningModeMap.this, "Run saved", Toast.LENGTH_SHORT).show();
             }
         });
 
