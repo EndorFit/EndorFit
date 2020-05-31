@@ -264,7 +264,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
         //(String name, String type, double distance, double time, Vector<Location> route)
 
         ArrayList<Exercise> tempArray = new ArrayList<>();
-        tempArray.add(new Exercise("Running", "Moving",totalDistance, RunTime, route));
+        tempArray.add(new Exercise(nazwa_planu, "Moving",totalDistance, RunTime, route));
         Workout dbSave=new Workout("1/1",tempArray);
         exerciseRef.setValue(dbSave).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
