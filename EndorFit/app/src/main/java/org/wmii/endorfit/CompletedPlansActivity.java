@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.inputmethodservice.ExtractEditText;
+import android.location.Location;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class CompletedPlansActivity extends AppCompatActivity {
     ProgressBar progressBar;
@@ -71,10 +74,52 @@ public class CompletedPlansActivity extends AppCompatActivity {
                         if(!item.getKey().toString().equals("stateWorkout"))
                         {
                             planName = item.getKey().toString();
-                            for(DataSnapshot exercise : item.getChildren())
+                            for(DataSnapshot exerciseList : item.getChildren())
                             {
-                                Exercise tempExercise = exercise.getValue(Exercise.class);
-                                tempExerciseList.add(tempExercise);
+                                for(DataSnapshot exercise : exerciseList.getChildren())
+                                {
+                                    String name = "";
+                                    String type = "";
+                                    int sets = 0;
+                                    int reps = 0;
+                                    double weight = 0;
+                                    double distance = 0;
+                                    double time = 0;
+                                    Vector<Location> route = new Vector<>();
+                                    for(DataSnapshot typ : exercise.getChildren())
+                                    {
+                                        if(typ.getKey().equals("distance")) distance = Double.parseDouble(typ.getValue().toString());
+                                        if(typ.getKey().equals("weight")) weight = Double.parseDouble(typ.getValue().toString());
+                                        if(typ.getKey().equals("time")) time = Double.parseDouble(typ.getValue().toString());
+                                        if(typ.getKey().equals("sets")) sets = Integer.parseInt(typ.getValue().toString());
+                                        if(typ.getKey().equals("reps")) reps = Integer.parseInt(typ.getValue().toString());
+                                        if(typ.getKey().equals("type")) type = typ.getValue().toString();
+                                        if(typ.getKey().equals("name")) name = typ.getValue().toString();
+                                        if(typ.getKey().equals("route"))
+                                        {
+                                            for(DataSnapshot location : typ.getChildren())
+                                            {
+                                                Location temp = new Location(String.valueOf(location.getChildren()));
+                                                route.add(temp);
+                                            }
+                                        }
+                                    }
+
+                                    switch (type){
+                                        case "Moving":
+                                            tempExerciseList.add(new Exercise(name, type, distance, time, route));
+                                            break;
+                                        case "Exercise with weights":
+                                            tempExerciseList.add(new Exercise(name, type, sets, reps, weight));
+                                            break;
+                                        case "Exercise without weights":
+                                            tempExerciseList.add(new Exercise(name, type, sets, reps));
+                                            break;
+                                        case "Exercise with time":
+                                            tempExerciseList.add(new Exercise(name, type, sets, reps, time));
+                                            break;
+                                    }
+                                }
                             }
                         }
                         else

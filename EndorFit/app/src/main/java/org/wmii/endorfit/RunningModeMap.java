@@ -40,6 +40,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
@@ -262,12 +263,17 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
         //(String name, String type, double distance, double time, Vector<Location> route)
 
-        exerciseRef.setValue(new Exercise("bieganie", "running", totalDistance, RunTime, route)).addOnSuccessListener(new OnSuccessListener<Void>() {
+        ArrayList<Exercise> tempArray = new ArrayList<>();
+        tempArray.add(new Exercise("Running", "Moving",totalDistance, RunTime, route));
+        Workout dbSave=new Workout("1/1",tempArray);
+        exerciseRef.setValue(dbSave).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(RunningModeMap.this, "Run saved", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
 
 

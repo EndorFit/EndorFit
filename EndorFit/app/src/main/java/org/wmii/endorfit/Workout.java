@@ -3,7 +3,6 @@ package org.wmii.endorfit;
 import java.util.ArrayList;
 
 public class Workout {
-    private  String nameWorkout;
         private  String stateWorkout;
         private ArrayList<Exercise> planItems;
 
@@ -17,8 +16,7 @@ public class Workout {
         return planItems;
     }
 
-    public Workout( String nameWorkout,String stateWorkout, ArrayList<Exercise> planItems) {
-this.nameWorkout=nameWorkout;
+    public Workout( String stateWorkout, ArrayList<Exercise> planItems) {
         this.stateWorkout = stateWorkout;
         this.planItems = planItems;
     }

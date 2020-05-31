@@ -83,7 +83,8 @@ private void saveWorkout()
 {
     String data = java.text.DateFormat.getDateTimeInstance().format(new Date());
     planContentRef = database.getReference("users/" + user.getUid() + "/completed/"+data+"/"+workoutKey);
-    dbSave=new Workout(workoutKey,state,planItemsExer);
+
+    dbSave=new Workout(state,planItemsExer);
     planContentRef.setValue(dbSave).addOnCompleteListener(new OnCompleteListener<Void>() {
     @Override
     public void onComplete(@NonNull Task<Void> task) {
