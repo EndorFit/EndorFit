@@ -6,10 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -26,7 +28,10 @@
 
         <activity
             android:name=".RunningModeMap"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+		</activity>
+        <activity android:name=".SetIntervalForTrainingActivity"></activity>
+        <activity android:name=".CalendarDateChoosingActivity" />
         <activity android:name=".ExercisesDetailsActivity" />
         <activity android:name=".ExercisesListActivity" />
         <activity android:name=".AddNewExerciseActivity" />
@@ -45,6 +50,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".workoutPlan" />
+        <activity android:name=".workoutGo" />
+        <receiver android:name=".NotificationPublisher"/>
     </application>
 
 </manifest>

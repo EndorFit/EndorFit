@@ -40,7 +40,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
         Log.d(TAG, "onBindViewHolder: called");
         holder.exerciseName.setText(exerciseKnowledgeBases.get(position).getName());
 //        holder.exerciseImage.setImageBitmap(exerciseKnowledgeBases.get(position).getImage());
-        holder.exerciseCategoryAndDifficulty.setText("Category: " + exerciseKnowledgeBases.get(position).getCategory() + "\nDifficulty: " + exerciseKnowledgeBases.get(position).getDifficultyLevel());
+        holder.exerciseCategoryAndDifficulty.setText("Category: " + exerciseKnowledgeBases.get(position).getCategory() + ", Difficulty: " + exerciseKnowledgeBases.get(position).getDifficultyLevel());
         holder.exerciseCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +73,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
     }
     public void setExerciseKnowledgeBases(DataBaseHelper db)
     {
-        Cursor result = db.getCategorizedData(tab);
+        Cursor result = db.getCategorizedData(tab+1);
         if(result.getCount() == 0){
             Log.d(TAG, "setExercises: Empty dataBase");
             return;

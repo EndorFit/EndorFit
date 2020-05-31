@@ -22,6 +22,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     private Button buttonToExercisesList;
     Button startRun;
     Button buttonCompletedPlans;
+    private Button buttonToDateSetting;
     FirebaseAuth mAuth;
 
     FirebaseDatabase database;
@@ -90,6 +91,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         buttonToExercisesList = (Button) findViewById(R.id.buttonToExercises);
         startRun = (Button) findViewById(R.id.buttonStartRunningMode);
         buttonCompletedPlans = findViewById(R.id.buttonCompletedPlans);
+        buttonToDateSetting = (Button) findViewById(R.id.buttonSetTrainingDate);
     }
     public void setOnClickListener()
     {
@@ -101,6 +103,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
             }
         });
+
 
         startRun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +120,15 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
             }
         });
+        buttonToDateSetting.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainWindowActivity.this, CalendarDateChoosingActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     @Override
     public void onClick(View view) {

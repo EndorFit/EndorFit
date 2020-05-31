@@ -8,29 +8,30 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.nfc.Tag;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.sql.Blob;
 
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Exercises.db";
-    public static final String TABLE_NAME = "exerciselist_table";
+    public static final String TABLE_NAME_MAIN = "exerciselist_table";
+    public static final String TABLE_NAME_CATEGORIES = "categorieslist_table";
+    public static final String TABLE_NAME_DIFFICULTY_LVLS = "difficultylevels_table";
+    public static final String TABLE_NAME_INTERNAL_TYPES = "internal_types_table";
     public static final String COL_1 = "ID";
-    public static final String COL_2 = "NAME";
-    public static final String COL_3 = "CATEGORY";
-    public static final String COL_4 = "DIFFICULTY_LEVEL";
+    public static final String COL_2 = "NAME_EX";
+    public static final String COL_3 = "CATEGORY_ID";
+    public static final String COL_4 = "DIFFICULTY_LEVEL_ID";
     public static final String COL_5 = "DESCRIPTION";
     public static final String COL_6 = "IMAGE_FILE_NAME";
-    public static final String COL_7 = "INTERNAL_TYPE";
-    private int size = 0;
+    public static final String COL_7 = "INTERNAL_TYPE_ID";
+    public static final String CCOL_2 = "NAME";
+    private int sizeMain = 0;
     private static final String TAG = "DataBaseHelper";
     public static final int DATABASE_VERSION = 2;
 
@@ -56,19 +57,37 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME
+        db.execSQL("CREATE TABLE " + TABLE_NAME_MAIN
                 + "("+ COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_2 + " TEXT UNIQUE," +
-                COL_3 + " TEXT," +
-                COL_4 + " TEXT," +
+                COL_3 + " INTEGER," +
+                COL_4 + " INTEGER," +
                 COL_5 + " TEXT," +
-                COL_6 + " TEXT,"  +
-                COL_7 + " TEXT);");
+                COL_6 + " TEXT," +
+                COL_7 + " INTEGER," +
+                "FOREIGN KEY " + "(" + COL_3 + ")" +
+                " REFERENCES " + TABLE_NAME_CATEGORIES + " (" + COL_3 + ")," +
+                "FOREIGN KEY " + "(" + COL_7 + ")" +
+                " REFERENCES " + TABLE_NAME_INTERNAL_TYPES + " (" + COL_7 + ")," +
+                "FOREIGN KEY " + "(" + COL_4 + ")" +
+                " REFERENCES " + TABLE_NAME_DIFFICULTY_LVLS + " (" + COL_4 + ")" + ");");
+        db.execSQL("CREATE TABLE " + TABLE_NAME_CATEGORIES +
+                        "(" + COL_3 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                            + CCOL_2 + " TEXT UNIQUE);" );
+        db.execSQL("CREATE TABLE " + TABLE_NAME_DIFFICULTY_LVLS +
+                "(" + COL_4 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + CCOL_2 + " TEXT UNIQUE);");
+        db.execSQL("CREATE TABLE " + TABLE_NAME_INTERNAL_TYPES +
+                "(" + COL_7 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + CCOL_2 + " TEXT UNIQUE);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MAIN);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_INTERNAL_TYPES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_DIFFICULTY_LVLS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CATEGORIES);
         onCreate(db);
     }
 
@@ -78,7 +97,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         bitmap.compress(Bitmap.CompressFormat.PNG, 16, outputStream);
         return outputStream.toByteArray();
     }
-    public boolean insertData(String name, String category, String difficulty, String description, String imageFileName, String internalType)
+    public boolean insertDataMainTable(String name, int category, int difficulty, String description, String imageFileName, int internalType)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -89,21 +108,72 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_6,imageFileName);
         contentValues.put(COL_7,internalType);
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
+        long result = db.insert(TABLE_NAME_MAIN, null, contentValues);
         if(result == -1)
         {
             return false;
         }
         else
         {
-            ++size;
+            ++sizeMain;
+            return true;
+        }
+    }
+    public boolean insertDataCategoryTable(String name)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CCOL_2, name);
+
+        long result = db.insert(TABLE_NAME_CATEGORIES, null, contentValues);
+        if(result == -1)
+        {
+            return false;
+        }
+        else
+        {
+            ++sizeMain;
+            return true;
+        }
+    }
+    public boolean insertDataDifficultyTable(String name)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CCOL_2, name);
+
+        long result = db.insert(TABLE_NAME_DIFFICULTY_LVLS, null, contentValues);
+        if(result == -1)
+        {
+            return false;
+        }
+        else
+        {
+            ++sizeMain;
+            return true;
+        }
+    }
+    public boolean insertDataInternalTypeTable(String name)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CCOL_2, name);
+
+        long result = db.insert(TABLE_NAME_INTERNAL_TYPES, null, contentValues);
+        if(result == -1)
+        {
+            return false;
+        }
+        else
+        {
+            ++sizeMain;
             return true;
         }
     }
     public void dropDataBase()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("DROP TABLE " + TABLE_NAME, null);
+        db.rawQuery("DROP TABLE " + TABLE_NAME_MAIN, null);
     }
 
     public static Bitmap getImage(int id, int columnIndex){
@@ -144,52 +214,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public Cursor getAllData()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL_4, null);
+        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", diflvl." + CCOL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2 + ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
+                " FROM " + TABLE_NAME_MAIN +
+                " JOIN " + TABLE_NAME_DIFFICULTY_LVLS + " diflvl USING (" + COL_4 + ")" +
+                " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ")" +
+                " JOIN " + TABLE_NAME_CATEGORIES + " cat USING (" + COL_3 + ")",null);
         return result;
     }
     public Cursor getCategorizedData(int category)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String categoryString;
-        switch (category)
-        {
-            case 0:
-            {
-                categoryString = "\'Chest\'";
-                break;
-            }
-            case 1:
-            {
-                categoryString = "\'Arms\'";
-                break;
-            }
-            case 2:
-            {
-                categoryString = "\'ABS & Back\'";
-                break;
-            }
-            case 3:
-            {
-                categoryString = "\'Shoulders\'";
-                break;
-            }
-            case 4:
-            {
-                categoryString = "\'Legs\'";
-                break;
-            }
-            default:
+
+
+            if(category > 6 || category <= 0)
             {
                 return getAllData();
             }
-        }
-        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_3 + " = " + categoryString + " ORDER BY " + COL_4, null);
+
+        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", diflvl." + CCOL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2 + ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
+                " FROM " + TABLE_NAME_MAIN +
+                " JOIN " + TABLE_NAME_DIFFICULTY_LVLS + " diflvl USING (" + COL_4 + ")" +
+                " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ")" +
+                " JOIN " + TABLE_NAME_CATEGORIES + " cat USING (" + COL_3 + ")" +
+                " WHERE " + COL_3 + " = " + category + " ORDER BY " + COL_4, null);
         return result;
     }
     public Cursor getOneRow(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + id,null);
+        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME_MAIN + " WHERE " + COL_1 + " = " + id,null);
         return result;
     }
     public String getPicturePath(int id, Context context, Bitmap picture) {
@@ -203,7 +256,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(reportFilePath);
-            picture.compress(Bitmap.CompressFormat.JPEG, 10 /*quality*/, fos);
+            picture.compress(Bitmap.CompressFormat.JPEG, 32 /*quality*/, fos);
             fos.close();
         }
         catch (Exception ex) {

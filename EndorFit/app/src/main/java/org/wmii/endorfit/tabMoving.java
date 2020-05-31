@@ -15,22 +15,22 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class tabArms extends Fragment {
+public class tabMoving extends Fragment {
 
-    View v;
-    public static final String TAG = "tabArms";
-    //private RecyclerView exercisesListRecyclerView;
-    public tabArms() {
+    public tabMoving() {
         // Required empty public constructor
     }
+    View v;
+    public static final String TAG = "tabMoving";
+    //private RecyclerView exercisesListRecyclerView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d(TAG, "onCreateView: started");
-        v = inflater.inflate(R.layout.fragment_tab_arms, container, false);
-        //ExercisesListActivity.exercisesListRecyclerView = (ReyoclerView) itemList.findViewById(R.id.exersisesListRecyclerView);
-        ExercisesRecyclerViewAdapter adapter = new ExercisesRecyclerViewAdapter(super.getContext(),1);
+        v = inflater.inflate(R.layout.fragment_tab_chest, container, false);
+        //ExercisesListActivity.exercisesListRecyclerView = (RecyclerView) itemList.findViewById(R.id.exersisesListRecyclerView);
+        ExercisesRecyclerViewAdapter adapter = new ExercisesRecyclerViewAdapter(super.getContext(),5);
         ExercisesListActivity.exercisesListRecyclerView = (RecyclerView) v.findViewById(R.id.exersisesListRecyclerView);
         ExercisesListActivity.exercisesListRecyclerView.setAdapter(adapter);
         ExercisesListActivity.exercisesListRecyclerView.setLayoutManager(new LinearLayoutManager(super.getContext()));

@@ -24,6 +24,7 @@
     <string name="exCategoryABSAndBack">ABS &amp; Back</string>
     <string name="exCategoryChest">Chest</string>
     <string name="exCategoryShoulders">Shoulders</string>
+    <string name="exCategoryMoving">Moving</string>
     <string name="ex1Name">Single arm tricep pushdown</string>
     <string name="ex1Description">1. Attach the strap handle to the high pulley.\n
         2. Stand facing towards the machine.\n
@@ -143,6 +144,25 @@ B) Hinge forwards at the hips, keeping your arms straight so the barbell is dire
     <string name="ex22Name">Roller skating</string>
     <string name="ex22Description"></string>
     <string name="exercisesListTitleBar">Exercises</string>
+    <string name="setDateTitle">Set the date for your training</string>
+    <string name="setTheInterval">Set the interval</string>
+    <string name="setInterval1">1 day</string>
+    <string name="setInterval2">2 days</string>
+    <string name="setInterval3">3 days</string>
+    <string name="setInterval4">4 days</string>
+    <string name="setInterval5">5 days</string>
+    <string name="setInterval6">6 days</string>
+    <string name="setInterval7">7 days</string>
+    <string name="setIntervalDontWantTo">I don\'t want to set an interval</string>
+    <string name="DateDone">Done</string>
+    <string name="IntervalOther">Other: </string>
+    <string name="ToastNoIntervalChosen">No interval chosen</string>
+    <string name="ToastIntervalChosenSuccesfully1">Date added for this training with interval of </string>
+    <string name="ToastIntervalChosenSuccesfully2"> days.</string>
+    <string name="ToastValueIncorrect">Typed in value is incorrect. Please, type in number between 1 and 60</string>
+    <string name="ToastDateFromPast">Chosen date cannot be a date from the past</string>
+    <string name="ToastDateSet">Date set: </string>
+
 
 
 </resources>
