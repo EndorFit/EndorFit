@@ -123,6 +123,8 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
                 }
             });
+
+            
             stopButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -365,12 +367,6 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
             googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));}
         }
-
-
-
-
-
-
 
     }
 
