@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -20,10 +21,10 @@ import java.util.ArrayList;
 public class MainWindowActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
-    private Button buttonToExercisesList;
-    Button startRun;
-    Button buttonCompletedPlans;
-    private Button buttonToDateSetting;
+    private ImageButton buttonToExercisesList;
+    ImageButton startRun;
+    ImageButton buttonCompletedPlans;
+    private ImageButton buttonToDateSetting;
     FirebaseAuth mAuth;
 
     FirebaseDatabase database;
@@ -32,7 +33,6 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
-
         initWidgets();
         findViewById(R.id.imageViewRightIcon).setOnClickListener(this);
         findViewById(R.id.imageViewCenterIcon).setOnClickListener(this);
@@ -74,10 +74,10 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         imageViewProfile = findViewById(R.id.imageViewRightIcon);
         imageViewCenter = findViewById(R.id.imageViewCenterIcon);
         imageViewLeft = findViewById(R.id.imageViewLeftIcon);
-        buttonToExercisesList = (Button) findViewById(R.id.buttonToExercises);
-        startRun = (Button) findViewById(R.id.buttonStartRunningMode);
+        buttonToExercisesList = (ImageButton) findViewById(R.id.buttonToExercises);
+        startRun = (ImageButton) findViewById(R.id.buttonStartRunningMode);
         buttonCompletedPlans = findViewById(R.id.buttonCompletedPlans);
-        buttonToDateSetting = (Button) findViewById(R.id.buttonSetTrainingDate);
+        buttonToDateSetting = (ImageButton) findViewById(R.id.buttonSetTrainingDate);
     }
     public void setOnClickListener()
     {

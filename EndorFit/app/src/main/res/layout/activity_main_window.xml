@@ -5,57 +5,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainWindowActivity">
+    <View android:id="@+id/fakeView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="620dp"
-        android:id="@+id/relLayoutMain">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:text="Show exercises list"
-            android:id="@+id/buttonToExercises"
-            />
 
-        <Button
-            android:id="@+id/buttonStartRunningMode"
-            android:layout_width="135dp"
-            android:layout_height="87dp"
-            android:layout_above="@+id/buttonToExercises"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="139dp"
-            android:layout_marginTop="117dp"
-            android:layout_marginEnd="137dp"
-            android:layout_marginBottom="82dp"
-            android:text="RUNNING MODE " />
+    <ImageButton
+        android:background="@color/colorPrimary"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:id="@+id/buttonCompletedPlans"
+        android:src="@drawable/task_completed"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_above="@id/fakeView"
+        android:scaleType="centerInside"
+        android:layout_width="100dp"
+        android:layout_toLeftOf="@id/fakeView"
+        android:layout_alignParentLeft="true"
+        android:layout_height="100dp"
+         />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonCompletedPlans"
-            android:text="Completed"/>
+    <ImageButton
+        android:id="@+id/buttonStartRunningMode"
+        android:layout_width="208dp"
+        android:layout_height="325dp"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_above="@id/fakeView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="1dp"
+        android:layout_toRightOf="@id/fakeView"
+        android:backgroundTint="@color/colorPrimary"
+        android:scaleType="centerInside"
+        android:src="@drawable/running_button"
+        android:text="RUNNING MODE "
+        android:textAlignment="gravity" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SET TRAINING DATE"
+    <ImageButton
             android:id="@+id/buttonSetTrainingDate"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/buttonToExercises"
-            android:layout_marginTop="50dp"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/fakeView"
+            android:backgroundTint="@color/colorPrimary"
+            android:scaleType="centerInside"
+            android:src="@drawable/date"
+            android:layout_below="@+id/fakeView"
+            android:layout_alignParentStart="true"
+            android:layout_above="@id/linLayoutBot"
+            android:text="SET TRAINING DATE" />
+    <ImageButton
+        android:layout_column="0"
+        android:layout_width="match_parent"
 
-    </RelativeLayout>
+        android:layout_above="@id/linLayoutBot"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/book"
+        android:layout_below="@id/fakeView"
+        android:layout_toRightOf="@id/fakeView"
+        android:scaleType="centerInside"
+        android:layout_height="match_parent"
+        android:text="Show exercises list"
+        android:id="@+id/buttonToExercises"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:id="@+id/linLayoutBot"
-        android:layout_below="@+id/relLayoutMain"
+
+        android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:weightSum="99">
 

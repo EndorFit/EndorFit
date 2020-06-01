@@ -59,7 +59,7 @@
         android:layout_below="@+id/buttonDoneWithDateSetting"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp"
-        android:text="I don't want to set date"
+        android:text="@string/buttonDontWantToSetDate"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:textSize="20sp"
