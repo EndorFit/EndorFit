@@ -15,7 +15,7 @@
 
         <Spinner
             android:id="@+id/spinnerPlanName"
-            android:layout_width="150dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:singleLine="true"
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/buttonCreateNewPlan"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:textSize="20sp"
                 android:text="Exercises"
                 android:layout_marginRight="30dp"
@@ -90,36 +90,42 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/linLayoutBot"
-        android:layout_below="@+id/relLayoutMain"
-        android:background="@color/colorPrimary"
-        android:weightSum="99">
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottomStrip">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/linLayoutBot"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:weightSum="99">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="33"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_assignment_white_24dp"
-            android:id="@+id/imageViewLeftIcon"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="33"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_assignment_white_24dp"
+                android:id="@+id/imageViewLeftIcon"/>
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="33"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_fitness_fit_white_24dp"
-            android:id="@+id/imageViewCenterIcon"/>
+            <ImageView
+                android:id="@+id/imageViewCenterIcon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="33"
+                android:src="@drawable/ic_fitness_fit_white_24dp" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="33"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_assignment_ind_white_24dp"
-            android:id="@+id/imageViewRightIcon"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="33"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_assignment_ind_white_24dp"
+                android:id="@+id/imageViewRightIcon"/>
 
-    </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
     <ProgressBar
         android:layout_width="wrap_content"

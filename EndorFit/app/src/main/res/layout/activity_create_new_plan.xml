@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ProfileActivity"
-    android:scrollbars="vertical">
+    tools:context="ProfileActivity">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
 
         <EditText
             android:id="@+id/EditTxtPlanName"
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:hint="Plan name"
@@ -37,12 +37,13 @@
         android:layout_width="match_parent"
         android:layout_height="570dp"
         android:backgroundTint="#B84C4C"
-        android:layout_below="@+id/relLayoutPlanTop">
+        android:layout_below="@+id/relLayoutPlanTop"
+        android:layout_above="@+id/bottomStrip">
 
         <RelativeLayout
             android:id="@+id/relLayoutPlan"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp"
             android:background="@color/colorPrimary"
@@ -67,11 +68,8 @@
                 android:id="@+id/spinnerExercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:animateLayoutChanges="true"
                 android:animationCache="true"
@@ -102,7 +100,8 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:inputType="number"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:maxLength="2"/>
 
                 <EditText
                     android:id="@+id/editTextTopRight"
@@ -115,17 +114,19 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:inputType="number"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:maxLength="2"/>
 
-                <EditText
-                    android:id="@+id/editTextBotLeft"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/editTextTopLeft"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
-                    android:inputType="number"
-                    android:singleLine="true" />
+            <EditText
+                android:id="@+id/editTextBotLeft"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextTopLeft"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
+                android:singleLine="true" />
 
                 <ImageView
                     android:id="@+id/imageViewAddExercise"
@@ -142,44 +143,52 @@
 
 
 
-    <ImageView
-        android:id="@+id/whiteLine"
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorAccent"
-        android:layout_above="@+id/linLayoutBot"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/linLayoutBot"
-        android:layout_below="@+id/relLayoutMain"
-        android:background="@color/colorPrimary"
-        android:weightSum="99">
+        android:layout_height="41dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottomStrip">
 
         <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="33"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_assignment_white_24dp"
-            android:id="@+id/imageViewLeftIcon"/>
+            android:id="@+id/whiteLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorAccent"
+            android:layout_alignParentStart="true"/>
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="33"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_fitness_fit_white_24dp"
-            android:id="@+id/imageViewCenterIcon"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/linLayoutBot"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:weightSum="99">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="33"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_assignment_ind_white_24dp"
-            android:id="@+id/imageViewRightIcon"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="33"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_assignment_white_24dp"
+                android:id="@+id/imageViewLeftIcon"/>
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageViewCenterIcon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="33"
+                android:src="@drawable/ic_fitness_fit_white_24dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="33"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_assignment_ind_white_24dp"
+                android:id="@+id/imageViewRightIcon"/>
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <ProgressBar
         android:layout_width="wrap_content"

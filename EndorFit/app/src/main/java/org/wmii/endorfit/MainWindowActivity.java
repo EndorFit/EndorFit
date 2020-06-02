@@ -84,9 +84,9 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         buttonToExercisesList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainWindowActivity.this, ExercisesListActivity.class);
-                // intent.putExtra(myDb);
-                startActivity(intent);
+                Intent intentwork = new Intent(MainWindowActivity.this,workoutPlan.class);
+                intentwork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentwork);
             }
         });
 
@@ -123,11 +123,11 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                 intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentProfile);
                 break;
-            case R.id.imageViewCenterIcon:
+            /*case R.id.imageViewCenterIcon:
                 Intent intentwork = new Intent(MainWindowActivity.this,workoutPlan.class);
                 intentwork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentwork);
-                break;
+                break;*/
             case R.id.imageViewLeftIcon:
                 Intent intentPlan = new Intent(MainWindowActivity.this, PlanActivity.class);
                 intentPlan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
