@@ -51,7 +51,7 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        InitializeObjects();
+        getPlanNamesForSpinner();
         initWidgets();
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,completedPlansNames);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -151,7 +151,7 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
 
 
 
-    private void InitializeObjects() {
+    private void getPlanNamesForSpinner() {
         viewPager = findViewById(R.id.viewPagerListy);
         completedPlansNames = new ArrayList<>();
         final DatabaseReference completedPlansRef = database.getReference("users/" + user.getUid() + "/plans/");
