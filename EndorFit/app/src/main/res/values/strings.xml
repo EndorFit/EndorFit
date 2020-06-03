@@ -162,6 +162,8 @@ B) Hinge forwards at the hips, keeping your arms straight so the barbell is dire
     <string name="ToastValueIncorrect">Typed in value is incorrect. Please, type in number between 1 and 60</string>
     <string name="ToastDateFromPast">Chosen date cannot be a date from the past</string>
     <string name="ToastDateSet">Date set: </string>
+    <string name="SpinnerTrainingToDate">Choose training to set date to</string>
+    <string name="buttonDontWantToSetDate">I don\'t want to set the date</string>
 
 
 

@@ -5,80 +5,123 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainWindowActivity">
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="620dp"
-        android:id="@+id/relLayoutMain">
-        <Button
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/bottomStrip"
+        android:paddingBottom="40dp"
+        >
+        <View
+            android:id="@+id/fakeView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            />
+        <ImageButton
+            android:background="@color/colorPrimary"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:id="@+id/buttonCompletedPlans"
+            android:src="@drawable/task_completed"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="9dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="7dp"
+            android:layout_above="@id/fakeView"
+            android:scaleType="centerInside"
+            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@id/fakeView"
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content"
+            />
+
+        <ImageButton
+            android:id="@+id/buttonStartRunningMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_above="@id/fakeView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginBottom="1dp"
+            android:layout_toRightOf="@id/fakeView"
+            android:backgroundTint="@color/colorPrimary"
+            android:scaleType="centerInside"
+            android:src="@drawable/running_button"
+            android:text="RUNNING MODE "
+            android:textAlignment="gravity" />
+
+        <ImageButton
+            android:id="@+id/buttonSetTrainingDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/fakeView"
+            android:backgroundTint="@color/colorPrimary"
+            android:scaleType="centerInside"
+            android:src="@drawable/date"
+            android:layout_below="@+id/fakeView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_above="@id/bottomStrip"
+            android:text="SET TRAINING DATE" />
+        <ImageButton
+            android:layout_column="0"
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_above="@id/bottomStrip"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:src="@drawable/three_books"
+            android:layout_below="@id/fakeView"
+            android:layout_toRightOf="@id/fakeView"
+            android:scaleType="centerInside"
+            android:layout_height="wrap_content"
             android:text="Show exercises list"
             android:id="@+id/buttonToExercises"
             />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottomStrip">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/linLayoutBot"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:weightSum="99">
 
-        <Button
-            android:id="@+id/buttonStartRunningMode"
-            android:layout_width="135dp"
-            android:layout_height="87dp"
-            android:layout_above="@+id/buttonToExercises"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="139dp"
-            android:layout_marginTop="117dp"
-            android:layout_marginEnd="137dp"
-            android:layout_marginBottom="82dp"
-            android:text="RUNNING MODE " />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="33"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_assignment_white_24dp"
+                android:id="@+id/imageViewLeftIcon"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonCompletedPlans"
-            android:text="Completed"/>
+            <ImageView
+                android:id="@+id/imageViewCenterIcon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="33"
+                android:src="@drawable/ic_fitness_fit_white_24dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SET TRAINING DATE"
-            android:id="@+id/buttonSetTrainingDate"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/buttonToExercises"
-            android:layout_marginTop="50dp"
-            />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="33"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_assignment_ind_white_24dp"
+                android:id="@+id/imageViewRightIcon"/>
 
+        </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/linLayoutBot"
-        android:layout_below="@+id/relLayoutMain"
-        android:background="@color/colorPrimary"
-        android:weightSum="99">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="33"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_assignment_white_24dp"
-            android:id="@+id/imageViewLeftIcon"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="33"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_fitness_fit_white_24dp"
-            android:id="@+id/imageViewCenterIcon"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="33"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_assignment_ind_white_24dp"
-            android:id="@+id/imageViewRightIcon"/>
-
-    </LinearLayout>
 </RelativeLayout>
+
+

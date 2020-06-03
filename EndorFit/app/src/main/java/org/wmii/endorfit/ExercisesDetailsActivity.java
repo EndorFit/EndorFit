@@ -35,12 +35,12 @@ public class ExercisesDetailsActivity extends AppCompatActivity {
         int exId = cursor.getInt(0);
         String name = cursor.getString(1);
         String category = cursor.getString(2);
-        String description = cursor.getString(3);
-        String difficultyLevel = cursor.getString(4);
+        String difficultyLevel = cursor.getString(3);
+        String description = cursor.getString(4);
         String internalType = cursor.getString(6);
         String imagePath = cursor.getString(5);
         cursor.close();
-        return new ExerciseKnowledgeBase(exId,name, category,difficultyLevel ,description.toString() ,imagePath,internalType);
+        return new ExerciseKnowledgeBase(exId,name,category ,description ,difficultyLevel, imagePath,internalType);
     }
     public void initWidgets()
     {

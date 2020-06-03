@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ProgressBar progressBar;
     Button btnLogin, btnGoToSignUp;
     public static DataBaseHelper myDb;
+    public static int not_id = 1;
     public final static String TAG = "MainActivity";
     FirebaseAuth mAuth;
 

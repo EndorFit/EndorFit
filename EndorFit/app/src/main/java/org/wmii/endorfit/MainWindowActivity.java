@@ -3,9 +3,11 @@ package org.wmii.endorfit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -19,10 +21,10 @@ import java.util.ArrayList;
 public class MainWindowActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
-    private Button buttonToExercisesList;
-    Button startRun;
-    Button buttonCompletedPlans;
-    private Button buttonToDateSetting;
+    private ImageButton buttonToExercisesList;
+    ImageButton startRun;
+    ImageButton buttonCompletedPlans;
+    private ImageButton buttonToDateSetting;
     FirebaseAuth mAuth;
 
     FirebaseDatabase database;
@@ -31,7 +33,6 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
-
         initWidgets();
         findViewById(R.id.imageViewRightIcon).setOnClickListener(this);
         findViewById(R.id.imageViewCenterIcon).setOnClickListener(this);
@@ -53,27 +54,12 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void preparePreDefineExercise() {
+        Cursor cursor = MainActivity.myDb.getDataForFirebase();
         ArrayList<Exercise> predefExercise = new ArrayList<>();
-        predefExercise.add(new Exercise("Bench press","Exercise with weights"));
-        predefExercise.add(new Exercise("Single arm tricep pushdown","Exercise with weights"));
-        predefExercise.add(new Exercise("Romanian deadlift","Exercise with weights"));
-        predefExercise.add(new Exercise("Overhead Press","Exercise with weights"));
-        predefExercise.add(new Exercise("Military Press","Exercise with weights"));
-        predefExercise.add(new Exercise("Inner thigh","Exercise with weights"));
-        predefExercise.add(new Exercise("Deadlift","Exercise with weights"));
-        predefExercise.add(new Exercise("Lunges","Exercise without weights"));
-
-        predefExercise.add(new Exercise("Dips","Exercise without weights"));
-        predefExercise.add(new Exercise("Crunches","Exercise without weights"));
-        predefExercise.add(new Exercise("Pull Up","Exercise without weights"));
-        predefExercise.add(new Exercise("Barbell hip thrust","Exercise without weights"));
-        predefExercise.add(new Exercise("Squat","Exercise without weights"));
-
-        predefExercise.add(new Exercise("Walking","Moving"));
-        predefExercise.add(new Exercise("Cycling","Moving"));
-        predefExercise.add(new Exercise("Running","Moving"));
-        predefExercise.add(new Exercise("Roller skating","Moving"));
-
+        while(cursor.moveToNext())
+        {
+            predefExercise.add(new Exercise(cursor.getString(1),cursor.getString(2)));
+        }
         database = FirebaseDatabase.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         for(Exercise exercise : predefExercise)
@@ -88,22 +74,21 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         imageViewProfile = findViewById(R.id.imageViewRightIcon);
         imageViewCenter = findViewById(R.id.imageViewCenterIcon);
         imageViewLeft = findViewById(R.id.imageViewLeftIcon);
-        buttonToExercisesList = (Button) findViewById(R.id.buttonToExercises);
-        startRun = (Button) findViewById(R.id.buttonStartRunningMode);
+        buttonToExercisesList = (ImageButton) findViewById(R.id.buttonToExercises);
+        startRun = (ImageButton) findViewById(R.id.buttonStartRunningMode);
         buttonCompletedPlans = findViewById(R.id.buttonCompletedPlans);
-        buttonToDateSetting = (Button) findViewById(R.id.buttonSetTrainingDate);
+        buttonToDateSetting = (ImageButton) findViewById(R.id.buttonSetTrainingDate);
     }
     public void setOnClickListener()
     {
         buttonToExercisesList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainWindowActivity.this, ExercisesListActivity.class);
-                // intent.putExtra(myDb);
-                startActivity(intent);
+                Intent intentwork = new Intent(MainWindowActivity.this,workoutPlan.class);
+                intentwork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentwork);
             }
         });
-
 
         startRun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,11 +123,11 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                 intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentProfile);
                 break;
-            case R.id.imageViewCenterIcon:
+            /*case R.id.imageViewCenterIcon:
                 Intent intentwork = new Intent(MainWindowActivity.this,workoutPlan.class);
                 intentwork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentwork);
-                break;
+                break;*/
             case R.id.imageViewLeftIcon:
                 Intent intentPlan = new Intent(MainWindowActivity.this, PlanActivity.class);
                 intentPlan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

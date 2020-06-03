@@ -133,7 +133,7 @@ public class CompletedPlansActivity extends AppCompatActivity {
 
                 viewPagerAdapter = new ViewPagerCompletedPlansAdapter(completedPlans, CompletedPlansActivity.this);
                 viewPager.setAdapter(viewPagerAdapter);
-                viewPager.setPadding(80,0,80,0);
+                viewPager.setPadding(130,130,130,130);
 
                 viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
