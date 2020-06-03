@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,8 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
     DatabaseReference exerciseRef;
     FirebaseAuth mAuth;
     FirebaseUser user;
+
+    EditText inputName;
 
 
     @Override
@@ -255,8 +258,40 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
        // exerciseRef = database.getReference("users/" + user.getUid() + "/ukonczoneBiegi/"+data);//stara sciezka
 
 
-        String nazwa_planu = getIntent().getStringExtra("EXTRA_WORKOUT_KEY");
-        exerciseRef = database.getReference("users/" + user.getUid() + "/completed/"+data+"/"+nazwa_planu);
+        final String[] nazwa_planu = {getIntent().getStringExtra("EXTRA_WORKOUT_KEY")};
+
+        if(nazwa_planu[0] ==null)
+        {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(RunningModeMap.this);
+            builder.setCancelable(false);
+            builder.setIcon(R.drawable.warning_icon_default);
+            builder.setMessage("Please, write name of your activity...");
+            builder.setTitle("Please, Confirm...");
+            inputName = new EditText(this);
+            builder.setView(inputName);
+            
+            builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+
+            builder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                String temp =inputName.getText().toString();
+                nazwa_planu[0] = temp;
+                dialogInterface.dismiss();
+                }
+            });
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+            dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+        }
+        exerciseRef = database.getReference("users/" + user.getUid() + "/completed/"+data+"/"+ nazwa_planu[0]);
 
         double totalDistance=getTotalDistance();
 
@@ -264,7 +299,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
         //(String name, String type, double distance, double time, Vector<Location> route)
 
         ArrayList<Exercise> tempArray = new ArrayList<>();
-        tempArray.add(new Exercise(nazwa_planu, "Moving",totalDistance, RunTime, route));
+        tempArray.add(new Exercise(nazwa_planu[0], "Moving",totalDistance, RunTime, route));
         Workout dbSave=new Workout("1/1",tempArray);
         exerciseRef.setValue(dbSave).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

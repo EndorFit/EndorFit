@@ -23,12 +23,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".CompletedPlansActivity"></activity>
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
+        <activity android:name=".CompletedPlansActivity"></activity>
         <activity
             android:name=".RunningModeMap"
             android:screenOrientation="portrait">
