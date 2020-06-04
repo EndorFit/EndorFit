@@ -42,9 +42,23 @@ public class NotificationPublisher extends BroadcastReceiver {
                     .FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
                     .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.drawable.ic_fitness_fit_white_24dp)
-                    .setContentTitle("Training today!")
-                    .setContentText("Get ready, remember about towel and water!")
+                    .setSmallIcon(R.drawable.ic_fitness_fit_white_24dp);
+                    if(!intent.getStringExtra("trainingName").equals(context.getString(R.string.SpinnerTrainingToDate)) && intent.getStringExtra("trainingName".toLowerCase()).contains("training"))
+                    {
+                        //TODO training date to Firebase database
+                        builder.setContentTitle("Training " + intent.getStringExtra("trainingName") + " today!");
+
+                    }
+                    else if(!intent.getStringExtra("trainingName").equals(context.getString(R.string.SpinnerTrainingToDate)))
+                    {
+                        //TODO training date to Firebase database
+                        builder.setContentTitle( intent.getStringExtra("trainingName").substring(0,1).toUpperCase() + intent.getStringExtra("trainingName").substring(1) + " today!");
+                    }
+                else
+                {
+                    builder.setContentTitle("Training today!");
+                }
+                    builder.setContentText("Get ready, remember about towel and water!")
                     .setAutoCancel(true)
                     .setVibrate(new long[] { 500, 200, 500, 200, 500 });
 

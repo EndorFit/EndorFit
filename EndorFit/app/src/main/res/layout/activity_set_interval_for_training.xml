@@ -129,7 +129,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:textSize="20sp"
-        android:background="@drawable/main_button_stroke_bg"
+        android:background="@drawable/main_button_on_click"
         android:id="@+id/buttonSetIntervalDone"
         />
     <Button
@@ -142,7 +142,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:textSize="20sp"
-        android:background="@drawable/main_button_stroke_bg"
+        android:background="@drawable/main_button_on_click"
         android:id="@+id/buttonNoInterval"
         />
 </RelativeLayout>

@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:theme="@style/AlertDialog"
         android:id="@+id/choosingCalendar"
         android:layout_below="@+id/spinner2"
@@ -50,7 +50,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:textSize="20sp"
-        android:background="@drawable/main_button_stroke_bg"
+        android:background="@drawable/main_button_on_click"
         android:id="@+id/buttonDoneWithDateSetting"
         />
     <Button
@@ -62,8 +62,8 @@
         android:text="@string/buttonDontWantToSetDate"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:textSize="20sp"
-        android:background="@drawable/main_button_stroke_bg"
+        android:textSize="18sp"
+        android:background="@drawable/main_button_on_click"
         android:id="@+id/buttonDontWantToDateSetting"
         />
 

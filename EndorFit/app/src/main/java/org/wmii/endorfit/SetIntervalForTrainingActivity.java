@@ -29,6 +29,10 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_interval_for_training);
+        if(getIntent().getStringExtra("trainingName").equals(getString(R.string.SpinnerTrainingToDate)))
+        {
+            openDialog();
+        }
         initWidgets();
         setOnClickListener();
     }
@@ -110,6 +114,13 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
     public void setNotificationScheduler(Context context, int year, int month, int day, int interval) {
 
         Intent intent = new Intent(context, NotificationPublisher.class);
+        if(!getIntent().getStringExtra("trainingName").equals(getString(R.string.SpinnerTrainingToDate))){
+            intent.putExtra("trainingName",getIntent().getStringExtra("trainingName"));
+        }
+        else {
+            intent.putExtra("trainingName",getIntent().getStringExtra("trainingName"));
+        }
+
         intent.setAction("MY_NOTIFICATION_MESSAGE");
         PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -125,6 +136,11 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY*interval, alarmIntent);
         }
 
+    }
+    public void openDialog()
+    {
+        NoTrainingChosenDialog noTrainingChosenDialog = new NoTrainingChosenDialog();
+        noTrainingChosenDialog.show(getSupportFragmentManager(),"No training chosen");
     }
 //    public void setNotificationSchedulerWithoutRepeating(Context context, int year, int month, int day, int interval) {
 //

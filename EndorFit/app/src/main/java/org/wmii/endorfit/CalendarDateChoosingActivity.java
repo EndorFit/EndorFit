@@ -37,6 +37,7 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
     private int fromCalendarYear;
     private int fromCalendarMonth;
     private int fromCalendarDay;
+    private String fromSpinnerTrainingName;
     public static final String TAG = "CalendarDateChoosingAct";
     ViewPager viewPager;
     ArrayList<String> completedPlansNames;
@@ -56,14 +57,24 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,completedPlansNames);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTrainingToDate.setAdapter(arrayAdapter);
+        setOnItemSelectedListener();
+        setOnDateChangeListener();
+        //setNotificationScheduler(getApplicationContext());
+        setOnClickListener();
+        //Toast.makeText(this, Calendar.DAY_OF_MONTH Calendar.MONTH Calendar.YEAR;)
+
+    }
+
+    public void setOnItemSelectedListener(){
         spinnerTrainingToDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (parent.getItemAtPosition(position).equals(getString(R.string.SpinnerTrainingToDate))
                 ) {
+                    fromSpinnerTrainingName = parent.getItemAtPosition(position).toString();
                 }else {
-                    String item = parent.getItemAtPosition(position).toString();
-                    Toast.makeText(parent.getContext(),"Selected: " + item, Toast.LENGTH_SHORT).show();
+                    fromSpinnerTrainingName = parent.getItemAtPosition(position).toString();
+                    Toast.makeText(parent.getContext(),"Selected: " + fromSpinnerTrainingName, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -72,11 +83,6 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
 
             }
         });
-        setOnDateChangeListener();
-        //setNotificationScheduler(getApplicationContext());
-        setOnClickListener();
-        //Toast.makeText(this, Calendar.DAY_OF_MONTH Calendar.MONTH Calendar.YEAR;)
-
     }
     public void initWidgets()
     {
@@ -100,10 +106,12 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
     }
     public void setOnClickListener()
     {
+
         buttonDoneWithDateSetting.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
+                setOnItemSelectedListener();
                 SimpleDateFormat sdformat = new SimpleDateFormat("YYYY-MM-DD");
                 Date dateGottenFromCalendar = null;
                 Calendar comparisonCalendar = Calendar.getInstance();
@@ -114,7 +122,6 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
                      dateGottenFromCalendar = sdformat.parse(fromCalendarYear + "-" + fromCalendarMonth + "-" + fromCalendarDay);
                     //todaysDate = sdformat.parse(todaysDate.getYear() + "-" + todaysDate.getMonth() + "-" + todaysDate.getDay());
                     dateOnlyZeros = sdformat.parse(0 + "-" + 0 + "-" + 0);
-
                 }
                 catch (ParseException e)
                 {
@@ -136,6 +143,7 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
                 int[]yearMonthDay = {fromCalendarYear,fromCalendarMonth,fromCalendarDay};
                 //TODO date < current date
                 intent.putExtra("yearMonthDay",yearMonthDay);
+                intent.putExtra("trainingName",fromSpinnerTrainingName);
                 Toast.makeText(v.getContext(),getString(R.string.ToastDateSet) + " " + fromCalendarDay + "." + (fromCalendarMonth+1) + "." + fromCalendarYear,Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
