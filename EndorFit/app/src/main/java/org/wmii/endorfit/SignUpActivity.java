@@ -1,8 +1,5 @@
 package org.wmii.endorfit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -13,18 +10,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.FileInputStream;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,10 +42,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editTxtPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     registerUser();
                     return true;
-                }  else {
+                } else {
                     return false;
                 }
             }
@@ -60,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnGotoLogin:
                 startActivity(new Intent(this, MainActivity.class));
                 break;
@@ -90,22 +84,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         final String email = editTxtEmail.getText().toString().trim();
         final String password = editTxtPassword.getText().toString().trim();
 
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             editTxtEmail.setError("Email is required");
             editTxtPassword.requestFocus();
             return;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editTxtEmail.setError("Please enter a valid email");
             editTxtEmail.requestFocus();
             return;
         }
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             editTxtPassword.setError("Password is required");
             editTxtPassword.requestFocus();
             return;
         }
-        if(password.length()<6){
+        if (password.length() < 6) {
             editTxtPassword.setError("Minimum length of password should be 6");
             editTxtPassword.requestFocus();
             return;
@@ -118,7 +112,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(SignUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
                 addUserToDatabase(email);
-                Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -133,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void addUserToDatabase(String email) {
         String currentUserId = mAuth.getCurrentUser().getUid();
         DatabaseReference usersRef = database.getReference("users/" + currentUserId);
-        User newUser = new User("None","Other",0,0.0,0.0);
+        User newUser = new User("None", "Other", 0, 0.0, 0.0);
         usersRef.setValue(newUser);
     }
 

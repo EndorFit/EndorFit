@@ -19,11 +19,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         void deleteItem(int position);
     }
 
-    void setOnItemClickListener(OnItemClickListener listener){
+    void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
 
-    static class PlanViewHolder extends RecyclerView.ViewHolder{
+    static class PlanViewHolder extends RecyclerView.ViewHolder {
         TextView adapterItemName;
         TextView adapterItemNameLabel;
         TextView adapterItemFirstCol;
@@ -51,9 +51,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             adapterImageViewDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null){
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION) {
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.deleteItem(position);
                         }
                     }
@@ -69,8 +69,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @NonNull
     @Override
     public PlanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_item,parent,false);
-        PlanViewHolder pvh = new PlanViewHolder(v,mListener);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_item, parent, false);
+        PlanViewHolder pvh = new PlanViewHolder(v, mListener);
         return pvh;
     }
 
@@ -79,8 +79,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         PlanItem currentItem = mPlanList.get(position);
 
 
-        if(!currentItem.getSecondCol().isEmpty())
-        {
+        if (!currentItem.getSecondCol().isEmpty()) {
             holder.adapterItemName.setText(currentItem.getName());
             holder.adapterItemNameLabel.setText(currentItem.getNameLabel());
             holder.adapterItemFirstCol.setText(currentItem.getFirstCol());
@@ -90,15 +89,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             holder.adapterItemThirdCol.setText(currentItem.getThirdCol());
             holder.adapterItemThirdColLabel.setText(currentItem.getThirdColLabel());
             holder.adapterItemFull.setVisibility(View.GONE);
-            if(currentItem.isEnableDelete() == false){
+            if (currentItem.isEnableDelete() == false) {
                 holder.adapterImageViewDelete.setVisibility(View.GONE);
             }
-        }
-        else
-        {
+        } else {
             holder.adapterItemFull.setText(currentItem.getName());
             holder.adapterItemFull.setVisibility(View.VISIBLE);
-            if(currentItem.isEnableDelete() == false){
+            if (currentItem.isEnableDelete() == false) {
                 holder.adapterImageViewDelete.setVisibility(View.GONE);
             }
             holder.adapterItemName.setText("");

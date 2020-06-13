@@ -1,7 +1,5 @@
 package org.wmii.endorfit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,7 +40,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser == null) {
+        if (currentUser == null) {
             Toast.makeText(this, "User is not sign in", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainWindowActivity.this, MainActivity.class);
             startActivity(intent);
@@ -52,21 +52,18 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
     private void preparePreDefineExercise() {
         Cursor cursor = MainActivity.myDb.getDataForFirebase();
         ArrayList<Exercise> predefExercise = new ArrayList<>();
-        while(cursor.moveToNext())
-        {
-            predefExercise.add(new Exercise(cursor.getString(1),cursor.getString(2)));
+        while (cursor.moveToNext()) {
+            predefExercise.add(new Exercise(cursor.getString(1), cursor.getString(2)));
         }
         database = FirebaseDatabase.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        for(Exercise exercise : predefExercise)
-        {
+        for (Exercise exercise : predefExercise) {
             DatabaseReference preExe = database.getReference("users/" + user.getUid() + "/exercises/" + exercise.getName());
             preExe.setValue(exercise);
         }
     }
 
-    public void initWidgets()
-    {
+    public void initWidgets() {
         imageViewProfile = findViewById(R.id.imageViewRightIcon);
         imageViewCenter = findViewById(R.id.imageViewCenterIcon);
         imageViewLeft = findViewById(R.id.imageViewLeftIcon);
@@ -75,12 +72,12 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         imageButtonCompletedPlans = findViewById(R.id.buttonCompletedPlans);
         imageButtonToDateSetting = (ImageButton) findViewById(R.id.buttonSetTrainingDate);
     }
-    public void setOnClickListener()
-    {
+
+    public void setOnClickListener() {
         buttonToExercisesList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentWork = new Intent(MainWindowActivity.this,workoutPlan.class);
+                Intent intentWork = new Intent(MainWindowActivity.this, workoutPlan.class);
                 intentWork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentWork);
             }
@@ -101,8 +98,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
             }
         });
-        imageButtonToDateSetting.setOnClickListener(new View.OnClickListener()
-        {
+        imageButtonToDateSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainWindowActivity.this, CalendarDateChoosingActivity.class);
@@ -111,19 +107,15 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         });
 
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.imageViewRightIcon:
-                Intent intentProfile = new Intent(MainWindowActivity.this,ProfileActivity.class);
+                Intent intentProfile = new Intent(MainWindowActivity.this, ProfileActivity.class);
                 intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentProfile);
                 break;
-            /*case R.id.imageViewCenterIcon:
-                Intent intentwork = new Intent(MainWindowActivity.this,workoutPlan.class);
-                intentwork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intentwork);
-                break;*/
             case R.id.imageViewLeftIcon:
                 Intent intentPlan = new Intent(MainWindowActivity.this, PlanActivity.class);
                 intentPlan.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

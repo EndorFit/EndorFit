@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp"
-    android:layout_marginBottom="4dp">
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,121 +12,121 @@
         android:layout_margin="4dp">
 
         <TextView
+            android:id="@+id/textViewFull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewFull"
             android:text="TEST"
             android:textAlignment="center"
-            android:textSize="30dp"
             android:textColor="@color/dark_text"
-            android:visibility="invisible"/>
+            android:textSize="30dp"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/textViewPlanItemName"
             android:layout_width="100dp"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
-            android:text="Wyciskanie"
-            android:textSize="15sp"
-            android:textColor="@color/dark_text"
-            android:layout_marginTop="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"/>
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:text="Wyciskanie"
+            android:textAlignment="center"
+            android:textColor="@color/dark_text"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textViewPlanItemNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="name"
-            android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
-            android:textAlignment="center"
             android:layout_below="@id/textViewPlanItemName"
             android:layout_alignLeft="@+id/textViewPlanItemName"
-            android:layout_alignRight="@+id/textViewPlanItemName"/>
+            android:layout_alignRight="@+id/textViewPlanItemName"
+            android:text="name"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textViewPlanItemFirst"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:text="122"
-            android:textSize="15sp"
-            android:textColor="@color/dark_text"
-            android:layout_toEndOf="@id/textViewPlanItemName"
-            android:textAlignment="center"
-            android:layout_marginTop="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"/>
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@id/textViewPlanItemName"
+            android:text="122"
+            android:textAlignment="center"
+            android:textColor="@color/dark_text"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textViewPlanItemFirstLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="series"
-            android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
             android:layout_below="@id/textViewPlanItemFirst"
-            android:textAlignment="center"
             android:layout_alignLeft="@+id/textViewPlanItemFirst"
-            android:layout_alignRight="@+id/textViewPlanItemFirst"/>
+            android:layout_alignRight="@+id/textViewPlanItemFirst"
+            android:text="series"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
 
         <TextView
-        android:id="@+id/textViewPlanItemSecond"
-        android:layout_width="55dp"
-        android:layout_height="wrap_content"
-        android:text="10"
-        android:textSize="15sp"
-        android:textColor="@color/dark_text"
-        android:layout_toEndOf="@id/textViewPlanItemFirst"
-        android:textAlignment="center"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+            android:id="@+id/textViewPlanItemSecond"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@id/textViewPlanItemFirst"
+            android:text="10"
+            android:textAlignment="center"
+            android:textColor="@color/dark_text"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textViewPlanItemSecondLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="reps"
-            android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
             android:layout_below="@id/textViewPlanItemFirst"
-            android:textAlignment="center"
             android:layout_alignLeft="@+id/textViewPlanItemSecond"
-            android:layout_alignRight="@+id/textViewPlanItemSecond"/>
+            android:layout_alignRight="@+id/textViewPlanItemSecond"
+            android:text="reps"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/textViewPlanItemThird"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:text="150"
-            android:textSize="15sp"
-            android:textColor="@color/dark_text"
-            android:layout_toEndOf="@id/textViewPlanItemSecond"
-            android:textAlignment="center"
-            android:layout_marginTop="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"/>
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_toEndOf="@id/textViewPlanItemSecond"
+            android:text="150"
+            android:textAlignment="center"
+            android:textColor="@color/dark_text"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textViewPlanItemThirdLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="weight"
-            android:textSize="12sp"
-            android:textColor="@android:color/darker_gray"
             android:layout_below="@id/textViewPlanItemFirst"
-            android:textAlignment="center"
             android:layout_alignLeft="@+id/textViewPlanItemThird"
-            android:layout_alignRight="@+id/textViewPlanItemThird"/>
+            android:layout_alignRight="@+id/textViewPlanItemThird"
+            android:text="weight"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/imageViewDelete"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_cancel_button"
             android:layout_alignParentEnd="true"
-            android:layout_margin="4dp"/>
+            android:layout_margin="4dp"
+            android:src="@drawable/ic_cancel_button" />
 
     </RelativeLayout>
 

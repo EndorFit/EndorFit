@@ -1,9 +1,5 @@
 package org.wmii.endorfit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +10,10 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +44,7 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
     FirebaseDatabase database;
     FirebaseAuth mAuth;
     FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,17 +54,17 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         getPlanNamesForSpinner();
         initWidgets();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,completedPlansNames);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, completedPlansNames);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTrainingToDate.setAdapter(arrayAdapter);
-        spinnerTrainingToDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        spinnerTrainingToDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (parent.getItemAtPosition(position).equals(getString(R.string.SpinnerTrainingToDate))
                 ) {
-                }else {
+                } else {
                     String item = parent.getItemAtPosition(position).toString();
-                    Toast.makeText(parent.getContext(),"Selected: " + item, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -78,17 +79,17 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
         //Toast.makeText(this, Calendar.DAY_OF_MONTH Calendar.MONTH Calendar.YEAR;)
 
     }
-    public void initWidgets()
-    {
+
+    public void initWidgets() {
         calendarView = (CalendarView) findViewById(R.id.choosingCalendar);
         buttonDoneWithDateSetting = (Button) findViewById(R.id.buttonDoneWithDateSetting);
         buttonDontWantToSetDate = (Button) findViewById(R.id.buttonDontWantToDateSetting);
-        spinnerTrainingToDate = (Spinner)findViewById(R.id.spinnerPlans);
+        spinnerTrainingToDate = (Spinner) findViewById(R.id.spinnerPlans);
         //TODO training list
 
     }
-    public void setOnDateChangeListener()
-    {
+
+    public void setOnDateChangeListener() {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -98,10 +99,9 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
             }
         });
     }
-    public void setOnClickListener()
-    {
-        buttonDoneWithDateSetting.setOnClickListener(new View.OnClickListener()
-        {
+
+    public void setOnClickListener() {
+        buttonDoneWithDateSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SimpleDateFormat sdformat = new SimpleDateFormat("YYYY-MM-DD");
@@ -111,18 +111,15 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
                 Date todaysDate = new Date();
                 Date dateOnlyZeros = new Date();
                 try {
-                     dateGottenFromCalendar = sdformat.parse(fromCalendarYear + "-" + fromCalendarMonth + "-" + fromCalendarDay);
+                    dateGottenFromCalendar = sdformat.parse(fromCalendarYear + "-" + fromCalendarMonth + "-" + fromCalendarDay);
                     //todaysDate = sdformat.parse(todaysDate.getYear() + "-" + todaysDate.getMonth() + "-" + todaysDate.getDay());
                     dateOnlyZeros = sdformat.parse(0 + "-" + 0 + "-" + 0);
 
-                }
-                catch (ParseException e)
-                {
-                    Log.d(TAG,"setOnClickListener: parseException");
+                } catch (ParseException e) {
+                    Log.d(TAG, "setOnClickListener: parseException");
                 }
                 //Toast.makeText(v.getContext(), "Today's date: " +String.format(String.valueOf(todaysDate)),Toast.LENGTH_SHORT).show();
-                if(dateGottenFromCalendar.equals(dateOnlyZeros))
-                {
+                if (dateGottenFromCalendar.equals(dateOnlyZeros)) {
                     fromCalendarDay = comparisonCalendar.get(Calendar.DAY_OF_MONTH);
                     fromCalendarMonth = comparisonCalendar.get(Calendar.MONTH);
                     fromCalendarYear = comparisonCalendar.get(Calendar.YEAR);
@@ -133,10 +130,10 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
 //                    return;
 //                }
                 Intent intent = new Intent(CalendarDateChoosingActivity.this, SetIntervalForTrainingActivity.class);
-                int[]yearMonthDay = {fromCalendarYear,fromCalendarMonth,fromCalendarDay};
+                int[] yearMonthDay = {fromCalendarYear, fromCalendarMonth, fromCalendarDay};
                 //TODO date < current date
-                intent.putExtra("yearMonthDay",yearMonthDay);
-                Toast.makeText(v.getContext(),getString(R.string.ToastDateSet) + " " + fromCalendarDay + "." + (fromCalendarMonth+1) + "." + fromCalendarYear,Toast.LENGTH_SHORT).show();
+                intent.putExtra("yearMonthDay", yearMonthDay);
+                Toast.makeText(v.getContext(), getString(R.string.ToastDateSet) + " " + fromCalendarDay + "." + (fromCalendarMonth + 1) + "." + fromCalendarYear, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
@@ -153,15 +150,15 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPagerListy);
         completedPlansNames = new ArrayList<>();
         final DatabaseReference completedPlansRef = database.getReference("users/" + user.getUid() + "/plans/");
-        completedPlansNames.add(0,getString(R.string.SpinnerTrainingToDate));
+        completedPlansNames.add(0, getString(R.string.SpinnerTrainingToDate));
         completedPlansRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot date : dataSnapshot.getChildren())
-                {
+                for (DataSnapshot date : dataSnapshot.getChildren()) {
                     completedPlansNames.add(date.getKey());
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

@@ -1,10 +1,5 @@
 package org.wmii.endorfit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -83,13 +83,14 @@ public class PlanActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.VISIBLE);
                 plansList.clear();
-                for(DataSnapshot item: dataSnapshot.getChildren()){
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
                     plansList.add(item.getKey());
                 }
                 spinnerAdapter = new ArrayAdapter<>(PlanActivity.this, R.layout.spinner_item_20dp, plansList);
                 spinnerPlanName.setAdapter(spinnerAdapter);
                 progressBar.setVisibility(View.GONE);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -104,7 +105,7 @@ public class PlanActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         progressBar.setVisibility(View.VISIBLE);
                         planItems.clear();
-                        for(DataSnapshot item: dataSnapshot.getChildren()){
+                        for (DataSnapshot item : dataSnapshot.getChildren()) {
                             Exercise tempExercise = item.getValue(Exercise.class);
                             String type = tempExercise.getType();
                             String name = tempExercise.getName();
@@ -114,28 +115,28 @@ public class PlanActivity extends AppCompatActivity {
                             String weights;
                             String distance;
 
-                            switch (type){
+                            switch (type) {
                                 case "Moving":
                                     time = String.valueOf(tempExercise.getTime());
                                     distance = String.valueOf(tempExercise.getDistance());
-                                    planItems.add(new PlanItem(name,"name","","","","name",false));
+                                    planItems.add(new PlanItem(name, "name", "", "", "", "name", false));
                                     break;
                                 case "Exercise with weights":
                                     sets = String.valueOf(tempExercise.getSets());
                                     reps = String.valueOf(tempExercise.getReps());
                                     weights = String.valueOf(tempExercise.getWeight());
-                                    planItems.add(new PlanItem(name,"name",sets,"sets",reps,"reps",weights,"weights",false));
+                                    planItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", weights, "weights", false));
                                     break;
                                 case "Exercise without weights":
                                     sets = String.valueOf(tempExercise.getSets());
                                     reps = String.valueOf(tempExercise.getReps());
-                                    planItems.add(new PlanItem(name,"name",sets,"sets",reps,"reps",false));
+                                    planItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", false));
                                     break;
                                 case "Exercise with time":
                                     sets = String.valueOf(tempExercise.getSets());
                                     reps = String.valueOf(tempExercise.getReps());
                                     time = String.valueOf(tempExercise.getTime());
-                                    planItems.add(new PlanItem(name,"name",sets,"sets",reps,"reps",time,"time",false));
+                                    planItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", time, "time", false));
                                     break;
                             }
                             //planAdapter.notifyItemInserted(planItems.size()-1);
@@ -144,6 +145,7 @@ public class PlanActivity extends AppCompatActivity {
                         buildRecyclerView();
                         progressBar.setVisibility(View.GONE);
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
@@ -159,7 +161,7 @@ public class PlanActivity extends AppCompatActivity {
         imageViewDeletePlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( spinnerPlanName.getSelectedItem() != null){
+                if (spinnerPlanName.getSelectedItem() != null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(PlanActivity.this, R.style.AlertDialog)
                             .setMessage("Are you sure you want to delete this plan?")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -169,7 +171,7 @@ public class PlanActivity extends AppCompatActivity {
                                     planToDeleteRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
+                                            if (task.isSuccessful()) {
                                                 Toast.makeText(PlanActivity.this, "Plan deleted successful", Toast.LENGTH_SHORT).show();
                                             }
                                         }
@@ -200,7 +202,7 @@ public class PlanActivity extends AppCompatActivity {
         buttonAddNewExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentAddNewExercise = new Intent(PlanActivity.this,AddNewExerciseActivity.class);
+                Intent intentAddNewExercise = new Intent(PlanActivity.this, AddNewExerciseActivity.class);
                 intentAddNewExercise.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentAddNewExercise);
             }
@@ -210,7 +212,7 @@ public class PlanActivity extends AppCompatActivity {
         imageViewCenterIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentMainWindow = new Intent(PlanActivity.this,MainWindowActivity.class);
+                Intent intentMainWindow = new Intent(PlanActivity.this, MainWindowActivity.class);
                 intentMainWindow.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentMainWindow);
             }
@@ -219,7 +221,7 @@ public class PlanActivity extends AppCompatActivity {
         imageViewRightIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentProfile = new Intent(PlanActivity.this,ProfileActivity.class);
+                Intent intentProfile = new Intent(PlanActivity.this, ProfileActivity.class);
                 intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentProfile);
             }
@@ -233,7 +235,7 @@ public class PlanActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerViewPlan.setHasFixedSize(true);
         recyclerViewPlan.setLayoutManager(mLayoutManager);
-        recyclerViewPlan.setAdapter(planAdapter );
+        recyclerViewPlan.setAdapter(planAdapter);
         progressBar.setVisibility(View.GONE);
         recyclerViewPlan = findViewById(R.id.recyclerViewPlan);
     }

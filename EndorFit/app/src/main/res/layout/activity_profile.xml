@@ -7,7 +7,6 @@
     tools:context="ProfileActivity">
 
 
-
     <RelativeLayout
         android:id="@+id/relLayoutMain"
         android:layout_width="match_parent"
@@ -27,14 +26,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
-                android:src="@drawable/profile_icon_default"
-                android:scaleType="centerCrop"
                 android:clickable="false"
+                android:contextClickable="false"
+                android:defaultFocusHighlightEnabled="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:longClickable="false"
-                android:contextClickable="false"
-                android:defaultFocusHighlightEnabled="false"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_icon_default" />
 
         </androidx.cardview.widget.CardView>
 
@@ -49,21 +48,22 @@
             android:focusable="false"
             android:inputType="textPersonName"
             android:maxLength="9"
-            android:textAlignment="center"
-            android:textSize="30dp"
             android:maxLines="1"
-            android:textCursorDrawable="@drawable/color_cursor"/>
+            android:textAlignment="center"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="30dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="name"
-            android:textSize="15dp"
             android:layout_below="@id/editTxtName"
-            android:layout_toRightOf="@id/cardVieProfileImage"
-            android:layout_marginTop="-25dp"
-            android:textColor="@color/grey_text"
             android:layout_marginLeft="-20dp"
-            android:textAlignment="center"/>
+            android:layout_marginTop="-25dp"
+            android:layout_toRightOf="@id/cardVieProfileImage"
+            android:text="name"
+            android:textAlignment="center"
+            android:textColor="@color/grey_text"
+            android:textSize="15dp" />
 
         <Spinner
             android:id="@+id/spinnerGender"
@@ -76,18 +76,19 @@
             android:layout_toRightOf="@id/cardVieProfileImage"
             android:entries="@array/genders"
             android:textAlignment="center"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="gender"
-            android:textSize="15dp"
             android:layout_below="@id/spinnerGender"
-            android:layout_toRightOf="@id/cardVieProfileImage"
-            android:layout_marginTop="-25dp"
-            android:textColor="@color/grey_text"
             android:layout_marginLeft="-20dp"
-            android:textAlignment="center" />
+            android:layout_marginTop="-25dp"
+            android:layout_toRightOf="@id/cardVieProfileImage"
+            android:text="gender"
+            android:textAlignment="center"
+            android:textColor="@color/grey_text"
+            android:textSize="15dp" />
 
         <EditText
             android:id="@+id/editTxtAge"
@@ -101,21 +102,21 @@
             android:focusable="false"
             android:inputType="number"
             android:textAlignment="center"
-            android:textSize="30dp"
-            android:textCursorDrawable="@drawable/color_cursor"/>
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="30dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="age"
-            android:textSize="15dp"
             android:layout_below="@id/editTxtAge"
-            android:layout_toRightOf="@id/cardVieProfileImage"
-            android:layout_marginTop="-25dp"
-            android:textColor="@color/grey_text"
             android:layout_marginLeft="-10dp"
+            android:layout_marginTop="-25dp"
+            android:layout_toRightOf="@id/cardVieProfileImage"
+            android:inputType="number"
+            android:text="age"
             android:textAlignment="center"
-            android:inputType="number"/>
+            android:textColor="@color/grey_text"
+            android:textSize="15dp" />
 
         <EditText
             android:id="@+id/editTxtHeight"
@@ -128,24 +129,24 @@
             android:layout_marginTop="20dp"
             android:focusable="false"
             android:inputType="numberDecimal"
+            android:maxLength="5"
             android:textAlignment="center"
-            android:textSize="30dp"
             android:textColorHighlight="@color/dark_text"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:maxLength="5"/>
+            android:textSize="30dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="height"
-            android:textSize="15dp"
             android:layout_below="@id/editTxtHeight"
-            android:layout_marginTop="-25dp"
-            android:textColor="@color/grey_text"
-            android:layout_marginLeft="-10dp"
-            android:textAlignment="center"
             android:layout_centerHorizontal="true"
-            android:layout_marginRight="150dp"/>
+            android:layout_marginLeft="-10dp"
+            android:layout_marginTop="-25dp"
+            android:layout_marginRight="150dp"
+            android:text="height"
+            android:textAlignment="center"
+            android:textColor="@color/grey_text"
+            android:textSize="15dp" />
 
         <EditText
             android:id="@+id/editTxtWeight"
@@ -154,37 +155,37 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/editTxtHeight"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="150dp"
+            android:layout_marginTop="10dp"
             android:focusable="false"
-            android:textAlignment="center"
-            android:textSize="30dp"
             android:inputType="numberDecimal"
+            android:maxLength="5"
+            android:textAlignment="center"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:maxLength="5"/>
+            android:textSize="30dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="weight"
-            android:textSize="15dp"
             android:layout_below="@id/editTxtWeight"
-            android:layout_marginTop="-25dp"
-            android:textColor="@color/grey_text"
-            android:layout_marginLeft="-10dp"
-            android:textAlignment="center"
             android:layout_centerHorizontal="true"
-            android:layout_marginRight="150dp"/>
+            android:layout_marginLeft="-10dp"
+            android:layout_marginTop="-25dp"
+            android:layout_marginRight="150dp"
+            android:text="weight"
+            android:textAlignment="center"
+            android:textColor="@color/grey_text"
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editTxtWeight"
-            android:background="@drawable/main_button_bg"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:layout_marginRight="150dp"
+            android:background="@drawable/main_button_bg"
             android:text="Edit"
             android:textSize="30dp" />
 
@@ -193,61 +194,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editTxtWeight"
-            android:background="@drawable/main_button_bg"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:layout_marginRight="150dp"
+            android:background="@drawable/main_button_bg"
             android:text="Save"
             android:textSize="30dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnEdit"
-            android:background="@drawable/main_button_bg"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:layout_marginRight="150dp"
+            android:background="@drawable/main_button_bg"
             android:text="Logout"
-            android:textSize="30dp"/>
+            android:textSize="30dp" />
 
         <Button
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnSave"
-            android:background="@drawable/main_button_bg"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:layout_marginRight="150dp"
+            android:background="@drawable/main_button_bg"
             android:text="Delete account"
             android:textSize="30dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/bottomStrip"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/bottomStrip">
+        android:layout_alignParentBottom="true">
+
         <LinearLayout
+            android:id="@+id/linLayoutBot"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/linLayoutBot"
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimary"
             android:weightSum="99">
 
             <ImageView
+                android:id="@+id/imageViewLeftIcon"
                 android:layout_width="0dp"
-                android:layout_weight="33"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_assignment_white_24dp"
-                android:id="@+id/imageViewLeftIcon"/>
+                android:layout_weight="33"
+                android:src="@drawable/ic_assignment_white_24dp" />
 
             <ImageView
                 android:id="@+id/imageViewCenterIcon"
@@ -257,21 +259,21 @@
                 android:src="@drawable/ic_fitness_fit_white_24dp" />
 
             <ImageView
+                android:id="@+id/imageViewRightIcon"
                 android:layout_width="0dp"
-                android:layout_weight="33"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_assignment_ind_white_24dp"
-                android:id="@+id/imageViewRightIcon"/>
+                android:layout_weight="33"
+                android:src="@drawable/ic_assignment_ind_white_24dp" />
 
         </LinearLayout>
     </RelativeLayout>
 
     <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.Holo.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/progressBar"
-        android:visibility="gone"
-        style="@android:style/Widget.Holo.ProgressBar"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

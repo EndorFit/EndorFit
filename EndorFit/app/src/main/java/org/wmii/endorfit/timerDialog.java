@@ -22,36 +22,40 @@ public class timerDialog extends AppCompatDialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            timerListener =(timerDialogListener) context;
+            timerListener = (timerDialogListener) context;
         } catch (ClassCastException e) {
-    throw new ClassCastException(context.toString()+"must implement timer listener");   }
+            throw new ClassCastException(context.toString() + "must implement timer listener");
+        }
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder =new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater =getActivity().getLayoutInflater();
-        View view =inflater.inflate(R.layout.set_timer,null);
-        time=view.findViewById(R.id.editTimer);
-        buttonSubmit =view.findViewById(R.id.submitTimer);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.set_timer, null);
+        time = view.findViewById(R.id.editTimer);
+        buttonSubmit = view.findViewById(R.id.buttonSubmitTimer);
 
-    builder.setView(view);
-    builder.setTitle("Set timer");
-    buttonSubmit.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String seconds=time.getText().toString();
-            if (seconds=="")
-            {seconds="60";}
-            timerListener.applyText(seconds);
-            dismiss();
-        }
-    });
-            String seconds = time.getText().toString();
-            timerListener.applyText(seconds);
-            return builder.create();
-        }
+        builder.setView(view);
+        builder.setTitle("Set timer");
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String seconds = time.getText().toString();
+                if (seconds == "") {
+                    seconds = "60";
+                }
+                timerListener.applyText(seconds);
+                dismiss();
+            }
+        });
+        String seconds = time.getText().toString();
+        timerListener.applyText(seconds);
+        return builder.create();
+    }
 
-        public interface timerDialogListener  {  void applyText(String seconds);}
+    public interface timerDialogListener {
+        void applyText(String seconds);
+    }
 }

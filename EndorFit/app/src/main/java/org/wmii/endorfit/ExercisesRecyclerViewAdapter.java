@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<ExercisesRecyclerViewAdapter.ViewHolder>{
+public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<ExercisesRecyclerViewAdapter.ViewHolder> {
     public final static String TAG = "ExercisesRecViewAdapter";
     private Context context;
     private int tab;
@@ -57,10 +57,11 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cardViewExerciseCard;
         private ImageView imageViewExerciseImage;
         private TextView textViewExerciseName, textViewExerciseCategoryAndDifficulty;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardViewExerciseCard = (CardView) itemView.findViewById(R.id.exerciseCardView);
@@ -68,13 +69,13 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
             textViewExerciseCategoryAndDifficulty = (TextView) itemView.findViewById(R.id.exerciseCategoryAndDifficultyTextView);
             textViewExerciseName = (TextView) itemView.findViewById(R.id.exerciseNameTextView);
             //exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
-           // exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
+            // exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
         }
     }
-    public void setExerciseKnowledgeBases(DataBaseHelper db)
-    {
-        Cursor result = db.getCategorizedData(tab+1);
-        if(result.getCount() == 0){
+
+    public void setExerciseKnowledgeBases(DataBaseHelper db) {
+        Cursor result = db.getCategorizedData(tab + 1);
+        if (result.getCount() == 0) {
             Log.d(TAG, "setExercises: Empty dataBase");
             return;
         }
@@ -89,8 +90,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
         //Bitmap image;
         String imagePath;
         String internalType = "";
-        while (result.moveToNext())
-        {
+        while (result.moveToNext()) {
             //Log.d(TAG, "setExercises: Column name " + result.getColumnName());
             id = result.getInt(0);
             name = result.getString(1);
@@ -99,7 +99,7 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
             description = result.getString(4);
             internalType = result.getString(6);
             imagePath = result.getString(5);
-            ExerciseKnowledgeBase exerciseKnowledgeBase = new ExerciseKnowledgeBase(id, name,category,description,difficultyLevel,imagePath,internalType);
+            ExerciseKnowledgeBase exerciseKnowledgeBase = new ExerciseKnowledgeBase(id, name, category, description, difficultyLevel, imagePath, internalType);
             Log.d(TAG, "setExercises: Name: " + exerciseKnowledgeBase.getName() + ", category: " + exerciseKnowledgeBase.getCategory());
             exerciseKnowledgeBases.add(exerciseKnowledgeBase);
         }

@@ -1,18 +1,18 @@
 package org.wmii.endorfit;
 
-        import android.content.Context;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.TextView;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-        import androidx.annotation.NonNull;
-        import androidx.recyclerview.widget.LinearLayoutManager;
-        import androidx.recyclerview.widget.RecyclerView;
-        import androidx.viewpager.widget.PagerAdapter;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewPagerCompletedPlansAdapter extends PagerAdapter {
 
@@ -41,10 +41,11 @@ public class ViewPagerCompletedPlansAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.item_completed_plans,container,false);
+        View view = layoutInflater.inflate(R.layout.item_completed_plans, container, false);
 
-        TextView data = view.findViewById(R.id.data);
-        TextView nazwa = view.findViewById(R.id.nazwa);;
+        TextView data = view.findViewById(R.id.textViewDate);
+        TextView nazwa = view.findViewById(R.id.textViewPlanName);
+        ;
         RecyclerView testRec = view.findViewById(R.id.recyclerViewExercises);
 
         data.setText(list.get(position).getDate());
@@ -52,8 +53,7 @@ public class ViewPagerCompletedPlansAdapter extends PagerAdapter {
         ArrayList<Exercise> listaCwiczen = list.get(position).getExercises();
         ArrayList<PlanItem> listaPlanItems = new ArrayList<>();
 
-        for(Exercise item : listaCwiczen)
-        {
+        for (Exercise item : listaCwiczen) {
             String weight = String.valueOf(item.getWeight());
             String time = String.valueOf(item.getTime());
             String avg = String.valueOf((item.getDistance() / item.getTime()));
@@ -64,16 +64,16 @@ public class ViewPagerCompletedPlansAdapter extends PagerAdapter {
             String type = item.getType();
             switch (type) {
                 case "Moving":
-                    listaPlanItems.add(new PlanItem(name,"name", distance, "distance", time, "time", avg, "AVG speed",false));
+                    listaPlanItems.add(new PlanItem(name, "name", distance, "distance", time, "time", avg, "AVG speed", false));
                     break;
                 case "Exercise with weights":
-                    listaPlanItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", weight, "weights",false));
+                    listaPlanItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", weight, "weights", false));
                     break;
                 case "Exercise without weights":
-                    listaPlanItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps",false));
+                    listaPlanItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", false));
                     break;
                 case "Exercise with time":
-                    listaPlanItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", time, "time",false));
+                    listaPlanItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", time, "time", false));
                     break;
             }
         }
@@ -84,14 +84,14 @@ public class ViewPagerCompletedPlansAdapter extends PagerAdapter {
         PlanAdapter adapter = new PlanAdapter(listaPlanItems);
         testRec.setAdapter(adapter);
 
-        container.addView(view,0);
+        container.addView(view, 0);
 
         return view;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 
 }

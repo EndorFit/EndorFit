@@ -1,9 +1,5 @@
 package org.wmii.endorfit;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -23,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,11 +48,11 @@ import java.util.Objects;
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int REQUEST_CODE = 420;
 
-    public  Uri uriProfileImage;
+    public Uri uriProfileImage;
     public Boolean isImageChanged;
     public String nameBeforeEdit, genderBeforeEdit, nameAfterEdit, genderAfterEdit;
     public int ageBeforeEdit, ageAfterEdit;
-    public double heightBeforeEdit, weightBeforeEdit, heightAfterEdit ,weightAfterEdit;
+    public double heightBeforeEdit, weightBeforeEdit, heightAfterEdit, weightAfterEdit;
     Bitmap imageBeforeEdit, imageAfterEdit;
 
     EditText editTxtName, editTxtAge, editTxtHeight, editTxtWeight;
@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        if(editTxtName.isFocusable()){
+        if (editTxtName.isFocusable()) {
             cancelEditing();
         } else {
             super.onBackPressed();
@@ -106,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         imageViewLeftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentAddNewExercise = new Intent(ProfileActivity.this,PlanActivity.class);
+                Intent intentAddNewExercise = new Intent(ProfileActivity.this, PlanActivity.class);
                 intentAddNewExercise.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentAddNewExercise);
             }
@@ -115,7 +115,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         imageViewCenterIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentMainWindow = new Intent(ProfileActivity.this,MainWindowActivity.class);
+                Intent intentMainWindow = new Intent(ProfileActivity.this, MainWindowActivity.class);
                 intentMainWindow.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentMainWindow);
             }
@@ -162,7 +162,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnEdit:
                 editInformation();
                 break;
@@ -225,35 +225,35 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         Double height = dataSnapshot.getValue(User.class).getHeight();
         Double weight = dataSnapshot.getValue(User.class).getWeight();
 
-            int genderPosition = 0;
-            switch (gender){
-                case "Female":
-                    genderPosition = 0;
-                    break;
-                case "Male":
-                    genderPosition = 1;
-                    break;
-                case "Other":
-                    genderPosition = 2;
-                    break;
-                }
+        int genderPosition = 0;
+        switch (gender) {
+            case "Female":
+                genderPosition = 0;
+                break;
+            case "Male":
+                genderPosition = 1;
+                break;
+            case "Other":
+                genderPosition = 2;
+                break;
+        }
 
-            editTxtName.setText(name);
-            spinnerGender.setSelection(genderPosition);
-            editTxtAge.setText(age.toString());
-            editTxtHeight.setText(height.toString());
-            editTxtWeight.setText(weight.toString());
-            if(isImageChanged) {
-                updateImageView();
-                isImageChanged = false;
-            }
-            showInformation();
-            progressBar.setVisibility(View.GONE);
+        editTxtName.setText(name);
+        spinnerGender.setSelection(genderPosition);
+        editTxtAge.setText(age.toString());
+        editTxtHeight.setText(height.toString());
+        editTxtWeight.setText(weight.toString());
+        if (isImageChanged) {
+            updateImageView();
+            isImageChanged = false;
+        }
+        showInformation();
+        progressBar.setVisibility(View.GONE);
 
     }
 
     private void updateImageView() throws IOException {
-        final File imageTemp = File.createTempFile(user.getUid(),"jpeg");
+        final File imageTemp = File.createTempFile(user.getUid(), "jpeg");
         storageRef.getFile(imageTemp).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -278,10 +278,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uriProfileImage = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uriProfileImage);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
                 imageViewProfileImage.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -294,13 +294,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void updateInformation() {
-        if(!getDataAndValid()) {return;}
-        User editedUser = new User(nameAfterEdit,genderAfterEdit,ageAfterEdit,heightAfterEdit,weightAfterEdit);
+        if (!getDataAndValid()) {
+            return;
+        }
+        User editedUser = new User(nameAfterEdit, genderAfterEdit, ageAfterEdit, heightAfterEdit, weightAfterEdit);
         DatabaseReference userRef = database.getReference("users/" + user.getUid());
         userRef.setValue(editedUser).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     uploadImage();
                 } else {
                     Toast.makeText(ProfileActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
@@ -320,22 +322,22 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         weightAfterEdit = Double.parseDouble(editTxtWeight.getText().toString());
         imageAfterEdit = ((BitmapDrawable) imageViewProfileImage.getDrawable()).getBitmap();
 
-        if(nameAfterEdit.isEmpty()) {
+        if (nameAfterEdit.isEmpty()) {
             editTxtName.setError("Name cannot be empty");
             editTxtName.requestFocus();
             return false;
         }
-        if(ageAfterEdit < 0 || ageAfterEdit > 150){
+        if (ageAfterEdit < 0 || ageAfterEdit > 150) {
             editTxtAge.setError("Between 0 and 150");
             editTxtAge.requestFocus();
             return false;
         }
-        if(heightAfterEdit < 50.0 || heightAfterEdit > 250.0){
+        if (heightAfterEdit < 50.0 || heightAfterEdit > 250.0) {
             editTxtHeight.setError("Between 0 and 250");
             editTxtHeight.requestFocus();
             return false;
         }
-        if(weightAfterEdit < 10.0 || weightAfterEdit > 1000.0){
+        if (weightAfterEdit < 10.0 || weightAfterEdit > 1000.0) {
             editTxtWeight.setError("Between 0 and 1000");
             editTxtWeight.requestFocus();
             return false;
@@ -354,23 +356,21 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             storageRef.putFile(uriProfileImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
-                        {
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             callListenerForSingleEvent(databaseRef);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onFailure(@NonNull Exception e)
-                {
+                public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(ProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT) .show();
-                }}).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    Toast.makeText(ProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot)
-                {
+                public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
+                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
                 }
             });
         } else {
@@ -389,6 +389,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 cancelEditing();
@@ -396,7 +397,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
-    private void showInformation(){
+    private void showInformation() {
         buttonEdit.setVisibility(View.VISIBLE);
         buttonLogout.setVisibility(View.VISIBLE);
         buttonSave.setVisibility(View.GONE);

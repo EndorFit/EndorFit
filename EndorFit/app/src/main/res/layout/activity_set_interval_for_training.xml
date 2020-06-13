@@ -5,144 +5,144 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SetIntervalForTrainingActivity">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:layout_height="?attr/actionBarSize"
             android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways">
+
             <TextView
+                android:id="@+id/textViewIntervalSetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
                 android:text="@string/setTheInterval"
-                android:id="@+id/textViewIntervalSetting"
-                android:textSize="30sp"
-                />
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <RadioGroup
+        android:id="@+id/radioGroupInterval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:id="@+id/radioGroupInterval"
-        android:theme="@style/AlertDialog"
-        >
+        android:theme="@style/AlertDialog">
+
         <RadioButton
+            android:id="@+id/radioButton1Day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setInterval1"
-            android:id="@+id/radioButton1Day"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
         <RadioButton
+            android:id="@+id/radioButton2Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setInterval2"
-            android:id="@+id/radioButton2Days"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
         <RadioButton
+            android:id="@+id/radioButton3Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setInterval3"
-            android:id="@+id/radioButton3Days"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
         <RadioButton
+            android:id="@+id/radioButton4Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setInterval4"
-            android:id="@+id/radioButton4Days"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
         <RadioButton
+            android:id="@+id/radioButton5Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setInterval5"
-            android:id="@+id/radioButton5Days"
-            android:textSize="20sp"
+            android:textSize="20sp" />
 
-            />
         <RadioButton
+            android:id="@+id/radioButton6Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setInterval6"
-            android:id="@+id/radioButton6Days"
-            android:textSize="20sp"
+            android:textSize="20sp" />
 
-            />
         <RadioButton
+            android:id="@+id/radioButton7Days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setInterval7"
-            android:id="@+id/radioButton7Days"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
         <RadioButton
+            android:id="@+id/radioButtonOther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/IntervalOther"
-            android:id="@+id/radioButtonOther"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
     </RadioGroup>
+
     <EditText
+        android:id="@+id/editTextTypeInYourInterval"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/buttonSetIntervalDone"
-        android:layout_toRightOf="@+id/radioGroupInterval"
-        android:textSize="20sp"
-        android:id="@+id/editTextTypeInYourInterval"
-        android:inputType="number"
         android:layout_marginBottom="0dp"
-        android:outlineSpotShadowColor="@color/dark_text"
+        android:layout_toRightOf="@+id/radioGroupInterval"
         android:hint=" No"
+        android:inputType="number"
+        android:outlineSpotShadowColor="@color/dark_text"
         android:padding="4sp"
-        />
+        android:textSize="20sp" />
+
     <TextView
+        android:id="@+id/textViewIntervalDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="days"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/textViewIntervalDays"
         android:layout_above="@+id/buttonSetIntervalDone"
-        android:layout_toRightOf="@+id/editTextTypeInYourInterval"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/editTextTypeInYourInterval"
+        android:text="days"
         android:textColor="@color/dark_text"
-        />
+        android:textSize="20sp" />
+
     <Button
+        android:id="@+id/buttonSetIntervalDone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radioGroupInterval"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/DateDone"
-        android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/main_button_stroke_bg"
-        android:id="@+id/buttonSetIntervalDone"
-        />
+        android:text="@string/DateDone"
+        android:textSize="20sp" />
+
     <Button
+        android:id="@+id/buttonNoInterval"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonSetIntervalDone"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/setIntervalDontWantTo"
-        android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/main_button_stroke_bg"
-        android:id="@+id/buttonNoInterval"
-        />
+        android:text="@string/setIntervalDontWantTo"
+        android:textSize="20sp" />
+
 </RelativeLayout>

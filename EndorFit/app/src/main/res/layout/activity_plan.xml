@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ProfileActivity"
-    android:scrollbars="vertical">
+    android:scrollbars="vertical"
+    tools:context="ProfileActivity">
 
     <RelativeLayout
+        android:id="@+id/relLayoutPlanTop"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/relLayoutPlanTop"
         android:background="@color/colorPrimary">
 
         <Spinner
@@ -25,9 +24,9 @@
             android:id="@+id/imageViewDeletePlan"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_delete_button"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_delete_button" />
 
     </RelativeLayout>
 
@@ -35,8 +34,8 @@
         android:id="@+id/relLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="570dp"
-        android:backgroundTint="#B84C4C"
-        android:layout_below="@+id/relLayoutPlanTop">
+        android:layout_below="@+id/relLayoutPlanTop"
+        android:backgroundTint="#B84C4C">
 
         <RelativeLayout
             android:id="@+id/relLayoutPlan"
@@ -61,29 +60,29 @@
             android:layout_marginTop="3dp">
 
             <Button
+                android:id="@+id/buttonCreateNewPlan"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:textSize="20sp"
-                android:text="Create new plan"
-                android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="30dp"
                 android:background="@drawable/main_button_stroke_bg"
-                android:id="@+id/buttonCreateNewPlan"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:text="Create new plan"
+                android:textSize="20sp" />
 
             <Button
+                android:id="@+id/buttonAddNewExercise"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/buttonCreateNewPlan"
-                android:layout_marginTop="40dp"
-                android:textSize="20sp"
-                android:text="Exercises"
-                android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="30dp"
                 android:background="@drawable/main_button_stroke_bg"
-                android:id="@+id/buttonAddNewExercise"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:text="Exercises"
+                android:textSize="20sp" />
 
         </RelativeLayout>
 
@@ -91,24 +90,25 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/bottomStrip"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/bottomStrip">
+        android:layout_alignParentBottom="true">
+
         <LinearLayout
+            android:id="@+id/linLayoutBot"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/linLayoutBot"
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimary"
             android:weightSum="99">
 
             <ImageView
+                android:id="@+id/imageViewLeftIcon"
                 android:layout_width="0dp"
-                android:layout_weight="33"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_assignment_white_24dp"
-                android:id="@+id/imageViewLeftIcon"/>
+                android:layout_weight="33"
+                android:src="@drawable/ic_assignment_white_24dp" />
 
             <ImageView
                 android:id="@+id/imageViewCenterIcon"
@@ -118,21 +118,21 @@
                 android:src="@drawable/ic_fitness_fit_white_24dp" />
 
             <ImageView
+                android:id="@+id/imageViewRightIcon"
                 android:layout_width="0dp"
-                android:layout_weight="33"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_assignment_ind_white_24dp"
-                android:id="@+id/imageViewRightIcon"/>
+                android:layout_weight="33"
+                android:src="@drawable/ic_assignment_ind_white_24dp" />
 
         </LinearLayout>
     </RelativeLayout>
 
     <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.Holo.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/progressBar"
-        android:visibility="gone"
-        style="@android:style/Widget.Holo.ProgressBar"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

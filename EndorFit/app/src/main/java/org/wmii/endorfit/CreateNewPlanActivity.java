@@ -1,10 +1,5 @@
 package org.wmii.endorfit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +14,11 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -68,7 +68,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 user = firebaseAuth.getCurrentUser();
-                if(user == null) {
+                if (user == null) {
                     Intent intent = new Intent(CreateNewPlanActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -96,53 +96,55 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         imageViewAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(progressBar.getVisibility()==View.VISIBLE) {return;}
+                if (progressBar.getVisibility() == View.VISIBLE) {
+                    return;
+                }
                 String name = spinnerExercise.getSelectedItem().toString();
                 String type = txtViewExerciseType.getText().toString();
                 String topLeft = editTextTopLeft.getText().toString();
                 String topRight = editTextTopRight.getText().toString();
                 String botLeft = editTextBotLeft.getText().toString();
 
-                if(topLeft.isEmpty() && !type.equals("Moving")){
+                if (topLeft.isEmpty() && !type.equals("Moving")) {
                     editTextTopLeft.setError("Required");
                     editTextTopLeft.requestFocus();
                     progressBar.setVisibility(View.GONE);
                     return;
                 }
-                if(topRight.isEmpty() && !type.equals("Moving")){
+                if (topRight.isEmpty() && !type.equals("Moving")) {
                     editTextTopRight.setError("Required");
                     editTextTopRight.requestFocus();
                     progressBar.setVisibility(View.GONE);
                     return;
                 }
-                if( (type.equals("Exercise with weights") || type.equals("Exercise with time")) && botLeft.isEmpty()){
+                if ((type.equals("Exercise with weights") || type.equals("Exercise with time")) && botLeft.isEmpty()) {
                     editTextBotLeft.setError("Required");
                     editTextBotLeft.requestFocus();
                     progressBar.setVisibility(View.GONE);
                     return;
                 }
 
-                switch (type){
+                switch (type) {
                     case "Moving":
-                        PlanItems.add(new PlanItem(name,"","","","",""));
-                        planDB.add(new Exercise(name,type,0,0));
+                        PlanItems.add(new PlanItem(name, "", "", "", "", ""));
+                        planDB.add(new Exercise(name, type, 0, 0));
                         editTextPlanName.setText(name);
                         editTextPlanName.setEnabled(false);
                         break;
                     case "Exercise with weights":
-                        PlanItems.add(new PlanItem(name,"name",topLeft,"sets",topRight,"reps",botLeft,"weights"));
-                        planDB.add(new Exercise(name,type, Integer.parseInt(topLeft), Integer.parseInt(topRight), Double.parseDouble(botLeft)));
+                        PlanItems.add(new PlanItem(name, "name", topLeft, "sets", topRight, "reps", botLeft, "weights"));
+                        planDB.add(new Exercise(name, type, Integer.parseInt(topLeft), Integer.parseInt(topRight), Double.parseDouble(botLeft)));
                         break;
                     case "Exercise without weights":
-                        PlanItems.add(new PlanItem(name,"name",topLeft,"sets",topRight,"reps"));
-                        planDB.add(new Exercise(name,type, Integer.parseInt(topLeft), Integer.parseInt(topRight)));
+                        PlanItems.add(new PlanItem(name, "name", topLeft, "sets", topRight, "reps"));
+                        planDB.add(new Exercise(name, type, Integer.parseInt(topLeft), Integer.parseInt(topRight)));
                         break;
                     case "Exercise with time":
-                        PlanItems.add(new PlanItem(name,"name",topLeft,"sets",topRight,"reps",botLeft,"time"));
-                        planDB.add(new Exercise(name,type, Integer.parseInt(topLeft), Integer.parseInt(topRight), Double.parseDouble(botLeft)));
+                        PlanItems.add(new PlanItem(name, "name", topLeft, "sets", topRight, "reps", botLeft, "time"));
+                        planDB.add(new Exercise(name, type, Integer.parseInt(topLeft), Integer.parseInt(topRight), Double.parseDouble(botLeft)));
                         break;
                 }
-                planAdapter.notifyItemInserted(PlanItems.size()-1);
+                planAdapter.notifyItemInserted(PlanItems.size() - 1);
 
                 planChanged(false);
 
@@ -158,12 +160,14 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         txtViewExerciseType.setText(Objects.requireNonNull(dataSnapshot.getValue(Exercise.class)).getType());
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
                 });
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -175,17 +179,18 @@ public class CreateNewPlanActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 progressBar.setVisibility(View.VISIBLE);
                 editTextTopLeft.setText("");
                 editTextTopRight.setText("");
                 editTextBotLeft.setText("");
-                switch(txtViewExerciseType.getText().toString())
-                {
+                switch (txtViewExerciseType.getText().toString()) {
                     case "Moving":
                         editTextTopLeft.setVisibility(View.VISIBLE);
                         editTextTopLeft.setHint("");
@@ -235,7 +240,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         imageViewLeftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentAddNewExercise = new Intent(CreateNewPlanActivity.this,PlanActivity.class);
+                Intent intentAddNewExercise = new Intent(CreateNewPlanActivity.this, PlanActivity.class);
                 intentAddNewExercise.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentAddNewExercise);
             }
@@ -244,7 +249,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         imageViewCenterIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentMainWindow = new Intent(CreateNewPlanActivity.this,MainWindowActivity.class);
+                Intent intentMainWindow = new Intent(CreateNewPlanActivity.this, MainWindowActivity.class);
                 intentMainWindow.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentMainWindow);
             }
@@ -253,7 +258,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         imageViewRightIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentProfile = new Intent(CreateNewPlanActivity.this,ProfileActivity.class);
+                Intent intentProfile = new Intent(CreateNewPlanActivity.this, ProfileActivity.class);
                 intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentProfile);
             }
@@ -262,24 +267,18 @@ public class CreateNewPlanActivity extends AppCompatActivity {
     }
 
     private void planChanged(boolean isMinus) {
-        if(planDB.size() == 0)
-        {
+        if (planDB.size() == 0) {
             spinnerAdapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_full);
             spinnerExercise.setAdapter(spinnerAdapter);
             imageViewAddButton.setEnabled(true);
             spinnerExercise.setEnabled(true);
             editTextPlanName.setText("");
             editTextPlanName.setEnabled(true);
-        }
-        else if(planDB.size() == 1)
-        {
-            if(txtViewExerciseType.getText().toString().equals("Moving"))
-            {
+        } else if (planDB.size() == 1) {
+            if (txtViewExerciseType.getText().toString().equals("Moving")) {
                 spinnerExercise.setEnabled(false);
                 imageViewAddButton.setEnabled(!imageViewAddButton.isEnabled());
-            }
-            else if(!isMinus)
-            {
+            } else if (!isMinus) {
                 spinnerAdapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_gym);
                 spinnerExercise.setAdapter(spinnerAdapter);
                 imageViewAddButton.setEnabled(true);
@@ -310,28 +309,27 @@ public class CreateNewPlanActivity extends AppCompatActivity {
 
         spinnerData_full = new ArrayList<>();
         spinnerData_gym = new ArrayList<>();
-        planDB= new ArrayList<>();
+        planDB = new ArrayList<>();
         PlanItems = new ArrayList<>();
 
         user = mAuth.getCurrentUser();
 
         database = FirebaseDatabase.getInstance();
-        exercisesRef = database.getReference( "users/" + user.getUid() + "/exercises/");
+        exercisesRef = database.getReference("users/" + user.getUid() + "/exercises/");
         exercisesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot item: dataSnapshot.getChildren()){
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
                     spinnerData_full.add(item.getKey());
                     String name = "";
                     String type = "";
-                    for(DataSnapshot temp : item.getChildren())
-                    {
-                        if(temp.getKey().equals("name")) name = temp.getValue().toString();
-                        if(temp.getKey().equals("type")) type = temp.getValue().toString();
+                    for (DataSnapshot temp : item.getChildren()) {
+                        if (temp.getKey().equals("name")) name = temp.getValue().toString();
+                        if (temp.getKey().equals("type")) type = temp.getValue().toString();
                     }
-                    if(!type.equals("Moving")) spinnerData_gym.add(name);
+                    if (!type.equals("Moving")) spinnerData_gym.add(name);
                 }
-                if(spinnerData_full.isEmpty()){
+                if (spinnerData_full.isEmpty()) {
                     Toast.makeText(CreateNewPlanActivity.this, "There is no exercise. Add some and comeback", Toast.LENGTH_LONG).show();
                     Intent backIntent = new Intent(CreateNewPlanActivity.this, PlanActivity.class);
                     startActivity(backIntent);
@@ -350,15 +348,13 @@ public class CreateNewPlanActivity extends AppCompatActivity {
     private void addPlanToDB() {
         progressBar.setVisibility(View.VISIBLE);
         String planName = editTextPlanName.getText().toString();
-        if(planName.isEmpty())
-        {
+        if (planName.isEmpty()) {
             editTextPlanName.setError("Required");
             editTextPlanName.requestFocus();
             progressBar.setVisibility(View.GONE);
             return;
         }
-        if(planDB.isEmpty())
-        {
+        if (planDB.isEmpty()) {
             Toast.makeText(CreateNewPlanActivity.this, "Plan cannot be empty", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.GONE);
             return;
@@ -367,7 +363,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         userPlansRef.setValue(planDB).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(CreateNewPlanActivity.this, "Plan added successful", Toast.LENGTH_SHORT).show();
                     PlanItems.clear();
                     planAdapter.notifyDataSetChanged();
@@ -378,8 +374,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                     editTextPlanName.setText("");
                     progressBar.setVisibility(View.GONE);
                     planChanged(false);
-                }
-                else {
+                } else {
                     Toast.makeText(CreateNewPlanActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
@@ -395,7 +390,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
 
         recyclerViewExercises.setLayoutManager(mLayoutManager);
-        recyclerViewExercises.setAdapter(planAdapter );
+        recyclerViewExercises.setAdapter(planAdapter);
 
         planAdapter.setOnItemClickListener(new PlanAdapter.OnItemClickListener() {
             @Override

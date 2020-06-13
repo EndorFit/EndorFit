@@ -1,9 +1,5 @@
 package org.wmii.endorfit;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -11,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,10 +35,11 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
     GridLayout mleyout;
     ArrayList<String> planItems;
     ArrayList<String> planItemstype;
-    ArrayList<Button> allExer ;
+    ArrayList<Button> allExer;
     DataSnapshot dataSnapshot;
 
     int i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +62,8 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void openActivityTimer()
-    {
-        Intent intent =new Intent(this,workoutTimer.class);
+    public void openActivityTimer() {
+        Intent intent = new Intent(this, workoutTimer.class);
         startActivity(intent);
 
     }
@@ -83,34 +81,33 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
         mleyout.addView(allExer.get(i));
     }
 
-    private void initializeObjects()
-    {
-        mleyout = (GridLayout) findViewById(R.id.leyout);
-        planItems=new ArrayList<String>();
-        planItemstype=new ArrayList<String>();
+    private void initializeObjects() {
+        mleyout = (GridLayout) findViewById(R.id.gridLayoutPlans);
+        planItems = new ArrayList<String>();
+        planItemstype = new ArrayList<String>();
         allExer = new ArrayList<Button>();
 
         database = FirebaseDatabase.getInstance();
-        Ref = database.getReference("users/" +user.getUid() + "/plans/");
+        Ref = database.getReference("users/" + user.getUid() + "/plans/");
     }
 
-    private void getDatafromDatabase()
-    {
+    private void getDatafromDatabase() {
         Ref.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 planItems.clear();
-                for(DataSnapshot item: dataSnapshot.getChildren()){
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
                     planItems.add(item.getKey());
                 }
-               addType();
+                addType();
 
                 createViews();
-                for(Button btn:allExer)
+                for (Button btn : allExer)
                     btn.setOnClickListener(btnListener);
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -118,11 +115,9 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void addType()
-    {
+    public void addType() {
         planItemstype.clear();
-        for (int i =0;i<planItems.size();i++)
-        {
+        for (int i = 0; i < planItems.size(); i++) {
             Ref = database.getReference("users/" + user.getUid() + "/plans/" + planItems.get(i));
 
             Ref.addValueEventListener(new ValueEventListener() {
@@ -132,21 +127,20 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
                     for (DataSnapshot item : dataSnapshot.getChildren()) {
                         Exercise tempExercise = item.getValue(Exercise.class);
                         planItemstype.add(tempExercise.getType());
-                    }}
+                    }
+                }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
-    }
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    private void createViews()
-    {
-        for (i=0;i<planItems.size();i++)
-        {
+    private void createViews() {
+        for (i = 0; i < planItems.size(); i++) {
             addView(view);
             allExer.get(i).setText(planItems.get(i));
         }
@@ -156,21 +150,21 @@ public class workoutPlan extends AppCompatActivity implements View.OnClickListen
         @Override
         public void onClick(View v) {
 
-            for(int i = 0 ; i < allExer.size() ; i++){
+            for (int i = 0; i < allExer.size(); i++) {
 
-                if(v == allExer.get(i)){
+                if (v == allExer.get(i)) {
 
-            if (planItemstype.get(i).equals("Moving"))
-            {
-                Intent intent = new Intent(getBaseContext(), RunningModeActivity.class);
-                intent.putExtra("EXTRA_WORKOUT_KEY", allExer.get(i).getText());
-                startActivity(intent);
+                    if (planItemstype.get(i).equals("Moving")) {
+                        Intent intent = new Intent(getBaseContext(), RunningModeActivity.class);
+                        intent.putExtra("EXTRA_WORKOUT_KEY", allExer.get(i).getText());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getBaseContext(), workoutTimer.class);
+                        intent.putExtra("EXTRA_WORKOUT_KEY", allExer.get(i).getText());
+                        startActivity(intent);
+                    }
+                }
             }
-            else {
-                Intent intent = new Intent(getBaseContext(), workoutTimer.class);
-                intent.putExtra("EXTRA_WORKOUT_KEY", allExer.get(i).getText());
-                startActivity(intent);
-            } } }
         }
     };
 }

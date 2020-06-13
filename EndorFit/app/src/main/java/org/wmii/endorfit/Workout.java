@@ -14,7 +14,7 @@ public class Workout {
         return planItems;
     }
 
-    public Workout( String stateWorkout, ArrayList<Exercise> planItems) {
+    public Workout(String stateWorkout, ArrayList<Exercise> planItems) {
         this.stateWorkout = stateWorkout;
         this.planItems = planItems;
     }

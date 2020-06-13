@@ -44,7 +44,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public DataBaseHelper(@Nullable Context context) {
-        super(context, DATABASE_NAME, null,1);
+        super(context, DATABASE_NAME, null, 1);
     }
 
     public DataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version, @Nullable DatabaseErrorHandler errorHandler) {
@@ -58,7 +58,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME_MAIN
-                + "("+ COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                + "(" + COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_2 + " TEXT UNIQUE," +
                 COL_3 + " INTEGER," +
                 COL_4 + " INTEGER," +
@@ -72,8 +72,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY " + "(" + COL_4 + ")" +
                 " REFERENCES " + TABLE_NAME_DIFFICULTY_LVLS + " (" + COL_4 + ")" + ");");
         db.execSQL("CREATE TABLE " + TABLE_NAME_CATEGORIES +
-                        "(" + COL_3 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                            + CCOL_2 + " TEXT UNIQUE);" );
+                "(" + COL_3 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + CCOL_2 + " TEXT UNIQUE);");
         db.execSQL("CREATE TABLE " + TABLE_NAME_DIFFICULTY_LVLS +
                 "(" + COL_4 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + CCOL_2 + " TEXT UNIQUE);");
@@ -97,81 +97,69 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         bitmap.compress(Bitmap.CompressFormat.PNG, 16, outputStream);
         return outputStream.toByteArray();
     }
-    public boolean insertDataMainTable(String name, int category, int difficulty, String description, String imageFileName, int internalType)
-    {
+
+    public boolean insertDataMainTable(String name, int category, int difficulty, String description, String imageFileName, int internalType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, name);
         contentValues.put(COL_3, category);
         contentValues.put(COL_4, difficulty);
         contentValues.put(COL_5, description);
-        contentValues.put(COL_6,imageFileName);
-        contentValues.put(COL_7,internalType);
+        contentValues.put(COL_6, imageFileName);
+        contentValues.put(COL_7, internalType);
 
         long result = db.insert(TABLE_NAME_MAIN, null, contentValues);
-        if(result == -1)
-        {
+        if (result == -1) {
             return false;
-        }
-        else
-        {
+        } else {
             ++sizeMain;
             return true;
         }
     }
-    public boolean insertDataCategoryTable(String name)
-    {
+
+    public boolean insertDataCategoryTable(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CCOL_2, name);
 
         long result = db.insert(TABLE_NAME_CATEGORIES, null, contentValues);
-        if(result == -1)
-        {
+        if (result == -1) {
             return false;
-        }
-        else
-        {
+        } else {
             ++sizeMain;
             return true;
         }
     }
-    public boolean insertDataDifficultyTable(String name)
-    {
+
+    public boolean insertDataDifficultyTable(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CCOL_2, name);
 
         long result = db.insert(TABLE_NAME_DIFFICULTY_LVLS, null, contentValues);
-        if(result == -1)
-        {
+        if (result == -1) {
             return false;
-        }
-        else
-        {
+        } else {
             ++sizeMain;
             return true;
         }
     }
-    public boolean insertDataInternalTypeTable(String name)
-    {
+
+    public boolean insertDataInternalTypeTable(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CCOL_2, name);
 
         long result = db.insert(TABLE_NAME_INTERNAL_TYPES, null, contentValues);
-        if(result == -1)
-        {
+        if (result == -1) {
             return false;
-        }
-        else
-        {
+        } else {
             ++sizeMain;
             return true;
         }
     }
-    public void dropDataBase()
-    {
+
+    public void dropDataBase() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_INTERNAL_TYPES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_DIFFICULTY_LVLS);
@@ -179,13 +167,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MAIN);
     }
 
-    public static Bitmap getImage(int id, int columnIndex){
+    public static Bitmap getImage(int id, int columnIndex) {
         //SQLiteDatabase db = this.getWritableDatabase();
         //String qu = "select " + COL_6 + "  from " + TABLE_NAME + " where " + COL_1 + "=" + i ;
         //Cursor cur = db.rawQuery(qu, null);
         Cursor cur = MainActivity.myDb.getOneRow(id);
         cur.moveToFirst();
-        if (cur.getBlob(columnIndex) != null){
+        if (cur.getBlob(columnIndex) != null) {
             byte[] imgByte = cur.getBlob(columnIndex);
             cur.close();
             return BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
@@ -195,13 +183,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         return null;
     }
-    public static Bitmap getImageToList(int id, int columnIndex){
+
+    public static Bitmap getImageToList(int id, int columnIndex) {
         //SQLiteDatabase db = this.getWritableDatabase();
         //String qu = "select " + COL_6 + "  from " + TABLE_NAME + " where " + COL_1 + "=" + i ;
         //Cursor cur = db.rawQuery(qu, null);
         Cursor cur = MainActivity.myDb.getOneRow(id);
         cur.moveToFirst();
-        if (cur.getBlob(columnIndex) != null){
+        if (cur.getBlob(columnIndex) != null) {
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 2;
             byte[] imgByte = cur.getBlob(columnIndex);
@@ -214,35 +203,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         return null;
     }
-    public Cursor getAllData()
-    {
+
+    public Cursor getAllData() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2 + ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
                 " FROM " + TABLE_NAME_MAIN +
                 " JOIN " + TABLE_NAME_DIFFICULTY_LVLS + " diflvl USING (" + COL_4 + ")" +
                 " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ")" +
-                " JOIN " + TABLE_NAME_CATEGORIES + " cat USING (" + COL_3 + ")",null);
+                " JOIN " + TABLE_NAME_CATEGORIES + " cat USING (" + COL_3 + ")", null);
         return result;
     }
-    public Cursor getDataForFirebase()
-    {
+
+    public Cursor getDataForFirebase() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", intertypes." + CCOL_2 +
                 " FROM " + TABLE_NAME_MAIN +
-                " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ");",null);
+                " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ");", null);
         return result;
     }
-    public Cursor getCategorizedData(int category)
-    {
+
+    public Cursor getCategorizedData(int category) {
         SQLiteDatabase db = this.getReadableDatabase();
 
 
-            if(category > 6 || category <= 0)
-            {
-                return getAllData();
-            }
+        if (category > 6 || category <= 0) {
+            return getAllData();
+        }
 
-        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2+ ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
+        Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2 + ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
                 " FROM " + TABLE_NAME_MAIN +
                 " JOIN " + TABLE_NAME_DIFFICULTY_LVLS + " diflvl USING (" + COL_4 + ")" +
                 " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ")" +
@@ -250,17 +238,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 " WHERE " + COL_3 + " = " + category + " ORDER BY " + COL_4, null);
         return result;
     }
-    public Cursor getOneRow(int id)
-    {
+
+    public Cursor getOneRow(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT " + COL_1 + ", " + COL_2 + ", cat." + CCOL_2 + ", diflvl." + CCOL_2 + ", " + COL_5 + ", " + COL_6 + ", intertypes." + CCOL_2 +
                 " FROM " + TABLE_NAME_MAIN +
                 " JOIN " + TABLE_NAME_DIFFICULTY_LVLS + " diflvl USING (" + COL_4 + ")" +
                 " JOIN " + TABLE_NAME_INTERNAL_TYPES + " intertypes USING (" + COL_7 + ")" +
                 " JOIN " + TABLE_NAME_CATEGORIES + " cat USING (" + COL_3 + ")" +
-                " WHERE " + COL_1 + " = " + id,null);
+                " WHERE " + COL_1 + " = " + id, null);
         return result;
     }
+
     public String getPicturePath(int id, Context context, Bitmap picture) {
         // Saves the new picture to the internal storage with the unique identifier of the report as
         // the name. That way, there will never be two report pictures with the same name.
@@ -274,13 +263,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             fos = new FileOutputStream(reportFilePath);
             picture.compress(Bitmap.CompressFormat.JPEG, 32 /*quality*/, fos);
             fos.close();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Log.i("DATABASE", "Problem updating picture", ex);
             picturePath = "";
         }
 
-                return picturePath;
+        return picturePath;
 
     }
 }

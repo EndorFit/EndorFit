@@ -23,7 +23,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -81,23 +80,21 @@ public class AddNewExerciseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = editTextExerciseName.getText().toString();
                 String type = spinnerExerciseType.getSelectedItem().toString();
-                if(name.isEmpty())
-                {
+                if (name.isEmpty()) {
                     editTextExerciseName.setError("Name is required");
                     editTextExerciseName.requestFocus();
                     return;
                 }
                 //Checking if exercise exists in DB is not needed, because we can't storage two exercise with the same name, so new exercise will just updated existing one.
-                exerciseRef = database.getReference(  "users/" + user.getUid() + "/exercises/" + name);
-                Exercise newExercise = new Exercise(name,type);
+                exerciseRef = database.getReference("users/" + user.getUid() + "/exercises/" + name);
+                Exercise newExercise = new Exercise(name, type);
                 exerciseRef.setValue(newExercise).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(AddNewExerciseActivity.this, "Exercise added", Toast.LENGTH_SHORT).show();
                             editTextExerciseName.setText("");
-                        }
-                        else {
+                        } else {
                             Toast.makeText(AddNewExerciseActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -108,14 +105,11 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         buttonCreateNewPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(buttonCreateNewPlan.getText().equals("Create new exercise"))
-                {
+                if (buttonCreateNewPlan.getText().equals("Create new exercise")) {
                     linExerciseList.setVisibility(View.INVISIBLE);
                     relativeLayoutAddNewExercise.setVisibility(View.VISIBLE);
                     buttonCreateNewPlan.setText("Exercises");
-                }
-                else
-                {
+                } else {
                     linExerciseList.setVisibility(View.VISIBLE);
                     relativeLayoutAddNewExercise.setVisibility(View.INVISIBLE);
                     buttonCreateNewPlan.setText("Create new exercise");
@@ -126,7 +120,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         buttonSeeYourPlans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentAddNewExercise = new Intent(AddNewExerciseActivity.this,PlanActivity.class);
+                Intent intentAddNewExercise = new Intent(AddNewExerciseActivity.this, PlanActivity.class);
                 intentAddNewExercise.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentAddNewExercise);
             }
@@ -135,7 +129,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         imageViewLeftIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentAddNewExercise = new Intent(AddNewExerciseActivity.this,PlanActivity.class);
+                Intent intentAddNewExercise = new Intent(AddNewExerciseActivity.this, PlanActivity.class);
                 intentAddNewExercise.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentAddNewExercise);
             }
@@ -144,7 +138,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         imageViewCenterIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentMainWindow = new Intent(AddNewExerciseActivity.this,MainWindowActivity.class);
+                Intent intentMainWindow = new Intent(AddNewExerciseActivity.this, MainWindowActivity.class);
                 intentMainWindow.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentMainWindow);
             }
@@ -153,7 +147,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         imageViewRightIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentProfile = new Intent(AddNewExerciseActivity.this,ProfileActivity.class);
+                Intent intentProfile = new Intent(AddNewExerciseActivity.this, ProfileActivity.class);
                 intentProfile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentProfile);
             }
@@ -163,24 +157,15 @@ public class AddNewExerciseActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                if(tab.getPosition() == 0)
-                {
+                if (tab.getPosition() == 0) {
                     pageAdapter.notifyDataSetChanged();
-                }
-                else if(tab.getPosition() == 1)
-                {
+                } else if (tab.getPosition() == 1) {
                     pageAdapter.notifyDataSetChanged();
-                }
-                else if(tab.getPosition() == 2)
-                {
+                } else if (tab.getPosition() == 2) {
                     pageAdapter.notifyDataSetChanged();
-                }
-                else if(tab.getPosition() == 3)
-                {
+                } else if (tab.getPosition() == 3) {
                     pageAdapter.notifyDataSetChanged();
-                }
-                else if(tab.getPosition() == 4)
-                {
+                } else if (tab.getPosition() == 4) {
                     pageAdapter.notifyDataSetChanged();
                 }
             }
@@ -230,8 +215,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
 
     }
 
-    public void initWidgets()
-    {
+    public void initWidgets() {
         //exercisesListRecyclerView = (RecyclerView)findViewById(R.id.exersisesListRecyclerView);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabChest = (TabItem) findViewById(R.id.tabChest);
@@ -239,9 +223,9 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         tabArms = (TabItem) findViewById(R.id.tabArms);
         tabShoulders = (TabItem) findViewById(R.id.tabShoulders);
         tabLegs = (TabItem) findViewById(R.id.tabLegs);
-        viewPager  = (ViewPager) findViewById(R.id.viewPagerExercises);
+        viewPager = (ViewPager) findViewById(R.id.viewPagerExercises);
         exercisesListRecyclerView = (RecyclerView) findViewById(R.id.exersisesListRecyclerView);
-        pageAdapter = new PageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);
     }
 }

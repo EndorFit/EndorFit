@@ -1,6 +1,5 @@
 package org.wmii.endorfit;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,13 +13,13 @@ import androidx.core.app.NotificationCompat;
 
 public class NotificationPublisher extends BroadcastReceiver {
 
-    private  String CHANNEL_ID = "my_channel_01";
+    private String CHANNEL_ID = "my_channel_01";
     public static String NOTIFICATION_ID = "notification-id";
     public static String NOTIFICATION = "notification";
 
     public void onReceive(Context context, Intent intent) {
 
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             String CHANNEL_ID = "my_channel_01";
             CharSequence name = "my_channel";
@@ -31,25 +30,24 @@ public class NotificationPublisher extends BroadcastReceiver {
             mChannel.enableLights(true);
             mChannel.setLightColor(Color.RED);
             mChannel.enableVibration(true);
-            mChannel.setVibrationPattern(new long[] { 500, 200, 500, 200, 500 });
+            mChannel.setVibrationPattern(new long[]{500, 200, 500, 200, 500});
             mChannel.setShowBadge(false);
             notificationManager.createNotificationChannel(mChannel);
         }
 
-            Intent repeating_intent = new Intent(context, MainWindowActivity.class);
-            repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context,MainActivity.not_id, repeating_intent, PendingIntent
-                    .FLAG_UPDATE_CURRENT);
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
-                    .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.drawable.ic_fitness_fit_white_24dp)
-                    .setContentTitle("Training today!")
-                    .setContentText("Get ready, remember about towel and water!")
-                    .setAutoCancel(true)
-                    .setVibrate(new long[] { 500, 200, 500, 200, 500 });
+        Intent repeating_intent = new Intent(context, MainWindowActivity.class);
+        repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, MainActivity.not_id, repeating_intent, PendingIntent
+                .FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.drawable.ic_fitness_fit_white_24dp)
+                .setContentTitle("Training today!")
+                .setContentText("Get ready, remember about towel and water!")
+                .setAutoCancel(true)
+                .setVibrate(new long[]{500, 200, 500, 200, 500});
 
-        if(intent.getAction().equals("MY_NOTIFICATION_MESSAGE"))
-        {
+        if (intent.getAction().equals("MY_NOTIFICATION_MESSAGE")) {
             notificationManager.notify(MainActivity.not_id, builder.build());
         }
         MainActivity.not_id++;

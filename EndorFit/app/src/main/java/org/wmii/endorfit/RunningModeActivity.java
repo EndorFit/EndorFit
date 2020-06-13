@@ -1,9 +1,5 @@
 package org.wmii.endorfit;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,6 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -47,10 +47,10 @@ public class RunningModeActivity extends FragmentActivity implements OnMapReadyC
 
     protected Vector<Location> route = new Vector<Location>();
 
-    long timer=0;
-    long RunTime=0;
+    long timer = 0;
+    long RunTime = 0;
 
-    boolean clicked=false;
+    boolean clicked = false;
     Button buttonStart;
     Button buttonStop;
     Button buttonNewRun;
@@ -79,151 +79,152 @@ public class RunningModeActivity extends FragmentActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_mode_map);
 
-        buttonStart =(Button) findViewById(R.id.startButton);
+        buttonStart = (Button) findViewById(R.id.startButton);
         buttonStop = (Button) findViewById(R.id.stopButton);
         buttonNewRun = (Button) findViewById(R.id.newRunButton);
         buttonSaveRun = (Button) findViewById(R.id.saveRunButton);
         buttonStop.setEnabled(false);
         buttonStop.setVisibility(View.GONE);
-        gifIMG= (pl.droidsonroids.gif.GifImageView) findViewById(R.id.gifIMG);
+        gifIMG = (pl.droidsonroids.gif.GifImageView) findViewById(R.id.gifAnimation);
 
-        textSpeed = (TextView) findViewById(R.id.textSpeed) ;
-        textDistance = (TextView) findViewById(R.id.textDistance) ;
-        textTime = (TextView) findViewById(R.id.textTime) ;
+        textSpeed = (TextView) findViewById(R.id.textSpeed);
+        textDistance = (TextView) findViewById(R.id.textDistance);
+        textTime = (TextView) findViewById(R.id.textTime);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-            buttonStart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(), "RUN!", Toast.LENGTH_SHORT).show();
-                    timer= System.currentTimeMillis();
-                    textDistance.setTextSize(25);
-                    buttonStart.setEnabled(false);
-                    buttonStop.setEnabled(true);
-                    buttonStart.setVisibility(View.GONE);
-                    buttonStop.setVisibility(View.VISIBLE);
-                    gifIMG.setVisibility(View.GONE);
+        buttonStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "RUN!", Toast.LENGTH_SHORT).show();
+                timer = System.currentTimeMillis();
+                textDistance.setTextSize(25);
+                buttonStart.setEnabled(false);
+                buttonStop.setEnabled(true);
+                buttonStart.setVisibility(View.GONE);
+                buttonStop.setVisibility(View.VISIBLE);
+                gifIMG.setVisibility(View.GONE);
 
-                    clicked=true;
+                clicked = true;
 
-                    if (ActivityCompat.checkSelfPermission(RunningModeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RunningModeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(RunningModeActivity.this, new String[]
-                                {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-                        return;
-                    } else {
-                    fetchLastLocation();}
+                if (ActivityCompat.checkSelfPermission(RunningModeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RunningModeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(RunningModeActivity.this, new String[]
+                            {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+                    return;
+                } else {
+                    fetchLastLocation();
                 }
-            });
+            }
+        });
 
-            
-            buttonStop.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(RunningModeActivity.this);
-                    builder.setCancelable(false);
-                    builder.setIcon(R.drawable.warning_icon_default);
-                    builder.setMessage("Are you sure to stop?");
-                    builder.setTitle("Please, Confirm...");
+        buttonStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
+                final AlertDialog.Builder builder = new AlertDialog.Builder(RunningModeActivity.this);
+                builder.setCancelable(false);
+                builder.setIcon(R.drawable.warning_icon_default);
+                builder.setMessage("Are you sure to stop?");
+                builder.setTitle("Please, Confirm...");
 
-                    builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                            long timerEnd = (System.currentTimeMillis()-timer)/1000;
-                            RunTime=timerEnd;
-                            double totalDistance=getTotalDistance();
-                            double speed=getSpeed(totalDistance,timerEnd);
-
-                            int min= (int) (timerEnd/60);
-                            int sec= (int) (timerEnd%60);
-
-                            buttonStart.setEnabled(true);
-                            buttonStop.setEnabled(false);
-                            buttonStop.setVisibility(View.GONE);
-                            buttonNewRun.setVisibility(View.VISIBLE);
-                            buttonSaveRun.setVisibility(View.VISIBLE);
-                            clicked=false;
-
-                            textSpeed.setTextSize(15);
-                            textDistance.setTextSize(15);
-                            textTime.setTextSize(15);
-
-                            textDistance.setText(String.format("DISTANCE: \n%.2f km\n%.2f m",totalDistance/1000,totalDistance));
-                            textTime.setText("TIME:\n"+min+" min\n"+sec+" sec");
-                            textSpeed.setText(String.format("SPEED: \n%.2f m/s",speed));
-
-                            SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
-                            supportMapFragment.getMapAsync(RunningModeActivity.this);
-                        }
-                    });
-                    final AlertDialog dialog = builder.create();
-                    dialog.show();
-
-                    dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
-                    dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
-
-                }
-            });
-
-            buttonNewRun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                        final AlertDialog.Builder builder2 = new AlertDialog.Builder(RunningModeActivity.this);
-                        builder2.setCancelable(false);
-                        builder2.setIcon(R.drawable.warning_icon_default);
-                        builder2.setMessage("Are you sure to finish this run and make another?");
-                        builder2.setTitle("Please, Confirm...");
-                        builder2.setPositiveButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        builder2.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(getApplicationContext(), RunningModeActivity.class);
-                                finish();
-                                startActivity(intent);
-                            }
-                        });
-                    final AlertDialog dialog = builder2.create();
-                    dialog.show();
-
-                    dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
-                    dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
-
+                builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
                     }
                 });
 
-            buttonSaveRun.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mAuth = FirebaseAuth.getInstance();
-                    mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-                        @Override
-                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                            user = firebaseAuth.getCurrentUser();
-                            if (user == null) {
-                                Intent intent = new Intent(RunningModeActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    });
-                    user = mAuth.getCurrentUser();
+                builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    initializeObjects();
-                }
-            });
+                        long timerEnd = (System.currentTimeMillis() - timer) / 1000;
+                        RunTime = timerEnd;
+                        double totalDistance = getTotalDistance();
+                        double speed = getSpeed(totalDistance, timerEnd);
+
+                        int min = (int) (timerEnd / 60);
+                        int sec = (int) (timerEnd % 60);
+
+                        buttonStart.setEnabled(true);
+                        buttonStop.setEnabled(false);
+                        buttonStop.setVisibility(View.GONE);
+                        buttonNewRun.setVisibility(View.VISIBLE);
+                        buttonSaveRun.setVisibility(View.VISIBLE);
+                        clicked = false;
+
+                        textSpeed.setTextSize(15);
+                        textDistance.setTextSize(15);
+                        textTime.setTextSize(15);
+
+                        textDistance.setText(String.format("DISTANCE: \n%.2f km\n%.2f m", totalDistance / 1000, totalDistance));
+                        textTime.setText("TIME:\n" + min + " min\n" + sec + " sec");
+                        textSpeed.setText(String.format("SPEED: \n%.2f m/s", speed));
+
+                        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
+                        supportMapFragment.getMapAsync(RunningModeActivity.this);
+                    }
+                });
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+
+                dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+
+            }
+        });
+
+        buttonNewRun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder2 = new AlertDialog.Builder(RunningModeActivity.this);
+                builder2.setCancelable(false);
+                builder2.setIcon(R.drawable.warning_icon_default);
+                builder2.setMessage("Are you sure to finish this run and make another?");
+                builder2.setTitle("Please, Confirm...");
+                builder2.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder2.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), RunningModeActivity.class);
+                        finish();
+                        startActivity(intent);
+                    }
+                });
+                final AlertDialog dialog = builder2.create();
+                dialog.show();
+
+                dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+
+            }
+        });
+
+        buttonSaveRun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        user = firebaseAuth.getCurrentUser();
+                        if (user == null) {
+                            Intent intent = new Intent(RunningModeActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
+                user = mAuth.getCurrentUser();
+
+                initializeObjects();
+            }
+        });
 
     }
 
@@ -232,48 +233,20 @@ public class RunningModeActivity extends FragmentActivity implements OnMapReadyC
         String data = java.text.DateFormat.getDateTimeInstance().format(new Date());
 
         database = FirebaseDatabase.getInstance();
-       // exerciseRef = database.getReference("users/" + user.getUid() + "/ukonczoneBiegi/"+data);//stara sciezka
+        // exerciseRef = database.getReference("users/" + user.getUid() + "/ukonczoneBiegi/"+data);//stara sciezka
 
         final String[] nazwa_planu = {getIntent().getStringExtra("EXTRA_WORKOUT_KEY")};
 
-        if(nazwa_planu[0] ==null)
-        {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(RunningModeActivity.this);
-            builder.setCancelable(false);
-            builder.setIcon(R.drawable.warning_icon_default);
-            builder.setMessage("Please, write name of your activity...");
-            builder.setTitle("Please, Confirm...");
-            inputName = new EditText(this);
-            builder.setView(inputName);
-            
-            builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
-
-            builder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                String temp =inputName.getText().toString();
-                nazwa_planu[0] = temp;
-                dialogInterface.dismiss();
-                }
-            });
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
-            dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+        if (nazwa_planu[0] == null) {
+            nazwa_planu[0] = "Running";
         }
-        exerciseRef = database.getReference("users/" + user.getUid() + "/completed/"+data+"/"+ nazwa_planu[0]);
+        exerciseRef = database.getReference("users/" + user.getUid() + "/completed/" + data + "/" + nazwa_planu[0]);
 
-        double totalDistance=getTotalDistance();
+        double totalDistance = getTotalDistance();
 
         ArrayList<Exercise> tempArray = new ArrayList<>();
-        tempArray.add(new Exercise(nazwa_planu[0], "Moving",totalDistance, RunTime, route));
-        Workout dbSave=new Workout("1/1",tempArray);
+        tempArray.add(new Exercise(nazwa_planu[0], "Moving", totalDistance, RunTime, route));
+        Workout dbSave = new Workout("1/1", tempArray);
         exerciseRef.setValue(dbSave).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -285,38 +258,38 @@ public class RunningModeActivity extends FragmentActivity implements OnMapReadyC
 
     private void fetchLastLocation() {
         final LocationRequest locationRequest = new LocationRequest();
-            locationRequest.setInterval(1000);
-            locationRequest.setFastestInterval(500);
-            locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(1000);
+        locationRequest.setFastestInterval(500);
+        locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-            LocationServices.getFusedLocationProviderClient(RunningModeActivity.this)
-                    .requestLocationUpdates(locationRequest, new LocationCallback() {
-                        @Override
-                        public void onLocationResult(LocationResult locationResult) {
-                            super.onLocationResult(locationResult);
-                            LocationServices.getFusedLocationProviderClient(RunningModeActivity.this)
-                                    .removeLocationUpdates(this);
-                            if (locationResult != null && locationResult.getLocations().size() > 0) {
-                                if(clicked==true) {
-                                    int LatestLocationIndex = locationResult.getLocations().size() - 1;
+        LocationServices.getFusedLocationProviderClient(RunningModeActivity.this)
+                .requestLocationUpdates(locationRequest, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        LocationServices.getFusedLocationProviderClient(RunningModeActivity.this)
+                                .removeLocationUpdates(this);
+                        if (locationResult != null && locationResult.getLocations().size() > 0) {
+                            if (clicked == true) {
+                                int LatestLocationIndex = locationResult.getLocations().size() - 1;
 
-                                currentLocation=locationResult.getLocations().get(LatestLocationIndex);
-                                    //route.add(locationResult.getLocations().get(LatestLocationIndex));
-                                   route.add(currentLocation);
+                                currentLocation = locationResult.getLocations().get(LatestLocationIndex);
+                                //route.add(locationResult.getLocations().get(LatestLocationIndex));
+                                route.add(currentLocation);
                                 SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
                                 supportMapFragment.getMapAsync(RunningModeActivity.this);
 
-                                            pause(2000);
-                                            fetchLastLocation();
-                                        }
+                                pause(2000);
+                                fetchLastLocation();
                             }
                         }
-                    }, Looper.getMainLooper());
-        }
+                    }
+                }, Looper.getMainLooper());
+    }
 
     public double getTotalDistance() {
         double distance = 0;
-        if(route.size() > 1) {
+        if (route.size() > 1) {
             for (Integer i = 0; i < route.size() - 1; i++) {
                 distance += (route.get(i).distanceTo(route.get(i + 1)));
             }
@@ -326,58 +299,59 @@ public class RunningModeActivity extends FragmentActivity implements OnMapReadyC
 
     public double getSpeed(double distance, long time) {
         double speed = 0;
-        speed=distance/time;
-        if(distance!=0) return speed;
+        speed = distance / time;
+        if (distance != 0) return speed;
         else return 0;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-                if (clicked==true) {
-                    LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    MarkerOptions startMarker = new MarkerOptions().position(latLng);
+        if (clicked == true) {
+            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+            MarkerOptions startMarker = new MarkerOptions().position(latLng);
 
-                    if (route.size() == 1) {
-                        startMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.start_marker));
-                        googleMap.addMarker(startMarker);
-                        startMarker.title("START");
-                    }
+            if (route.size() == 1) {
+                startMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.start_marker));
+                googleMap.addMarker(startMarker);
+                startMarker.title("START");
+            }
 
-                    if (route.size() > 1) {
-                        Polyline line = googleMap.addPolyline(new PolylineOptions()
-                                .add(oldLatLng, latLng)
-                                .width(10)
-                                .color(Color.BLUE));
-                        ;
-                    }
+            if (route.size() > 1) {
+                Polyline line = googleMap.addPolyline(new PolylineOptions()
+                        .add(oldLatLng, latLng)
+                        .width(10)
+                        .color(Color.BLUE));
+                ;
+            }
 
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
-                    googleMap.getUiSettings().setScrollGesturesEnabled(false);
-                    googleMap.getUiSettings().setZoomGesturesEnabled(false);
-                    oldLatLng = latLng;
-                }
+            googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+            googleMap.getUiSettings().setScrollGesturesEnabled(false);
+            googleMap.getUiSettings().setZoomGesturesEnabled(false);
+            oldLatLng = latLng;
+        }
 
-        if (clicked==false) { //STOP MARKER
+        if (clicked == false) { //STOP MARKER
             googleMap.getUiSettings().setScrollGesturesEnabled(true);
             googleMap.getUiSettings().setZoomGesturesEnabled(true);
 
-            if(currentLocation!=null){
-            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            MarkerOptions stopMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_marker));
-            googleMap.addMarker(stopMarker);
+            if (currentLocation != null) {
+                LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                MarkerOptions stopMarker = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.stop_marker));
+                googleMap.addMarker(stopMarker);
 
-            googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));}
+                googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+            }
         }
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case REQUEST_CODE:
-                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     fetchLastLocation();
                 }
                 break;

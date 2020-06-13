@@ -1,12 +1,12 @@
 package org.wmii.endorfit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,21 +52,16 @@ public class CompletedPlansActivity extends AppCompatActivity {
         completedPlansRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot date : dataSnapshot.getChildren())
-                {
+                for (DataSnapshot date : dataSnapshot.getChildren()) {
                     String planDate = date.getKey();
                     String planName = "";
                     String stateWorkout = "";
                     ArrayList<Exercise> tempExerciseList = new ArrayList<>();
-                    for(DataSnapshot item : date.getChildren())
-                    {
-                        if(!item.getKey().equals("stateWorkout"))
-                        {
+                    for (DataSnapshot item : date.getChildren()) {
+                        if (!item.getKey().equals("stateWorkout")) {
                             planName = item.getKey();
-                            for(DataSnapshot exerciseList : item.getChildren())
-                            {
-                                for(DataSnapshot exercise : exerciseList.getChildren())
-                                {
+                            for (DataSnapshot exerciseList : item.getChildren()) {
+                                for (DataSnapshot exercise : exerciseList.getChildren()) {
                                     String name = "";
                                     String type = "";
                                     int sets = 0;
@@ -75,26 +70,30 @@ public class CompletedPlansActivity extends AppCompatActivity {
                                     double distance = 0;
                                     double time = 0;
                                     Vector<Location> route = new Vector<>();
-                                    for(DataSnapshot typ : exercise.getChildren())
-                                    {
-                                        if(typ.getKey().equals("distance")) distance = Double.parseDouble(typ.getValue().toString());
-                                        if(typ.getKey().equals("weight")) weight = Double.parseDouble(typ.getValue().toString());
-                                        if(typ.getKey().equals("time")) time = Double.parseDouble(typ.getValue().toString());
-                                        if(typ.getKey().equals("sets")) sets = Integer.parseInt(typ.getValue().toString());
-                                        if(typ.getKey().equals("reps")) reps = Integer.parseInt(typ.getValue().toString());
-                                        if(typ.getKey().equals("type")) type = typ.getValue().toString();
-                                        if(typ.getKey().equals("name")) name = typ.getValue().toString();
-                                        if(typ.getKey().equals("route"))
-                                        {
-                                            for(DataSnapshot location : typ.getChildren())
-                                            {
+                                    for (DataSnapshot typ : exercise.getChildren()) {
+                                        if (typ.getKey().equals("distance"))
+                                            distance = Double.parseDouble(typ.getValue().toString());
+                                        if (typ.getKey().equals("weight"))
+                                            weight = Double.parseDouble(typ.getValue().toString());
+                                        if (typ.getKey().equals("time"))
+                                            time = Double.parseDouble(typ.getValue().toString());
+                                        if (typ.getKey().equals("sets"))
+                                            sets = Integer.parseInt(typ.getValue().toString());
+                                        if (typ.getKey().equals("reps"))
+                                            reps = Integer.parseInt(typ.getValue().toString());
+                                        if (typ.getKey().equals("type"))
+                                            type = typ.getValue().toString();
+                                        if (typ.getKey().equals("name"))
+                                            name = typ.getValue().toString();
+                                        if (typ.getKey().equals("route")) {
+                                            for (DataSnapshot location : typ.getChildren()) {
                                                 Location temp = new Location(String.valueOf(location.getChildren()));
                                                 route.add(temp);
                                             }
                                         }
                                     }
 
-                                    switch (type){
+                                    switch (type) {
                                         case "Moving":
                                             tempExerciseList.add(new Exercise(name, type, distance, time, route));
                                             break;
@@ -110,19 +109,17 @@ public class CompletedPlansActivity extends AppCompatActivity {
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             stateWorkout = item.getKey().toString();
                         }
 
                     }
-                    completedPlans.add(new CompletedPlan(planDate,planName,tempExerciseList));
+                    completedPlans.add(new CompletedPlan(planDate, planName, tempExerciseList));
                 }
 
                 viewPagerAdapter = new ViewPagerCompletedPlansAdapter(completedPlans, CompletedPlansActivity.this);
                 viewPagerCompletedPlans.setAdapter(viewPagerAdapter);
-                viewPagerCompletedPlans.setPadding(130,130,130,130);
+                viewPagerCompletedPlans.setPadding(130, 130, 130, 130);
 
                 viewPagerCompletedPlans.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
@@ -142,6 +139,7 @@ public class CompletedPlansActivity extends AppCompatActivity {
                 });
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

@@ -1,7 +1,5 @@
 package org.wmii.endorfit;
 
-import java.util.Date;
-
 public class User {
     String name;
     String gender;

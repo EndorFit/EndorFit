@@ -1,86 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="50dp"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="50dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <RelativeLayout
+                android:id="@+id/relLayText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
-                android:id="@+id/relLayText"
                 android:padding="5dp">
 
                 <TextView
-                    android:id="@+id/data"
+                    android:id="@+id/textViewDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="16dp"
-                    android:text="25.03.2020 15:34"
-                    android:textSize="30sp"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:editable="false"
+                    android:text="25.03.2020 15:34"
                     android:textAlignment="center"
-                    android:editable="false"/>
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/labelData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:labelFor="@id/data"
-                    android:text="date"
-                    android:layout_below="@id/data"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_below="@id/textViewDate"
+                    android:layout_centerHorizontal="true"
+                    android:labelFor="@id/textViewDate"
+                    android:text="date" />
 
                 <TextView
+                    android:id="@+id/textViewPlanName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/nazwa"
                     android:layout_below="@+id/labelData"
-                    android:textColor="#000000"
-                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
                     android:text="Test"
-                    android:textSize="25sp"
-                    android:layout_centerHorizontal="true"/>
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/labelName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:labelFor="@id/nazwa"
-                    android:text="plan name"
-                    android:layout_below="@id/nazwa"
-                    android:layout_centerHorizontal="true"/>
-
-
-
+                    android:layout_below="@id/textViewPlanName"
+                    android:layout_centerHorizontal="true"
+                    android:labelFor="@id/textViewPlanName"
+                    android:text="plan name" />
 
             </RelativeLayout>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewExercises"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/relLayText"
+                android:background="@color/colorPrimary"
                 android:padding="4dp"
-                android:scrollbars="vertical"
-                android:background="@color/colorPrimary"/>
-
+                android:scrollbars="vertical" />
 
         </RelativeLayout>
 

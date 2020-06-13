@@ -31,8 +31,7 @@ public class PlanItem {
         this.enableDelete = enableDelete;
     }
 
-    PlanItem(String name, String nameLabel)
-    {
+    PlanItem(String name, String nameLabel) {
         this.name = name;
         this.nameLabel = nameLabel;
     }

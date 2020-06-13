@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:layout_constraintBottom_toTopOf="parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    app:layout_constraintBottom_toTopOf="parent"
     tools:context=".ExercisesListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:layout_height="?attr/actionBarSize"
             android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
                 android:text="@string/exercisesListTitleBar"
-                android:textSize="30sp"
-                />
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp" />
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
@@ -34,55 +34,56 @@
             app:tabMode="scrollable">
 
             <com.google.android.material.tabs.TabItem
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/tabChest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="CHEST" />
 
             <com.google.android.material.tabs.TabItem
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/tabArms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="ARMS" />
 
             <com.google.android.material.tabs.TabItem
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/tabABSBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="ABS &amp; BACK" />
 
             <com.google.android.material.tabs.TabItem
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/tabShoulders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="SHOULDERS" />
 
             <com.google.android.material.tabs.TabItem
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/tabLegs"
-                android:text="LEGS" />
-            <com.google.android.material.tabs.TabItem
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LEGS" />
+
+            <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabMoving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="MOVING" />
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerExercises"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/viewPagerExercises"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
 
     </androidx.viewpager.widget.ViewPager>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:src="@android:drawable/ic_input_add"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add" />
+
 </LinearLayout>
