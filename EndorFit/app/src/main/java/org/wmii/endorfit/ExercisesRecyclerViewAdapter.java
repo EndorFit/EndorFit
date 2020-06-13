@@ -38,10 +38,10 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
     @Override
     public void onBindViewHolder(@NonNull ExercisesRecyclerViewAdapter.ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called");
-        holder.exerciseName.setText(exerciseKnowledgeBases.get(position).getName());
+        holder.textViewExerciseName.setText(exerciseKnowledgeBases.get(position).getName());
 //        holder.exerciseImage.setImageBitmap(exerciseKnowledgeBases.get(position).getImage());
-        holder.exerciseCategoryAndDifficulty.setText("Category: " + exerciseKnowledgeBases.get(position).getCategory() + ", Difficulty: " + exerciseKnowledgeBases.get(position).getDifficultyLevel());
-        holder.exerciseCard.setOnClickListener(new View.OnClickListener() {
+        holder.textViewExerciseCategoryAndDifficulty.setText("Category: " + exerciseKnowledgeBases.get(position).getCategory() + ", Difficulty: " + exerciseKnowledgeBases.get(position).getDifficultyLevel());
+        holder.cardViewExerciseCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ExercisesDetailsActivity.class);
@@ -58,15 +58,15 @@ public class ExercisesRecyclerViewAdapter extends RecyclerView.Adapter<Exercises
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private CardView exerciseCard;
-        private ImageView exerciseImage;
-        private TextView exerciseName, exerciseCategoryAndDifficulty;
+        private CardView cardViewExerciseCard;
+        private ImageView imageViewExerciseImage;
+        private TextView textViewExerciseName, textViewExerciseCategoryAndDifficulty;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            exerciseCard = (CardView) itemView.findViewById(R.id.exerciseCardView);
+            cardViewExerciseCard = (CardView) itemView.findViewById(R.id.exerciseCardView);
             //exerciseImage = (ImageView) itemView.findViewById(R.id.exerciseImage);
-            exerciseCategoryAndDifficulty = (TextView) itemView.findViewById(R.id.exerciseCategoryAndDifficultyTextView);
-            exerciseName = (TextView) itemView.findViewById(R.id.exerciseNameTextView);
+            textViewExerciseCategoryAndDifficulty = (TextView) itemView.findViewById(R.id.exerciseCategoryAndDifficultyTextView);
+            textViewExerciseName = (TextView) itemView.findViewById(R.id.exerciseNameTextView);
             //exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
            // exerciseImage = (ImageView)itemView.findViewById(R.id.exerciseImage);
         }

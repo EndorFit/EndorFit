@@ -31,9 +31,9 @@ public class tabMoving extends Fragment {
         v = inflater.inflate(R.layout.fragment_tab_chest, container, false);
         //ExercisesListActivity.exercisesListRecyclerView = (RecyclerView) itemList.findViewById(R.id.exersisesListRecyclerView);
         ExercisesRecyclerViewAdapter adapter = new ExercisesRecyclerViewAdapter(super.getContext(),5);
-        ExercisesListActivity.exercisesListRecyclerView = (RecyclerView) v.findViewById(R.id.exersisesListRecyclerView);
-        ExercisesListActivity.exercisesListRecyclerView.setAdapter(adapter);
-        ExercisesListActivity.exercisesListRecyclerView.setLayoutManager(new LinearLayoutManager(super.getContext()));
+        ExercisesListActivity.RecyclerViewExercisesList = (RecyclerView) v.findViewById(R.id.exersisesListRecyclerView);
+        ExercisesListActivity.RecyclerViewExercisesList.setAdapter(adapter);
+        ExercisesListActivity.RecyclerViewExercisesList.setLayoutManager(new LinearLayoutManager(super.getContext()));
         adapter.setExerciseKnowledgeBases(MainActivity.myDb);
         return v;
     }

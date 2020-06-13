@@ -30,8 +30,6 @@ public class dynamicViews {
         buttonWorkout.setWidth(450);
         buttonWorkout.setHeight(200);
 
-
-
         return buttonWorkout;
     }
 

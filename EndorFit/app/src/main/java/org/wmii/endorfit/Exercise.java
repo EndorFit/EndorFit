@@ -38,8 +38,6 @@ public class Exercise {
         }
     }
 
-
-
     public Exercise(String name,String type, int sets, int reps) {
         this.name=name;
         this.type = type;
@@ -78,9 +76,6 @@ public class Exercise {
         return time;
     }
 
-
-
-
     public Exercise(String name, String type) {
         this.name = name;
         this.type = type;
@@ -90,7 +85,6 @@ public class Exercise {
         this.name = name;
         this.reps = reps;
     }
-
 
     public Exercise(String name, String type, double distance, double time) {
         this.name = name;

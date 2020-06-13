@@ -6,13 +6,12 @@ public class CompletedPlan {
 
     String date;
     String name;
-    ArrayList<Exercise> cwiczenia;
+    ArrayList<Exercise> exercises;
 
-
-    public CompletedPlan(String date, String name, ArrayList<Exercise> cwiczenia) {
+    public CompletedPlan(String date, String name, ArrayList<Exercise> exercises) {
         this.date = date;
         this.name = name;
-        this.cwiczenia = cwiczenia;
+        this.exercises = exercises;
     }
 
     public String getDate() {
@@ -31,11 +30,11 @@ public class CompletedPlan {
         this.name = name;
     }
 
-    public ArrayList<Exercise> getCwiczenia() {
-        return cwiczenia;
+    public ArrayList<Exercise> getExercises() {
+        return exercises;
     }
 
-    public void setCwiczenia(ArrayList<Exercise> cwiczenia) {
-        this.cwiczenia = cwiczenia;
+    public void setExercises(ArrayList<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }

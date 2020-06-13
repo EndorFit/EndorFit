@@ -4,15 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 //
 public class ExercisesDetailsActivity extends AppCompatActivity {
-    ImageView exImage;
-    TextView exTitleText, exCategoryAndDifficulty, exDescriptionText;
+    ImageView imageViewExImage;
+    TextView textViewExTitleText, textViewExCategoryAndDifficulty, textViewExDescriptionText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +20,10 @@ public class ExercisesDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int id = intent.getIntExtra("exerciseID",0);
         ExerciseKnowledgeBase thisExerciseKnowledgeBase = getOneExercise(id);
-        exTitleText.setText(thisExerciseKnowledgeBase.getName());
-        exDescriptionText.setText(thisExerciseKnowledgeBase.getDescription());
-        exCategoryAndDifficulty.setText("Category: " + thisExerciseKnowledgeBase.getCategory() + ", Difficulty: " + thisExerciseKnowledgeBase.getDifficultyLevel());
-        exImage.setImageBitmap(thisExerciseKnowledgeBase.getImage());
+        textViewExTitleText.setText(thisExerciseKnowledgeBase.getName());
+        textViewExDescriptionText.setText(thisExerciseKnowledgeBase.getDescription());
+        textViewExCategoryAndDifficulty.setText("Category: " + thisExerciseKnowledgeBase.getCategory() + ", Difficulty: " + thisExerciseKnowledgeBase.getDifficultyLevel());
+        imageViewExImage.setImageBitmap(thisExerciseKnowledgeBase.getImage());
     }
     public ExerciseKnowledgeBase getOneExercise(int id)
     {
@@ -44,10 +43,10 @@ public class ExercisesDetailsActivity extends AppCompatActivity {
     }
     public void initWidgets()
     {
-        exCategoryAndDifficulty = (TextView)findViewById(R.id.exDetailsCategoryAndDifficultyText);
-        exImage = (ImageView)findViewById(R.id.exDetailsImage);
-        exTitleText = (TextView)findViewById(R.id.exDetailsTitleText);
-        exDescriptionText = (TextView)findViewById(R.id.exDetailsDescriptionText);
+        textViewExCategoryAndDifficulty = (TextView)findViewById(R.id.exDetailsCategoryAndDifficultyText);
+        imageViewExImage = (ImageView)findViewById(R.id.exDetailsImage);
+        textViewExTitleText = (TextView)findViewById(R.id.exDetailsTitleText);
+        textViewExDescriptionText = (TextView)findViewById(R.id.exDetailsDescriptionText);
     }
 
 }

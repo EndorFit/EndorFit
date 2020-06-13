@@ -26,7 +26,7 @@ public class AdapterWorkout extends RecyclerView.Adapter<AdapterWorkout.ExercVie
     dynamicViews dnv;
     Context context;
     ArrayList<CheckBox> allSets = new ArrayList<CheckBox>();
-int i=0;
+    int i=0;
     void setOnItemClickListener(AdapterWorkout.OnItemClickListener listener){
         mListener = listener;
     }
@@ -50,7 +50,6 @@ int i=0;
             adapterItemThirdCol = itemView.findViewById(R.id.textViewPlanItemThird);
             adapterItemThirdColLabel = itemView.findViewById(R.id.textViewPlanItemThirdLabel);
             placeForCheckbox =  itemView.findViewById(R.id.placeCheck);
-
 
         }
     }
@@ -79,17 +78,15 @@ int i=0;
         holder.adapterItemSecondColLabel.setText(currentItem.getSecondColLabel());
         holder.adapterItemThirdCol.setText(currentItem.getThirdCol());
         holder.adapterItemThirdColLabel.setText(currentItem.getThirdColLabel());
-if(currentItem.getFirstColLabel()=="sets") {
-    for (int a = 0; a < Integer.parseInt(currentItem.getFirstCol()); a++) {
-        allSets.add(dnv.checkSet(context));
-        holder.placeForCheckbox.addView(allSets.get(i));
-        i++;
+        if(currentItem.getFirstColLabel()=="sets") {
+            for (int a = 0; a < Integer.parseInt(currentItem.getFirstCol()); a++) {
+                allSets.add(dnv.checkSet(context));
+                holder.placeForCheckbox.addView(allSets.get(i));
+                i++;
+            }
+
+        }
     }
-
-}
-    }
-
-
 
     @Override
     public int getItemCount() {

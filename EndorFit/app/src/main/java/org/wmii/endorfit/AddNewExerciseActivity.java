@@ -32,25 +32,18 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddNewExerciseActivity extends AppCompatActivity {
     ProgressBar progressBar;
-
     Spinner spinnerExerciseType;
     SpinnerAdapter adapter;
-
     Button buttonCreateNewPlan, buttonSeeYourPlans, buttonAddExercise;
-
     ImageView imageViewLeftIcon, imageViewCenterIcon, imageViewRightIcon;
-
     EditText editTextExerciseName;
-
     RelativeLayout relativeLayoutAddNewExercise;
     LinearLayout linExerciseList;
-
     FirebaseDatabase database;
     DatabaseReference exerciseRef;
     FirebaseAuth mAuth;
     FirebaseUser user;
 
-    ///Czesc Jara
     private static String TAG = "ExercisesListActivity";
     private TabLayout tabLayout;
     private TabItem tabChest, tabLegs, tabABSBack, tabShoulders, tabArms;
@@ -80,12 +73,6 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         initWidgets();
 
         setListeners();
-
-
-
-
-
-
     }
 
     private void setListeners() {
@@ -172,7 +159,6 @@ public class AddNewExerciseActivity extends AppCompatActivity {
             }
         });
 
-
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -211,9 +197,7 @@ public class AddNewExerciseActivity extends AppCompatActivity {
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
         MainActivity.myDb.getAllData();
-
     }
 
     private void initializeObjects() {

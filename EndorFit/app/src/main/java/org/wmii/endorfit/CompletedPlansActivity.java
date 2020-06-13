@@ -2,17 +2,11 @@ package org.wmii.endorfit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.inputmethodservice.ExtractEditText;
 import android.location.Location;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,8 +22,7 @@ import java.util.Vector;
 public class CompletedPlansActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
-
-    ViewPager viewPager;
+    ViewPager viewPagerCompletedPlans;
     ArrayList<CompletedPlan> completedPlans;
     ViewPagerCompletedPlansAdapter viewPagerAdapter;
 
@@ -38,7 +31,6 @@ public class CompletedPlansActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,17 +38,14 @@ public class CompletedPlansActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-
         database = FirebaseDatabase.getInstance();
-
 
         InitializeObjects();
     }
 
     private void InitializeObjects() {
-        viewPager = findViewById(R.id.viewPagerListy);
+        viewPagerCompletedPlans = findViewById(R.id.viewPagerListy);
         completedPlans = new ArrayList<>();
-        final ArrayList<Exercise> exerciseArrayList = new ArrayList<>();
 
 
         final DatabaseReference completedPlansRef = database.getReference("users/" + user.getUid() + "/completed/");
@@ -71,9 +60,9 @@ public class CompletedPlansActivity extends AppCompatActivity {
                     ArrayList<Exercise> tempExerciseList = new ArrayList<>();
                     for(DataSnapshot item : date.getChildren())
                     {
-                        if(!item.getKey().toString().equals("stateWorkout"))
+                        if(!item.getKey().equals("stateWorkout"))
                         {
-                            planName = item.getKey().toString();
+                            planName = item.getKey();
                             for(DataSnapshot exerciseList : item.getChildren())
                             {
                                 for(DataSnapshot exercise : exerciseList.getChildren())
@@ -132,10 +121,10 @@ public class CompletedPlansActivity extends AppCompatActivity {
                 }
 
                 viewPagerAdapter = new ViewPagerCompletedPlansAdapter(completedPlans, CompletedPlansActivity.this);
-                viewPager.setAdapter(viewPagerAdapter);
-                viewPager.setPadding(130,130,130,130);
+                viewPagerCompletedPlans.setAdapter(viewPagerAdapter);
+                viewPagerCompletedPlans.setPadding(130,130,130,130);
 
-                viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                viewPagerCompletedPlans.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -158,8 +147,6 @@ public class CompletedPlansActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
     }

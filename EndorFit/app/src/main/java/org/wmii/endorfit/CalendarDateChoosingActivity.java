@@ -149,8 +149,6 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void getPlanNamesForSpinner() {
         viewPager = findViewById(R.id.viewPagerListy);
         completedPlansNames = new ArrayList<>();
@@ -169,8 +167,6 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
     }
