@@ -29,39 +29,39 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
-        <activity android:name=".CompletedPlansActivity"></activity>
+        <activity android:name=".Activities.CompletedPlansActivity"></activity>
         <activity
-            android:name=".RunningModeActivity"
+            android:name=".Activities.RunningModeActivity"
             android:screenOrientation="portrait">
 		</activity>
-        <activity android:name=".SetIntervalForTrainingActivity"></activity>
-        <activity android:name=".CalendarDateChoosingActivity" />
-        <activity android:name=".ExercisesDetailsActivity" />
-        <activity android:name=".ExercisesListActivity" />
-        <activity android:name=".AddNewExerciseActivity"
+        <activity android:name=".Activities.SetIntervalForTrainingActivity"></activity>
+        <activity android:name=".Activities.CalendarDateChoosingActivity" />
+        <activity android:name=".Activities.ExercisesDetailsActivity" />
+        <activity android:name=".Activities.ExercisesListActivity" />
+        <activity android:name=".Activities.AddNewExerciseActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".CreateNewPlanActivity"
+        <activity android:name=".Activities.CreateNewPlanActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".PlanActivity" />
-        <activity android:name=".workoutTimer" />
-        <activity android:name=".timerWindowActivity" />
-        <activity android:name=".MainWindowActivity" />
-        <activity android:name=".ProfileActivity"
+        <activity android:name=".Activities.PlanActivity" />
+        <activity android:name=".Activities.workoutTimerActivity" />
+        <activity android:name=".Activities.timerWindowActivity" />
+        <activity android:name=".Activities.MainWindowActivity" />
+        <activity android:name=".Activities.ProfileActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.SignUpActivity" />
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".workoutPlan" />
+        <activity android:name=".DataClasses.workoutPlan" />
         <activity android:name=".workoutGo" />
-        <receiver android:name=".NotificationPublisher"/>
+        <receiver android:name=".Adapters.NotificationPublisher"/>
     </application>
 
 </manifest>
