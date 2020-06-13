@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,9 +21,9 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
 
     ImageView imageViewLeft, imageViewCenter, imageViewProfile;
     private ImageButton buttonToExercisesList;
-    ImageButton startRun;
-    ImageButton buttonCompletedPlans;
-    private ImageButton buttonToDateSetting;
+    ImageButton imageButtonStartRun;
+    ImageButton imageButtonCompletedPlans;
+    private ImageButton imageButtonToDateSetting;
     FirebaseAuth mAuth;
 
     FirebaseDatabase database;
@@ -40,7 +39,6 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         setOnClickListener();
         mAuth = FirebaseAuth.getInstance();
 
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser == null) {
             Toast.makeText(this, "User is not sign in", Toast.LENGTH_LONG).show();
@@ -48,9 +46,7 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
             startActivity(intent);
         }
 
-
         preparePreDefineExercise();
-
     }
 
     private void preparePreDefineExercise() {
@@ -75,37 +71,37 @@ public class MainWindowActivity extends AppCompatActivity implements View.OnClic
         imageViewCenter = findViewById(R.id.imageViewCenterIcon);
         imageViewLeft = findViewById(R.id.imageViewLeftIcon);
         buttonToExercisesList = (ImageButton) findViewById(R.id.buttonToExercises);
-        startRun = (ImageButton) findViewById(R.id.buttonStartRunningMode);
-        buttonCompletedPlans = findViewById(R.id.buttonCompletedPlans);
-        buttonToDateSetting = (ImageButton) findViewById(R.id.buttonSetTrainingDate);
+        imageButtonStartRun = (ImageButton) findViewById(R.id.buttonStartRunningMode);
+        imageButtonCompletedPlans = findViewById(R.id.buttonCompletedPlans);
+        imageButtonToDateSetting = (ImageButton) findViewById(R.id.buttonSetTrainingDate);
     }
     public void setOnClickListener()
     {
         buttonToExercisesList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentwork = new Intent(MainWindowActivity.this,workoutPlan.class);
-                intentwork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intentwork);
+                Intent intentWork = new Intent(MainWindowActivity.this,workoutPlan.class);
+                intentWork.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentWork);
             }
         });
 
-        startRun.setOnClickListener(new View.OnClickListener() {
+        imageButtonStartRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RunningModeMap.class);
+                Intent intent = new Intent(getApplicationContext(), RunningModeActivity.class);
                 startActivity(intent);
             }
         });
 
-        buttonCompletedPlans.setOnClickListener(new View.OnClickListener() {
+        imageButtonCompletedPlans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CompletedPlansActivity.class);
                 startActivity(intent);
             }
         });
-        buttonToDateSetting.setOnClickListener(new View.OnClickListener()
+        imageButtonToDateSetting.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {

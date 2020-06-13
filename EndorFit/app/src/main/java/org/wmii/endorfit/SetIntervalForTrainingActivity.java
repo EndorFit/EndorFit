@@ -32,6 +32,7 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
         initWidgets();
         setOnClickListener();
     }
+
     public void initWidgets()
     {
         buttonNoInterval = (Button)findViewById(R.id.buttonNoInterval);
@@ -41,12 +42,13 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
         editTextTypeInYourInterval = (EditText) findViewById(R.id.editTextTypeInYourInterval);
         radioGroupInterval = (RadioGroup) findViewById(R.id.radioGroupInterval);
     }
+
     public void checkButton(View v)
     {
         int radioId = radioGroupInterval.getCheckedRadioButtonId();
-
         buttonChecked = findViewById(radioId);
     }
+
     public void setOnClickListener()
     {
         buttonSetIntervalDone.setOnClickListener(new View.OnClickListener() {
@@ -70,14 +72,12 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
                             Toast.makeText(v.getContext(),getString(R.string.ToastValueIncorrect),Toast.LENGTH_SHORT).show();
                             return;
                         }
-
                     }
                     else
                     {
                         Toast.makeText(v.getContext(),getString(R.string.ToastIntervalChosenSuccesfully1) + " " + buttonChecked.getText().charAt(0) + " " + getString(R.string.ToastIntervalChosenSuccesfully2),Toast.LENGTH_SHORT).show();
 
                         interval = buttonChecked.getText().charAt(0);
-
                     }
                     setNotificationScheduler(getApplicationContext(),yearMonthDay[0],yearMonthDay[1],yearMonthDay[2], 0);
                     startActivity(intent);
@@ -93,25 +93,23 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(),getString(R.string.ToastValueIncorrect),Toast.LENGTH_SHORT).show();
                 }
 
-
             }
         });
         buttonNoInterval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int[]yearMonthDay = getIntent().getIntArrayExtra("yearMonthDay");
-                Intent intent = new Intent(SetIntervalForTrainingActivity.this,MainWindowActivity.class);
+                Intent intentMainWindow = new Intent(SetIntervalForTrainingActivity.this,MainWindowActivity.class);
                 Toast.makeText(v.getContext(),getString(R.string.ToastNoIntervalChosen),Toast.LENGTH_SHORT).show();
                 setNotificationScheduler(getApplicationContext(),yearMonthDay[0],yearMonthDay[1],yearMonthDay[2], 0);
-                startActivity(intent);
+                startActivity(intentMainWindow);
             }
         });
     }
     public void setNotificationScheduler(Context context, int year, int month, int day, int interval) {
-
-        Intent intent = new Intent(context, NotificationPublisher.class);
-        intent.setAction("MY_NOTIFICATION_MESSAGE");
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intentNotificationPublisher = new Intent(context, NotificationPublisher.class);
+        intentNotificationPublisher.setAction("MY_NOTIFICATION_MESSAGE");
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intentNotificationPublisher, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -126,17 +124,5 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
         }
 
     }
-//    public void setNotificationSchedulerWithoutRepeating(Context context, int year, int month, int day, int interval) {
-//
-//        Intent intent = new Intent(context, NotificationPublisher.class);
-//        intent.setAction("MY_NOTIFICATION_MESSAGE");
-//        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(System.currentTimeMillis());
-//        calendar.set(year, month,day,6,0);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),  alarmIntent);
-//        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY*interval, alarmIntent);
-//    }
 
 }

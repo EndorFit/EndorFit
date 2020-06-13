@@ -16,6 +16,7 @@ public class tabLegs extends Fragment { View v;
     public tabLegs() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

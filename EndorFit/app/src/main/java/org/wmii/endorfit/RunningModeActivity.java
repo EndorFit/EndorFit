@@ -2,7 +2,6 @@ package org.wmii.endorfit;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -15,7 +14,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,19 +43,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
-public class RunningModeMap extends FragmentActivity implements OnMapReadyCallback {
+public class RunningModeActivity extends FragmentActivity implements OnMapReadyCallback {
 
     protected Vector<Location> route = new Vector<Location>();
-
 
     long timer=0;
     long RunTime=0;
 
     boolean clicked=false;
-    Button startButton;
-    Button stopButton;
-    Button newRunButton;
-    Button saveRunButton;
+    Button buttonStart;
+    Button buttonStop;
+    Button buttonNewRun;
+    Button buttonSaveRun;
 
     TextView textSpeed;
     TextView textDistance;
@@ -77,21 +74,17 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
     EditText inputName;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_mode_map);
 
-
-
-
-        startButton =(Button) findViewById(R.id.startButton);
-        stopButton = (Button) findViewById(R.id.stopButton);
-        newRunButton = (Button) findViewById(R.id.newRunButton);
-        saveRunButton = (Button) findViewById(R.id.saveRunButton);
-        stopButton.setEnabled(false);
-        stopButton.setVisibility(View.GONE);
+        buttonStart =(Button) findViewById(R.id.startButton);
+        buttonStop = (Button) findViewById(R.id.stopButton);
+        buttonNewRun = (Button) findViewById(R.id.newRunButton);
+        buttonSaveRun = (Button) findViewById(R.id.saveRunButton);
+        buttonStop.setEnabled(false);
+        buttonStop.setVisibility(View.GONE);
         gifIMG= (pl.droidsonroids.gif.GifImageView) findViewById(R.id.gifIMG);
 
         textSpeed = (TextView) findViewById(R.id.textSpeed) ;
@@ -100,40 +93,35 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-
-            startButton.setOnClickListener(new View.OnClickListener() {
+            buttonStart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getApplicationContext(), "RUN!", Toast.LENGTH_SHORT).show();
                     timer= System.currentTimeMillis();
                     textDistance.setTextSize(25);
-                    startButton.setEnabled(false);
-                    stopButton.setEnabled(true);
-                    startButton.setVisibility(View.GONE);
-                    stopButton.setVisibility(View.VISIBLE);
+                    buttonStart.setEnabled(false);
+                    buttonStop.setEnabled(true);
+                    buttonStart.setVisibility(View.GONE);
+                    buttonStop.setVisibility(View.VISIBLE);
                     gifIMG.setVisibility(View.GONE);
-
 
                     clicked=true;
 
-
-                    if (ActivityCompat.checkSelfPermission(RunningModeMap.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RunningModeMap.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(RunningModeMap.this, new String[]
+                    if (ActivityCompat.checkSelfPermission(RunningModeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RunningModeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(RunningModeActivity.this, new String[]
                                 {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
                         return;
                     } else {
                     fetchLastLocation();}
-
-
                 }
             });
 
             
-            stopButton.setOnClickListener(new View.OnClickListener() {
+            buttonStop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(RunningModeMap.this);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(RunningModeActivity.this);
                     builder.setCancelable(false);
                     builder.setIcon(R.drawable.warning_icon_default);
                     builder.setMessage("Are you sure to stop?");
@@ -155,16 +143,14 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                             double totalDistance=getTotalDistance();
                             double speed=getSpeed(totalDistance,timerEnd);
 
-
-
                             int min= (int) (timerEnd/60);
                             int sec= (int) (timerEnd%60);
 
-                            startButton.setEnabled(true);
-                            stopButton.setEnabled(false);
-                            stopButton.setVisibility(View.GONE);
-                            newRunButton.setVisibility(View.VISIBLE);
-                            saveRunButton.setVisibility(View.VISIBLE);
+                            buttonStart.setEnabled(true);
+                            buttonStop.setEnabled(false);
+                            buttonStop.setVisibility(View.GONE);
+                            buttonNewRun.setVisibility(View.VISIBLE);
+                            buttonSaveRun.setVisibility(View.VISIBLE);
                             clicked=false;
 
                             textSpeed.setTextSize(15);
@@ -176,7 +162,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                             textSpeed.setText(String.format("SPEED: \n%.2f m/s",speed));
 
                             SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
-                            supportMapFragment.getMapAsync(RunningModeMap.this);
+                            supportMapFragment.getMapAsync(RunningModeActivity.this);
                         }
                     });
                     final AlertDialog dialog = builder.create();
@@ -185,17 +171,13 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                     dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
                     dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
 
-
-
-
-
                 }
             });
 
-            newRunButton.setOnClickListener(new View.OnClickListener() {
+            buttonNewRun.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        final AlertDialog.Builder builder2 = new AlertDialog.Builder(RunningModeMap.this);
+                        final AlertDialog.Builder builder2 = new AlertDialog.Builder(RunningModeActivity.this);
                         builder2.setCancelable(false);
                         builder2.setIcon(R.drawable.warning_icon_default);
                         builder2.setMessage("Are you sure to finish this run and make another?");
@@ -209,7 +191,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                         builder2.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(getApplicationContext(), RunningModeMap.class);
+                                Intent intent = new Intent(getApplicationContext(), RunningModeActivity.class);
                                 finish();
                                 startActivity(intent);
                             }
@@ -223,8 +205,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                     }
                 });
 
-
-            saveRunButton.setOnClickListener(new View.OnClickListener() {
+            buttonSaveRun.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mAuth = FirebaseAuth.getInstance();
@@ -233,7 +214,7 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                             user = firebaseAuth.getCurrentUser();
                             if (user == null) {
-                                Intent intent = new Intent(RunningModeMap.this, MainActivity.class);
+                                Intent intent = new Intent(RunningModeActivity.this, MainActivity.class);
                                 startActivity(intent);
                             }
                         }
@@ -244,25 +225,20 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                 }
             });
 
-
-
-
     }
 
     private void initializeObjects() {
 
         String data = java.text.DateFormat.getDateTimeInstance().format(new Date());
 
-
         database = FirebaseDatabase.getInstance();
        // exerciseRef = database.getReference("users/" + user.getUid() + "/ukonczoneBiegi/"+data);//stara sciezka
-
 
         final String[] nazwa_planu = {getIntent().getStringExtra("EXTRA_WORKOUT_KEY")};
 
         if(nazwa_planu[0] ==null)
         {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(RunningModeMap.this);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(RunningModeActivity.this);
             builder.setCancelable(false);
             builder.setIcon(R.drawable.warning_icon_default);
             builder.setMessage("Please, write name of your activity...");
@@ -295,26 +271,17 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
         double totalDistance=getTotalDistance();
 
-
-        //(String name, String type, double distance, double time, Vector<Location> route)
-
         ArrayList<Exercise> tempArray = new ArrayList<>();
         tempArray.add(new Exercise(nazwa_planu[0], "Moving",totalDistance, RunTime, route));
         Workout dbSave=new Workout("1/1",tempArray);
         exerciseRef.setValue(dbSave).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(RunningModeMap.this, "Run saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RunningModeActivity.this, "Run saved", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
-
-
     }
-
-
 
     private void fetchLastLocation() {
         final LocationRequest locationRequest = new LocationRequest();
@@ -322,12 +289,12 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
             locationRequest.setFastestInterval(500);
             locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-            LocationServices.getFusedLocationProviderClient(RunningModeMap.this)
+            LocationServices.getFusedLocationProviderClient(RunningModeActivity.this)
                     .requestLocationUpdates(locationRequest, new LocationCallback() {
                         @Override
                         public void onLocationResult(LocationResult locationResult) {
                             super.onLocationResult(locationResult);
-                            LocationServices.getFusedLocationProviderClient(RunningModeMap.this)
+                            LocationServices.getFusedLocationProviderClient(RunningModeActivity.this)
                                     .removeLocationUpdates(this);
                             if (locationResult != null && locationResult.getLocations().size() > 0) {
                                 if(clicked==true) {
@@ -337,14 +304,11 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
                                     //route.add(locationResult.getLocations().get(LatestLocationIndex));
                                    route.add(currentLocation);
                                 SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
-                                supportMapFragment.getMapAsync(RunningModeMap.this);
-
-
+                                supportMapFragment.getMapAsync(RunningModeActivity.this);
 
                                             pause(2000);
                                             fetchLastLocation();
                                         }
-
                             }
                         }
                     }, Looper.getMainLooper());
@@ -367,10 +331,8 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
         else return 0;
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
                 if (clicked==true) {
                     LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                     MarkerOptions startMarker = new MarkerOptions().position(latLng);
@@ -411,8 +373,6 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
 
     }
 
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
@@ -425,12 +385,10 @@ public class RunningModeMap extends FragmentActivity implements OnMapReadyCallba
     }
 
     public static void pause(long timeInMilliSeconds) {
-
         long timestamp = System.currentTimeMillis();
 
-
         do {
-
+            //wait
         } while (System.currentTimeMillis() < timestamp + timeInMilliSeconds);
 
     }

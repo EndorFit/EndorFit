@@ -16,20 +16,20 @@ package org.wmii.endorfit;
 
 public class ViewPagerCompletedPlansAdapter extends PagerAdapter {
 
-    private List<CompletedPlan> lista;
+    private List<CompletedPlan> list;
     private LayoutInflater layoutInflater;
     private Context context;
 
 
-    public ViewPagerCompletedPlansAdapter(List<CompletedPlan> lista, Context context) {
-        this.lista = lista;
+    public ViewPagerCompletedPlansAdapter(List<CompletedPlan> list, Context context) {
+        this.list = list;
         this.context = context;
     }
 
 
     @Override
     public int getCount() {
-        return lista.size();
+        return list.size();
     }
 
     @Override
@@ -47,16 +47,13 @@ public class ViewPagerCompletedPlansAdapter extends PagerAdapter {
         TextView nazwa = view.findViewById(R.id.nazwa);;
         RecyclerView testRec = view.findViewById(R.id.recyclerViewExercises);
 
-
-
-        data.setText(lista.get(position).getDate());
-        nazwa.setText(lista.get(position).getName());
-        ArrayList<Exercise> listaCwiczen = lista.get(position).getExercises();
+        data.setText(list.get(position).getDate());
+        nazwa.setText(list.get(position).getName());
+        ArrayList<Exercise> listaCwiczen = list.get(position).getExercises();
         ArrayList<PlanItem> listaPlanItems = new ArrayList<>();
 
         for(Exercise item : listaCwiczen)
         {
-
             String weight = String.valueOf(item.getWeight());
             String time = String.valueOf(item.getTime());
             String avg = String.valueOf((item.getDistance() / item.getTime()));
@@ -86,8 +83,6 @@ public class ViewPagerCompletedPlansAdapter extends PagerAdapter {
         testRec.setLayoutManager(manager);
         PlanAdapter adapter = new PlanAdapter(listaPlanItems);
         testRec.setAdapter(adapter);
-
-
 
         container.addView(view,0);
 

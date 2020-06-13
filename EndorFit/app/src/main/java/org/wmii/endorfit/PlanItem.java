@@ -37,7 +37,6 @@ public class PlanItem {
         this.nameLabel = nameLabel;
     }
 
-
     PlanItem(String name, String nameLabel, String firstCol, String firstColLabel, String secondCol, String secondColLabel, String thirdCol, String thirdColLabel) {
         this.name = name;
         this.nameLabel = nameLabel;
@@ -61,7 +60,6 @@ public class PlanItem {
         this.thirdColLabel = thirdColLabel;
         this.enableDelete = enableDelete;
     }
-
 
     public String getName() {
         return name;

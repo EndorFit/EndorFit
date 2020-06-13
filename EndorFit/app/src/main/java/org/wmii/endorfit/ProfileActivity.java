@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     Bitmap imageBeforeEdit, imageAfterEdit;
 
     EditText editTxtName, editTxtAge, editTxtHeight, editTxtWeight;
-    Button btnEdit, btnLogout, btnSave, btnDelete;
+    Button buttonEdit, buttonLogout, buttonSave, buttonDelete;
     ImageView imageViewProfileImage;
     ImageView imageViewLeftIcon, imageViewCenterIcon, imageViewRightIcon;
     Spinner spinnerGender;
@@ -121,9 +121,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-
     }
-
 
     private void initializeObjects() {
         isImageChanged = true;
@@ -134,10 +132,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         editTxtWeight = findViewById(R.id.editTxtWeight);
         spinnerGender = findViewById(R.id.spinnerGender);
         spinnerGender.setEnabled(false);
-        btnEdit = findViewById(R.id.btnEdit);
-        btnLogout = findViewById(R.id.btnLogout);
-        btnSave = findViewById(R.id.btnSave);
-        btnDelete = findViewById(R.id.btnDelete);
+        buttonEdit = findViewById(R.id.btnEdit);
+        buttonLogout = findViewById(R.id.btnLogout);
+        buttonSave = findViewById(R.id.btnSave);
+        buttonDelete = findViewById(R.id.btnDelete);
         imageViewProfileImage = findViewById(R.id.imageViewProfileImage);
 
         imageViewLeftIcon = findViewById(R.id.imageViewLeftIcon);
@@ -149,10 +147,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.genders, R.layout.spinner_item_30dp);
         spinnerGender.setAdapter(adapter);
         //SetOnClickListener for clickable items
-        btnEdit.setOnClickListener(this);
-        btnLogout.setOnClickListener(this);
-        btnSave.setOnClickListener(this);
-        btnDelete.setOnClickListener(this);
+        buttonEdit.setOnClickListener(this);
+        buttonLogout.setOnClickListener(this);
+        buttonSave.setOnClickListener(this);
+        buttonDelete.setOnClickListener(this);
         //Initialize firebase items
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -295,7 +293,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         callListenerForSingleEvent(databaseRef);
     }
 
-
     private void updateInformation() {
         if(!getDataAndValid()) {return;}
         User editedUser = new User(nameAfterEdit,genderAfterEdit,ageAfterEdit,heightAfterEdit,weightAfterEdit);
@@ -400,10 +397,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void showInformation(){
-        btnEdit.setVisibility(View.VISIBLE);
-        btnLogout.setVisibility(View.VISIBLE);
-        btnSave.setVisibility(View.GONE);
-        btnDelete.setVisibility(View.GONE);
+        buttonEdit.setVisibility(View.VISIBLE);
+        buttonLogout.setVisibility(View.VISIBLE);
+        buttonSave.setVisibility(View.GONE);
+        buttonDelete.setVisibility(View.GONE);
 
         editTxtName.setFocusableInTouchMode(false);
         editTxtName.setFocusable(false);
@@ -420,10 +417,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void editInformation() {
-        btnEdit.setVisibility(View.GONE);
-        btnLogout.setVisibility(View.GONE);
-        btnSave.setVisibility(View.VISIBLE);
-        btnDelete.setVisibility(View.VISIBLE);
+        buttonEdit.setVisibility(View.GONE);
+        buttonLogout.setVisibility(View.GONE);
+        buttonSave.setVisibility(View.VISIBLE);
+        buttonDelete.setVisibility(View.VISIBLE);
 
         editTxtName.setFocusableInTouchMode(true);
         editTxtName.setFocusable(true);

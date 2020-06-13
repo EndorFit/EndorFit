@@ -31,7 +31,7 @@
 
         <activity android:name=".CompletedPlansActivity"></activity>
         <activity
-            android:name=".RunningModeMap"
+            android:name=".RunningModeActivity"
             android:screenOrientation="portrait">
 		</activity>
         <activity android:name=".SetIntervalForTrainingActivity"></activity>
@@ -46,7 +46,7 @@
         </activity>
         <activity android:name=".PlanActivity" />
         <activity android:name=".workoutTimer" />
-        <activity android:name=".timerWindow" />
+        <activity android:name=".timerWindowActivity" />
         <activity android:name=".MainWindowActivity" />
         <activity android:name=".ProfileActivity"
             android:windowSoftInputMode="adjustPan">

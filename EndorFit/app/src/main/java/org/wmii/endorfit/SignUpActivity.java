@@ -130,8 +130,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-
-
     public void addUserToDatabase(String email) {
         String currentUserId = mAuth.getCurrentUser().getUid();
         DatabaseReference usersRef = database.getReference("users/" + currentUserId);

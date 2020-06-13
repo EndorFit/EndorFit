@@ -31,7 +31,6 @@ public class PageAdapter extends FragmentPagerAdapter {
                 return new tabMoving();
             default:
                 return null;
-
         }
     }
 

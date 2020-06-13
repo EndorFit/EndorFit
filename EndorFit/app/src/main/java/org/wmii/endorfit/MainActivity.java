@@ -29,12 +29,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     EditText editTxtEmail, editTxtPassword;
     ProgressBar progressBar;
-    Button btnLogin, btnGoToSignUp;
+    Button buttonLogin, buttonGoToSignUp;
     public static DataBaseHelper myDb;
     public static int not_id = 1;
     public final static String TAG = "MainActivity";
     FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTxtPassword = findViewById(R.id.editTxtPassword);
         progressBar = findViewById(R.id.progressBar);
 
-        btnLogin = findViewById(R.id.btnLogin);
-        btnGoToSignUp = findViewById(R.id.btnGotoSignUp);
+        buttonLogin = findViewById(R.id.btnLogin);
+        buttonGoToSignUp = findViewById(R.id.btnGotoSignUp);
 
-        btnLogin.setOnClickListener(this);
-        btnGoToSignUp.setOnClickListener(this);
+        buttonLogin.setOnClickListener(this);
+        buttonGoToSignUp.setOnClickListener(this);
     }
 
     private void userLogin() {

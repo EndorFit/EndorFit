@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +20,6 @@ import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,8 +28,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -39,7 +35,7 @@ public class PlanActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     Spinner spinnerPlanName;
-    SpinnerAdapter adapter;
+    SpinnerAdapter spinnerAdapter;
     ArrayList<String> plansList;
 
     RecyclerView recyclerViewPlan;
@@ -50,7 +46,6 @@ public class PlanActivity extends AppCompatActivity {
     Button buttonCreateNewPlan, buttonAddNewExercise;
 
     ImageView imageViewDeletePlan;
-
     ImageView imageViewLeftIcon, imageViewCenterIcon, imageViewRightIcon;
 
     FirebaseDatabase database;
@@ -91,8 +86,8 @@ public class PlanActivity extends AppCompatActivity {
                 for(DataSnapshot item: dataSnapshot.getChildren()){
                     plansList.add(item.getKey());
                 }
-                adapter = new ArrayAdapter<>(PlanActivity.this, R.layout.spinner_item_20dp, plansList);
-                spinnerPlanName.setAdapter(adapter);
+                spinnerAdapter = new ArrayAdapter<>(PlanActivity.this, R.layout.spinner_item_20dp, plansList);
+                spinnerPlanName.setAdapter(spinnerAdapter);
                 progressBar.setVisibility(View.GONE);
             }
             @Override
@@ -241,7 +236,6 @@ public class PlanActivity extends AppCompatActivity {
         recyclerViewPlan.setAdapter(planAdapter );
         progressBar.setVisibility(View.GONE);
         recyclerViewPlan = findViewById(R.id.recyclerViewPlan);
-
     }
 
     private void initializeObjects() {

@@ -3,10 +3,8 @@ package org.wmii.endorfit;
 import java.util.ArrayList;
 
 public class Workout {
-        private  String stateWorkout;
-        private ArrayList<Exercise> planItems;
-
-
+    private String stateWorkout;
+    private ArrayList<Exercise> planItems;
 
     public String getStateWorkout() {
         return stateWorkout;

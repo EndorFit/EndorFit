@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
@@ -16,41 +15,38 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class timerWindow extends AppCompatActivity {
-    private Button startTimer;
-    private TextView countdownText;
+public class timerWindowActivity extends AppCompatActivity {
+    private Button buttonStartTimer;
+    private TextView textViewCountdown;
     private CountDownTimer countDownTimer;
     private long timeLeftInMiliseconds;
     private long TValue;
     private boolean isItRunning;
     private ProgressBar progressBar;
-    Vibrator v;
-
-
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_window);
-        countdownText = findViewById(R.id.countdownText);
-        startTimer = findViewById(R.id.buttonStart);
+        textViewCountdown = findViewById(R.id.countdownText);
+        buttonStartTimer = findViewById(R.id.buttonStart);
         progressBar=findViewById(R.id.progressTimer);
-        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         Intent intent=getIntent();
         String TimerValue=intent.getStringExtra(workoutTimer.TIMER_VALUE);
          TValue=Long.parseLong(TimerValue);
         progressBar.setMax((int)TValue*1000);
         timeLeftInMiliseconds=TValue*1000;
-        countdownText.setText(""+TValue+":00");
-        startTimer.setOnClickListener(new View.OnClickListener() {
+        textViewCountdown.setText(""+TValue+":00");
+        buttonStartTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startStop();
             }
         });
         startStop();
-
     }
 
     public void startStop() {
@@ -65,7 +61,7 @@ public class timerWindow extends AppCompatActivity {
     public void stopTimer() {
         countDownTimer.cancel();
         isItRunning=false;
-        startTimer.setText("START");
+        buttonStartTimer.setText("START");
     }
 
     public void startTime() {
@@ -79,32 +75,31 @@ public class timerWindow extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onFinish() {
-                countdownText.setText("00:00");
+                textViewCountdown.setText("00:00");
                 progressBar.setProgress((int)TValue*1000);
-                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 finish();
             }
 
-
         }.start();
-        startTimer.setText("STOP");
+        buttonStartTimer.setText("STOP");
         isItRunning=true;
     }
     public  void UpdateTimer()
     {
-int seconds =(int) timeLeftInMiliseconds/1000;
-int milis =(int) timeLeftInMiliseconds/10%100;
+        int seconds =(int) timeLeftInMiliseconds/1000;
+        int milis =(int) timeLeftInMiliseconds/10%100;
 
-String TimeLefttext;
-if(seconds<10){TimeLefttext="0"+seconds;}
-else {
-    TimeLefttext ="" +seconds;
-}
-TimeLefttext+=":";
-if(milis<10){TimeLefttext+="0";}
+        String TimeLefttext;
+        if(seconds<10){TimeLefttext="0"+seconds;}
+        else {
+            TimeLefttext ="" +seconds;
+        }
+        TimeLefttext+=":";
+        if(milis<10){TimeLefttext+="0";}
 
-TimeLefttext+=milis;
-countdownText.setText(TimeLefttext);
+        TimeLefttext+=milis;
+        textViewCountdown.setText(TimeLefttext);
         progressBar.setProgress((int)((TValue*1000)-timeLeftInMiliseconds));
     }
 }

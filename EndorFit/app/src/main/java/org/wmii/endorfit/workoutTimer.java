@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class workoutTimer extends AppCompatActivity implements timerDialog.timerDialogListener {
@@ -41,13 +39,14 @@ String timerValue;
     DataSnapshot dataSnapshot;
     DatabaseReference planContentRef;
     ArrayList<PlanItem> planItems;
-    ArrayList<Exercise>planItemsExer;
+    ArrayList<Exercise> planItemsExercise;
     RecyclerView recyclerViewPlan;
     AdapterWorkout workoutAdapter;
     ArrayList<CheckBox> allSets ;
     ArrayList<Boolean> doneSets ;
     Workout dbSave;
     String state;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,27 +55,25 @@ String timerValue;
         dataGet();
 
       buildRecyclerView();
-
         openTimer.setOnClickListener(new View.OnClickListener() {
             boolean clicked=true;
 
             public void onClick(View v) {
-            if (clicked==true) {
-                setListeners();
-                recyclerViewPlan.setVisibility(View.VISIBLE);
-                clicked = false;
-                for (int i = 0; i < allSets.size(); i++) {
-                    allSets.get(i).setChecked(false);
+                if (clicked==true) {
+                    setListeners();
+                    recyclerViewPlan.setVisibility(View.VISIBLE);
+                    clicked = false;
+                    for (int i = 0; i < allSets.size(); i++) {
+                        allSets.get(i).setChecked(false);
+                    }
                 }
-            }
-               else if (clicked==false)
-                    {
-                        saveWorkout();
-                        finish();
-                   }
-            }
+                else if (!clicked)
+                        {
+                            saveWorkout();
+                            finish();
+                       }
+                }
         });
-
 
     }
 private void saveWorkout()
@@ -84,7 +81,7 @@ private void saveWorkout()
     String data = java.text.DateFormat.getDateTimeInstance().format(new Date());
     planContentRef = database.getReference("users/" + user.getUid() + "/completed/"+data+"/"+workoutKey);
 
-    dbSave=new Workout(state,planItemsExer);
+    dbSave=new Workout(state, planItemsExercise);
     planContentRef.setValue(dbSave).addOnCompleteListener(new OnCompleteListener<Void>() {
     @Override
     public void onComplete(@NonNull Task<Void> task) {
@@ -102,7 +99,7 @@ private void saveWorkout()
 
 }
     public void opentimerWindow() {
-        Intent intent =new Intent(this,timerWindow.class);
+        Intent intent =new Intent(this, timerWindowActivity.class);
         intent.putExtra(TIMER_VALUE,timerValue);
         startActivity(intent);
     }
@@ -114,13 +111,11 @@ timerDialog timerdialog=new timerDialog();
     }
 
     @Override
-    public void aplytext(String seconds) {
-
+    public void applyText(String seconds) {
         timerValue=seconds;
     }
 
     private void buildRecyclerView() {
-
         recyclerViewPlan.setHasFixedSize(true);
         workoutAdapter = new AdapterWorkout(planItems);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -128,39 +123,34 @@ timerDialog timerdialog=new timerDialog();
         recyclerViewPlan.setAdapter(workoutAdapter);
 
     }
-
-
     private View.OnClickListener checkListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-
             for(int i = 0 ; i < allSets.size() ; i++){
 
                 if(v == allSets.get(i)){
-
                     doneSets.add(true);
                     opentimerWindow();
                     state=doneSets.size()+"/"+allSets.size();
                     openTimer.setText(state);
 
-if (doneSets.size()==allSets.size())
-{
-    openTimer.setBackgroundColor(-16711936);
-    openTimer.setText("Save Progres");
-}
+                    if (doneSets.size()==allSets.size())
+                    {
+                        openTimer.setBackgroundColor(-16711936);
+                        openTimer.setText("Save Progres");
+                    }
                 }
             }
-
         }
     };
+
     private void setListeners(){
         allSets=workoutAdapter.getAllSets();
         doneSets=new ArrayList<>();
         for(CheckBox btn:allSets)
             btn.setOnClickListener(checkListener);
-
     }
+
     private void SetupAll()
     {
         setContentView(R.layout.activity_workout_timer);
@@ -174,12 +164,12 @@ if (doneSets.size()==allSets.size())
         recyclerViewPlan.setLayoutManager(mLayoutManager);
         recyclerViewPlan.setAdapter(workoutAdapter);
         planItems=new  ArrayList<PlanItem>();
-        planItemsExer=new ArrayList<Exercise>();
+        planItemsExercise =new ArrayList<Exercise>();
         allSets = new ArrayList<CheckBox>();
         workoutKey = getIntent().getStringExtra("EXTRA_WORKOUT_KEY");
         nameWorkout.setText(workoutKey);
-
     }
+
     private void dataGet()
     {
         mAuth = FirebaseAuth.getInstance();
@@ -217,32 +207,30 @@ if (doneSets.size()==allSets.size())
                         case "Moving":
                             time = String.valueOf(tempExercise.getTime());
                             distance = String.valueOf(tempExercise.getDistance());
-                            planItemsExer.add(new Exercise(name,Double.parseDouble(time),Double.parseDouble(distance)));
-
+                            planItemsExercise.add(new Exercise(name,Double.parseDouble(time),Double.parseDouble(distance)));
                             planItems.add(new PlanItem(name, "name", time, "time", distance, "distance", false));
                             break;
                         case "Exercise with weights":
                             sets = String.valueOf(tempExercise.getSets());
                             reps = String.valueOf(tempExercise.getReps());
                             weights = String.valueOf(tempExercise.getWeight());
-                            planItemsExer.add(new Exercise(name,type,Integer.parseInt(sets),Integer.parseInt(reps),Double.parseDouble(weights)));
+                            planItemsExercise.add(new Exercise(name,type,Integer.parseInt(sets),Integer.parseInt(reps),Double.parseDouble(weights)));
                             planItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", weights, "weights", false));
                             break;
                         case "Exercise without weights":
                             sets = String.valueOf(tempExercise.getSets());
                             reps = String.valueOf(tempExercise.getReps());
-                            planItemsExer.add(new Exercise(name,type,Integer.parseInt(sets),Integer.parseInt(reps)));
+                            planItemsExercise.add(new Exercise(name,type,Integer.parseInt(sets),Integer.parseInt(reps)));
                             planItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", false));
                             break;
                         case "Exercise with time":
                             sets = String.valueOf(tempExercise.getSets());
                             reps = String.valueOf(tempExercise.getReps());
                             time = String.valueOf(tempExercise.getTime());
-                            planItemsExer.add(new Exercise(name,type,Integer.parseInt(sets),Integer.parseInt(reps),Double.parseDouble(time)));
+                            planItemsExercise.add(new Exercise(name,type,Integer.parseInt(sets),Integer.parseInt(reps),Double.parseDouble(time)));
                             planItems.add(new PlanItem(name, "name", sets, "sets", reps, "reps", time, "time", false));
                             break;
                     }
-
 
                 }
             }
