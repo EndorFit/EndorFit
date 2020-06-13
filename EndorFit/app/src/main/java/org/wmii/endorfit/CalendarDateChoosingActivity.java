@@ -83,7 +83,7 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
         calendarView = (CalendarView) findViewById(R.id.choosingCalendar);
         buttonDoneWithDateSetting = (Button) findViewById(R.id.buttonDoneWithDateSetting);
         buttonDontWantToSetDate = (Button) findViewById(R.id.buttonDontWantToDateSetting);
-        spinnerTrainingToDate = (Spinner)findViewById(R.id.spinner2);
+        spinnerTrainingToDate = (Spinner)findViewById(R.id.spinnerPlans);
         //TODO training list
 
     }

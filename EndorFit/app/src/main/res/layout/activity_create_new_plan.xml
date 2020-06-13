@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ProfileActivity">
 
-
     <RelativeLayout
+        android:id="@+id/relLayoutPlanTop"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/relLayoutPlanTop"
         android:background="@color/colorPrimary">
 
         <EditText
@@ -26,9 +24,9 @@
             android:id="@+id/imageViewSave"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_save_button"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_save_button" />
 
     </RelativeLayout>
 
@@ -36,18 +34,18 @@
         android:id="@+id/relLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="570dp"
-        android:backgroundTint="#B84C4C"
+        android:layout_above="@+id/bottomStrip"
         android:layout_below="@+id/relLayoutPlanTop"
-        android:layout_above="@+id/bottomStrip">
+        android:backgroundTint="#B84C4C">
 
         <RelativeLayout
             android:id="@+id/relLayoutPlan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/relLayoutPlanButton"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp"
-            android:background="@color/colorPrimary"
-            android:layout_below="@id/relLayoutPlanButton">
+            android:background="@color/colorPrimary">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewExercises"
@@ -59,10 +57,10 @@
 
 
         <RelativeLayout
-                android:id="@+id/relLayoutPlanButton"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="3dp">
+            android:id="@+id/relLayoutPlanButton"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="3dp">
 
             <Spinner
                 android:id="@+id/spinnerExercise"
@@ -79,43 +77,43 @@
                 android:spinnerMode="dialog"
                 android:splitMotionEvents="true" />
 
-                <TextView
-                    android:id="@+id/txtViewExerciseType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/spinnerExercise"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="5dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/dark_text"
-                    android:textSize="20sp" />
+            <TextView
+                android:id="@+id/txtViewExerciseType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinnerExercise"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/dark_text"
+                android:textSize="20sp" />
 
-                <EditText
-                    android:id="@+id/editTextTopLeft"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txtViewExerciseType"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:maxLength="2"/>
+            <EditText
+                android:id="@+id/editTextTopLeft"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtViewExerciseType"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:inputType="number"
+                android:maxLength="2"
+                android:singleLine="true" />
 
-                <EditText
-                    android:id="@+id/editTextTopRight"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/txtViewExerciseType"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:maxLength="2"/>
+            <EditText
+                android:id="@+id/editTextTopRight"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtViewExerciseType"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:inputType="number"
+                android:maxLength="2"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/editTextBotLeft"
@@ -128,50 +126,47 @@
                 android:maxLength="5"
                 android:singleLine="true" />
 
-                <ImageView
-                    android:id="@+id/imageViewAddExercise"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_below="@id/editTextTopRight"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="25dp"
-                    android:src="@drawable/ic_add_button" />
+            <ImageView
+                android:id="@+id/imageViewAddExercise"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/editTextTopRight"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="25dp"
+                android:src="@drawable/ic_add_button" />
 
         </RelativeLayout>
 
     </RelativeLayout>
 
 
-
-
-
     <RelativeLayout
+        android:id="@+id/bottomStrip"
         android:layout_width="match_parent"
         android:layout_height="41dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/bottomStrip">
+        android:layout_alignParentBottom="true">
 
         <ImageView
             android:id="@+id/whiteLine"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorAccent"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:background="@color/colorAccent" />
 
         <LinearLayout
+            android:id="@+id/linLayoutBot"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/linLayoutBot"
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimary"
             android:weightSum="99">
 
             <ImageView
+                android:id="@+id/imageViewLeftIcon"
                 android:layout_width="0dp"
-                android:layout_weight="33"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_assignment_white_24dp"
-                android:id="@+id/imageViewLeftIcon"/>
+                android:layout_weight="33"
+                android:src="@drawable/ic_assignment_white_24dp" />
 
             <ImageView
                 android:id="@+id/imageViewCenterIcon"
@@ -181,21 +176,21 @@
                 android:src="@drawable/ic_fitness_fit_white_24dp" />
 
             <ImageView
+                android:id="@+id/imageViewRightIcon"
                 android:layout_width="0dp"
-                android:layout_weight="33"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_assignment_ind_white_24dp"
-                android:id="@+id/imageViewRightIcon"/>
+                android:layout_weight="33"
+                android:src="@drawable/ic_assignment_ind_white_24dp" />
 
         </LinearLayout>
     </RelativeLayout>
 
     <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.Holo.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/progressBar"
-        android:visibility="gone"
-        style="@android:style/Widget.Holo.ProgressBar"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

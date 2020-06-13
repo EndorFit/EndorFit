@@ -79,7 +79,7 @@ public class ExercisesListActivity extends AppCompatActivity {
         tabArms = (TabItem) findViewById(R.id.tabArms);
         tabShoulders = (TabItem) findViewById(R.id.tabShoulders);
         tabLegs = (TabItem) findViewById(R.id.tabLegs);
-        viewPager  = (ViewPager) findViewById(R.id.viewPager);
+        viewPager  = (ViewPager) findViewById(R.id.viewPagerExercises);
         RecyclerViewExercisesList = (RecyclerView) findViewById(R.id.exersisesListRecyclerView);
         pageAdapter = new PageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);
