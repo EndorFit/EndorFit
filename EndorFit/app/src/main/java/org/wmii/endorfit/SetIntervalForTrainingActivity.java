@@ -15,6 +15,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.wmii.endorfit.Activities.MainWindowActivity;
+import org.wmii.endorfit.Adapters.NotificationPublisher;
+
 import java.util.Calendar;
 
 public class SetIntervalForTrainingActivity extends AppCompatActivity {
@@ -56,7 +59,7 @@ public class SetIntervalForTrainingActivity extends AppCompatActivity {
         buttonSetIntervalDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SetIntervalForTrainingActivity.this,MainWindowActivity.class);
+                Intent intent = new Intent(SetIntervalForTrainingActivity.this, MainWindowActivity.class);
 
                 checkButton(v);
                 try {

@@ -1,4 +1,4 @@
-package org.wmii.endorfit;
+package org.wmii.endorfit.Adapters;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,6 +10,10 @@ import android.content.Intent;
 import android.graphics.Color;
 
 import androidx.core.app.NotificationCompat;
+
+import org.wmii.endorfit.Activities.MainActivity;
+import org.wmii.endorfit.Activities.MainWindowActivity;
+import org.wmii.endorfit.R;
 
 
 public class NotificationPublisher extends BroadcastReceiver {
@@ -38,7 +42,7 @@ public class NotificationPublisher extends BroadcastReceiver {
 
             Intent repeating_intent = new Intent(context, MainWindowActivity.class);
             repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context,MainActivity.not_id, repeating_intent, PendingIntent
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, MainActivity.not_id, repeating_intent, PendingIntent
                     .FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
                     .setContentIntent(pendingIntent)
