@@ -48,7 +48,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
     ImageView imageViewLeftIcon, imageViewCenterIcon, imageViewRightIcon;
 
     Spinner spinnerExercise;
-    SpinnerAdapter spinnerAdapter;
+    SpinnerAdapter adapter;
     ArrayList<String> spinnerData_full;
     ArrayList<String> spinnerData_gym;
     ArrayList<String> spinnerData_moving;
@@ -150,6 +150,7 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                         break;
                 }
                 planAdapter.notifyItemInserted(PlanItems.size() - 1);
+
 
                 planChanged(false);
 
@@ -273,19 +274,22 @@ public class CreateNewPlanActivity extends AppCompatActivity {
 
     private void planChanged(boolean isMinus) {
         if (planDB.size() == 0) {
-            spinnerAdapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_full);
-            spinnerExercise.setAdapter(spinnerAdapter);
+            adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_full);
+            spinnerExercise.setAdapter(adapter);
             imageViewAddButton.setEnabled(true);
             spinnerExercise.setEnabled(true);
             editTextPlanName.setText("");
             editTextPlanName.setEnabled(true);
         } else if (planDB.size() == 1) {
             if (txtViewExerciseType.getText().toString().equals("Moving")) {
+                //ArrayList<String> empty = new ArrayList<>();
+                //adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, empty);
+                //spinnerExercise.setAdapter(adapter);
                 spinnerExercise.setEnabled(false);
                 imageViewAddButton.setEnabled(!imageViewAddButton.isEnabled());
             } else if (!isMinus) {
-                spinnerAdapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_gym);
-                spinnerExercise.setAdapter(spinnerAdapter);
+                adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_gym);
+                spinnerExercise.setAdapter(adapter);
                 imageViewAddButton.setEnabled(true);
                 spinnerExercise.setEnabled(true);
             }
@@ -339,8 +343,8 @@ public class CreateNewPlanActivity extends AppCompatActivity {
                     Intent backIntent = new Intent(CreateNewPlanActivity.this, PlanActivity.class);
                     startActivity(backIntent);
                 }
-                spinnerAdapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_full);
-                spinnerExercise.setAdapter(spinnerAdapter);
+                adapter = new ArrayAdapter<>(CreateNewPlanActivity.this, R.layout.spinner_item_20dp, spinnerData_full);
+                spinnerExercise.setAdapter(adapter);
             }
 
             @Override
