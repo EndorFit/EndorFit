@@ -1,4 +1,4 @@
-package org.wmii.endorfit;
+package org.wmii.endorfit.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.wmii.endorfit.Activities.MainWindowActivity;
+import org.wmii.endorfit.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -121,7 +122,7 @@ public class CalendarDateChoosingActivity extends AppCompatActivity {
                 Date todaysDate = new Date();
                 Date dateOnlyZeros = new Date();
                 try {
-                     dateGottenFromCalendar = sdformat.parse(fromCalendarYear + "-" + fromCalendarMonth + "-" + fromCalendarDay);
+                    dateGottenFromCalendar = sdformat.parse(fromCalendarYear + "-" + fromCalendarMonth + "-" + fromCalendarDay);
                     //todaysDate = sdformat.parse(todaysDate.getYear() + "-" + todaysDate.getMonth() + "-" + todaysDate.getDay());
                     dateOnlyZeros = sdformat.parse(0 + "-" + 0 + "-" + 0);
                 }
