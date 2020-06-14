@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainWindowActivity">
-
+    tools:context=".MainWindowActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@id/bottomStrip"
-        android:paddingBottom="40dp">
-
+        android:paddingBottom="40dp"
+        >
         <View
             android:id="@+id/fakeView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_centerInParent="true" />
-
+            android:layout_centerInParent="true"
+            />
         <ImageButton
-            android:id="@+id/buttonCompletedPlans"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@drawable/button_orange_on_click"
             android:layout_row="0"
             android:layout_column="1"
-            android:layout_above="@id/fakeView"
-            android:layout_alignParentLeft="true"
+            android:id="@+id/buttonCompletedPlans"
+            android:src="@drawable/task_completed"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginBottom="7dp"
-            android:layout_toLeftOf="@id/fakeView"
-            android:background="@color/colorPrimary"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_above="@id/fakeView"
             android:scaleType="centerInside"
-            android:src="@drawable/task_completed" />
+            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@id/fakeView"
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content"
+            />
 
         <ImageButton
             android:id="@+id/buttonStartRunningMode"
@@ -44,12 +45,12 @@
             android:layout_above="@id/fakeView"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="-2dp"
-            android:layout_marginBottom="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="4dp"
             android:layout_toRightOf="@id/fakeView"
-            android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/button_orange_on_click"
             android:scaleType="centerInside"
             android:src="@drawable/running_button"
             android:text="RUNNING MODE "
@@ -59,52 +60,57 @@
             android:id="@+id/buttonSetTrainingDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/bottomStrip"
+            android:layout_toLeftOf="@id/fakeView"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_orange_on_click"
+            android:scaleType="centerInside"
+            android:src="@drawable/date"
             android:layout_below="@+id/fakeView"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@id/fakeView"
-            android:backgroundTint="@color/colorPrimary"
-            android:scaleType="centerInside"
-            android:src="@drawable/date"
             android:text="SET TRAINING DATE" />
-
         <ImageButton
-            android:id="@+id/buttonToExercises"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_above="@id/bottomStrip"
-            android:layout_below="@id/fakeView"
-            android:layout_alignParentRight="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/fakeView"
-            android:backgroundTint="@color/colorPrimary"
-            android:scaleType="centerInside"
-            android:src="@drawable/three_books"
-            android:text="Show exercises list" />
-    </RelativeLayout>
 
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_orange_on_click"
+            android:src="@drawable/three_books"
+            android:layout_below="@id/fakeView"
+            android:layout_toRightOf="@id/fakeView"
+            android:scaleType="centerInside"
+            android:layout_height="wrap_content"
+            android:text="Show exercises list"
+            android:id="@+id/buttonToExercises"
+            />
+    </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/bottomStrip"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true">
-
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottomStrip">
         <LinearLayout
-            android:id="@+id/linLayoutBot"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:id="@+id/linLayoutBot"
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimary"
             android:weightSum="99">
 
             <ImageView
-                android:id="@+id/imageViewLeftIcon"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="33"
-                android:src="@drawable/ic_assignment_white_24dp" />
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_assignment_white_24dp"
+                android:id="@+id/imageViewLeftIcon"/>
 
             <ImageView
                 android:id="@+id/imageViewCenterIcon"
@@ -114,11 +120,11 @@
                 android:src="@drawable/ic_fitness_fit_white_24dp" />
 
             <ImageView
-                android:id="@+id/imageViewRightIcon"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="33"
-                android:src="@drawable/ic_assignment_ind_white_24dp" />
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_assignment_ind_white_24dp"
+                android:id="@+id/imageViewRightIcon"/>
 
         </LinearLayout>
     </RelativeLayout>
